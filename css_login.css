@@ -1,0 +1,203 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #1e1e2f 0%, #2a2a40 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.auth-wrapper {
+    background: #ffffff;
+    width: 100%;
+    max-width: 440px;
+    border-radius: 12px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+}
+
+/* Tab Đăng nhập / Đăng ký */
+.auth-header {
+    display: flex;
+    background: #f1f3f5;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    background: transparent;
+    font-size: 16px;
+    font-weight: 600;
+    color: #6c757d;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    background: #ffffff;
+    color: #d9534f;
+    border-bottom: 3px solid #d9534f;
+}
+
+/* Form Styling */
+.auth-form {
+    display: none;
+    padding: 30px 25px;
+}
+
+.auth-form.active {
+    display: block;
+}
+
+.auth-form h2 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Alert Box */
+.alert-box {
+    padding: 12px 15px;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.alert-box.danger {
+    background-color: #f8d7da;
+    color: #842029;
+    border: 1px solid #f5c2c7;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Form Group & Input Box */
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 6px;
+}
+
+.input-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-box .icon {
+    position: absolute;
+    left: 12px;
+    color: #6c757d;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 12px 40px 12px 38px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.input-box input:focus {
+    border-color: #d9534f;
+}
+
+/* Nút ẩn/hiện mật khẩu */
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    color: #6c757d;
+    cursor: pointer;
+    padding: 5px;
+    user-select: none;
+}
+
+.toggle-password:hover {
+    color: #333;
+}
+
+.error-text {
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 4px;
+    display: block;
+}
+
+/* Bổ sung link & checkbox */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+.remember-me {
+    color: #495057;
+    cursor: pointer;
+}
+
+.forgot-pass {
+    color: #0d6efd;
+    text-decoration: none;
+}
+
+.forgot-pass:hover {
+    text-decoration: underline;
+}
+
+/* Submit Button */
+.btn-submit {
+    width: 100%;
+    padding: 13px;
+    background-color: #d9534f;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: #c9302c;
+}
+
+/* Demo box */
+.demo-info {
+    margin-top: 20px;
+    padding: 10px;
+    background: #f8f9fa;
+    border-left: 4px solid #17a2b8;
+    font-size: 12px;
+    color: #6c757d;
+}
+
+.demo-info code {
+    color: #d63384;
+    font-weight: bold;
+}
