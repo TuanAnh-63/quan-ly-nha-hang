@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Nhà Hàng - Phục Vụ</title>
+    <!-- Link file CSS của bạn ở đây nếu có -->
+    <!-- <link rel="stylesheet" href="style.css"> -->
+</head>
+<body>
+
+    <!-- I. THANH TIÊU ĐỀ (HEADER) -->
+    <header class="main-header">
+        <div class="logo-area">
+            <h1>📋 HỆ THỐNG GỌI MÓN</h1>
+        </div>
+        <div class="waiter-status">
+            <span class="table-badge">Bàn: <strong>B05</strong></span>
+            <span class="staff-name">Nhân viên: Nguyễn Văn A</span>
+        </div>
+    </header>
+
+    <!-- KHU VỰC CHÍNH (MAIN LAYOUT) -->
+    <div class="layout-container">
+
+        <!-- II. KHU VỰC MENU (BÊN TRÁI) -->
+        <main class="menu-section">
+            
+            <!-- 1. Ô tìm kiếm món -->
+            <section class="search-bar">
+                <input type="text" placeholder="Tìm món ăn, đồ uống..." id="searchInput">
+            </section>
+
+            <!-- 2. Thanh danh mục nằm ngang (Category Tabs) -->
+            <nav class="category-navigation">
+                <button class="category-btn active">📖 Tất cả món (30)</button>
+                <button class="category-btn">🥗 Khai vị (5)</button>
+                <button class="category-btn">🍖 Món chính (5)</button>
+                <button class="category-btn">🍲 Lẩu (4)</button>
+                <button class="category-btn">🍚 Cơm - Mì (5)</button>
+                <button class="category-btn">🥤 Đồ uống (8)</button>
+                <button class="category-btn">🍰 Tráng miệng (4)</button>
+            </nav>
+
+            <!-- 3. Tiêu đề nhóm món đang chọn -->
+            <div class="current-category-title">
+                <h2>🍖 Món chính</h2>
+                <span class="count">5 món</span>
+            </div>
+
+            <!-- 4. Lưới danh sách món ăn (Menu Grid) -->
+            <section class="menu-grid">
+                
+                <!-- Mẫu 1 Card Món ăn -->
+                <article class="menu-card">
+                    <div class="card-media">
+                        <span class="emoji">🥩</span>
+                        <span class="badge hot">🔥 HOT</span>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="item-name">Bò lúc lắc</h3>
+                        <p class="item-desc">Bò Úc lúc lắc sốt tiêu đen, khoai tây chiên, salad rau xanh</p>
+                        <div class="card-footer">
+                            <span class="price">165.000đ</span>
+                            <button class="btn-quick-add" title="Thêm nhanh">+</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Mẫu 2 Card Món ăn -->
+                <article class="menu-card">
+                    <div class="card-media">
+                        <span class="emoji">🍗</span>
+                        <span class="badge promo">🏷️ KM</span>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="item-name">Gà nướng muối ớt</h3>
+                        <p class="item-desc">Nửa con gà nướng muối ớt xanh Tây Ninh, thơm lừng đậm đà</p>
+                        <div class="card-footer">
+                            <span class="price">220.000đ</span>
+                            <button class="btn-quick-add" title="Thêm nhanh">+</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Bạn sẽ dùng JS để lặp và render tiếp các card món ăn ở đây -->
+
+            </section>
+        </main>
+
+
+        <!-- III. KHU VỰC ĐƠN HÀNG/GIỎ HÀNG (BÊN PHẢI) -->
+        <aside class="order-sidebar">
+            <div class="sidebar-header">
+                <h3>🧾 Đơn hàng hiện tại</h3>
+                <span class="table-id">Bàn B05</span>
+            </div>
+
+            <!-- Danh sách món đã chọn -->
+            <div class="order-list">
+                
+                <!-- Mẫu 1 dòng món đã chọn -->
+                <div class="order-item">
+                    <span class="item-icon">🥩</span>
+                    <div class="order-item-details">
+                        <h4 class="order-item-name">Bò lúc lắc</h4>
+                        <span class="order-item-options">📝 Ít cay, không hành</span>
+                        
+                        <div class="order-item-actions">
+                            <div class="quantity-controller">
+                                <button class="btn-qty">-</button>
+                                <span class="qty-number">1</span>
+                                <button class="btn-qty">+</button>
+                            </div>
+                            <span class="order-item-total">165.000đ</span>
+                            <button class="btn-delete" title="Xoá món">🗑️</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Giỏ hàng trống (Ẩn/Hiện bằng CSS/JS) -->
+                <!-- 
+                <div class="cart-empty">
+                    <span>🛒</span>
+                    <p>Chưa có món nào được chọn</p>
+                </div> 
+                -->
+
+            </div>
+
+            <!-- Tổng cộng tiền -->
+            <section class="order-summary">
+                <div class="summary-line">
+                    <span>Tạm tính:</span>
+                    <strong>165.000đ</strong>
+                </div>
+                <div class="summary-line">
+                    <span>VAT (10%):</span>
+                    <strong>16.500đ</strong>
+                </div>
+                <div class="summary-line grand-total">
+                    <span>TỔNG CỘNG:</span>
+                    <strong>181.500đ</strong>
+                </div>
+            </section>
+
+            <!-- Nút hành động -->
+            <footer class="order-footer">
+                <button class="btn btn-submit">🔥 GỬI BẾP</button>
+                <button class="btn btn-cancel">🗑️ XOÁ ĐƠN</button>
+            </footer>
+        </aside>
+
+    </div>
+
+
+    <!-- IV. MODAL CHI TIẾT MÓN ĂN (MỞ KHI BẤM VÀO CARD MÓN) -->
+    <!-- Bạn có thể dùng thẻ <dialog> chuẩn HTML5 -->
+    <dialog class="item-detail-modal" id="itemModal">
+        
+        <!-- Hình ảnh/Emoji của món -->
+        <header class="modal-media">
+            <span class="large-emoji">🍜</span>
+            <button class="btn-close-modal" aria-label="Đóng">✕</button>
+        </header>
+
+        <form method="dialog" class="modal-content">
+            <h2 class="modal-item-name">Phở bò đặc biệt</h2>
+            <div class="modal-item-price">85.000đ</div>
+            <p class="modal-item-desc">Phở bò tái nạm gầu sách, nước dùng hầm từ xương ống bò trong 12 tiếng thơm ngon chuẩn vị.</p>
+
+            <!-- Khu vực lựa chọn option (Sốt/Đá/Cay...) -->
+            <fieldset class="options-section">
+                <legend>⚙️ Tuỳ chọn món</legend>
+                <div class="option-chips">
+                    <label><input type="checkbox" name="option" value="it-cay"> Ít cay</label>
+                    <label><input type="checkbox" name="option" value="cay-nhieu"> Cay nhiều</label>
+                    <label><input type="checkbox" name="option" value="khong-hanh"> Không hành</label>
+                    <label><input type="checkbox" name="option" value="them-banh"> Thêm bánh phở</label>
+                </div>
+            </fieldset>
+
+            <!-- Khu vực ghi chú -->
+            <div class="note-section">
+                <label for="cookNote">📝 Ghi chú cho bếp</label>
+                <textarea id="cookNote" placeholder="VD: nước trong, thịt tái mềm..."></textarea>
+            </div>
+
+            <!-- Khu vực chọn số lượng chính thức -->
+            <div class="quantity-section">
+                <span>Số lượng:</span>
+                <div class="quantity-controller large">
+                    <button type="button" class="btn-qty">-</button>
+                    <span class="qty-number">1</span>
+                    <button type="button" class="btn-qty">+</button>
+                </div>
+            </div>
+
+            <!-- Nút lưu hoặc huỷ -->
+            <footer class="modal-actions">
+                <button type="button" class="btn btn-secondary">Huỷ</button>
+                <button type="submit" class="btn btn-primary">
+                    ✓ Thêm vào đơn - <span class="total-money">85.000đ</span>
+                </button>
+            </footer>
+        </form>
+
+    </dialog>
+
+    <!-- File Javascript của bạn ở đây nếu có -->
+    <!-- <script src="script.js"></script> -->
+</body>
+</html>
