@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thực Đơn Nhà Hàng</title>
     <style>
-        /* ============ RESET & BASE ============ */
+        
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
         body { background-color: #f9f9f9; color: #333; line-height: 1.6; }
         
-        /* ============ HORIZONTAL NAVBAR ============ */
+    
         .navbar {
             display: flex;
             background: #fff;
@@ -35,7 +35,7 @@
             border-bottom: 2px solid #d32f2f;
         }
 
-        /* ============ PRODUCT GRID ============ */
+        
         .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
         .grid {
             display: grid;
@@ -56,7 +56,7 @@
         .product-title { font-size: 16px; margin-bottom: 10px; color: #d32f2f; }
         .product-price { font-weight: bold; font-size: 14px; }
 
-        /* ============ MODAL (CHI TIẾT MÓN ĂN - GIỐNG ẢNH 2) ============ */
+    
         .modal {
             display: none; position: fixed; z-index: 1000; left: 0; top: 0;
             width: 100%; height: 100%; overflow: auto;
@@ -95,13 +95,12 @@
         .btn-add-cart:hover { background-color: #d32f2f; }
         .m-wishlist { color: #666; font-size: 14px; margin-bottom: 20px; cursor: pointer; display: flex; align-items: center; gap: 5px; }
         
-        /* Bỏ phần viền chấm, tags, danh mục, icon MXH theo yêu cầu */
-
+       
         .m-description-section { margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; }
         .tab-title { font-weight: bold; border-bottom: 2px solid #333; display: inline-block; padding-bottom: 5px; margin-bottom: 15px; font-size: 14px; text-transform: uppercase;}
         .m-desc-text { font-size: 14px; color: #555; white-space: pre-line; }
 
-        /* ============ RESPONSIVE ============ */
+    
         @media (max-width: 768px) {
             .modal-body { flex-direction: column; }
         }
@@ -109,19 +108,19 @@
 </head>
 <body>
 
-    <!-- THANH MENU CHỌN MÓN NGANG -->
+
     <nav class="navbar" id="navbar">
-        <!-- JS sẽ render các tab vào đây -->
+     
     </nav>
 
-    <!-- DANH SÁCH MÓN ĂN -->
+ 
     <div class="container">
         <div class="grid" id="product-grid">
-            <!-- JS sẽ render món ăn vào đây -->
+         
         </div>
     </div>
 
-    <!-- PHẦN CHI TIẾT MÓN ĂN (MODAL) -->
+
     <div id="product-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -134,7 +133,7 @@
                     <div class="m-price" id="modal-price">Giá</div>
                     
                     <div class="m-options" id="modal-options">
-                        <!-- Tùy chọn Size/Combo -->
+                       
                     </div>
 
                     <div class="m-actions">
@@ -148,7 +147,7 @@
 
                     <div class="m-wishlist">♡ Add to wishlist</div>
 
-                    <!-- Phần Mô tả (Đã bỏ Thông tin bổ sung) -->
+                   
                     <div class="m-description-section">
                         <div class="tab-title">MÔ TẢ</div>
                         <div class="m-desc-text" id="modal-desc">
@@ -160,11 +159,11 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT XỬ LÝ DỮ LIỆU & GIAO DIỆN -->
+  
     <script>
-        // DỮ LIỆU MÓN ĂN TỪ YÊU CẦU CỦA BẠN
+        
         const products = [
-            // --- LẨU THÁI ---
+          
             { id: 1, category: "Lẩu Thái", name: "Lẩu Thái Bò", price: "299.000 ₫ – 499.000 ₫", optionType: "combo", 
               img: "https://minhchau3.110.vn/wp-content/uploads/2022/10/combo-lau-thai-bo.jpg",
               desc: "♨️ Nước lẩu thái chua cay\n👉 Set lẩu bao gồm: nước lẩu thái tomyum – bắp bò – ba chỉ bò – gầu hoa bò – đậu hũ phomai – viên tôm hùm – nấm kim – nấm đùi gà – mỳ tôm – rau muống – cải ngọt – rau cần – cải thảo – ngô ngọt – đậu phụ – váng đậu – gia vị lẩu\n⏱️ Thời gian chuẩn bị: 10-30 phút\n⏰ Thời gian vận chuyển: 10-30 phút" },
@@ -172,7 +171,7 @@
               img: "https://minhchau3.110.vn/wp-content/uploads/2022/10/combo-lau-thai-thap-cam.jpg",
               desc: "♨️ Nước lẩu thái Tomyum\n👉 Set lẩu bao gồm: nước lẩu – bò mỹ – sườn sụn – tôm – mực – cá tầm – viên tôm hùm – đậu hũ phomai – nấm kim – nấm đùi gà – mỳ tôm – đĩa rau hỗn hợp – ngô ngọt – đậu phụ – gia vị lẩu\n⏱️ Thời gian chuẩn bị: 10-30 phút\n⏰ Thời gian vận chuyển: 10-30 phút" },
             
-            // --- LẨU RIÊU CUA ---
+         
             { id: 3, category: "Lẩu Riêu Cua", name: "Lẩu Riêu Cua Bắp Bò Sườn Sụn", price: "299.000 ₫ – 499.000 ₫", optionType: "combo", 
               img: "https://minhchau3.110.vn/wp-content/uploads/2022/10/combo-lau-rieu-cua.jpg", // Ảnh minh họa
               desc: "👉 Set lẩu bao gồm: nước lẩu riêu cua – bắp bò – sườn sụn – giò tai – nấm kim – nấm đùi – bún( hoặc mỳ tôm) – rau hỗn hợp – ngô ngọt – đậu phụ chiên – riêu cua – váng đậu – gia vị lẩu\n⏱️ Thời gian chuẩn bị: 10-20 phút\n⏰ Thời gian vận chuyển: 10-30 phút" },
@@ -180,7 +179,7 @@
               img: "https://minhchau3.110.vn/wp-content/uploads/2022/10/combo-lau-rieu-cua-bo.jpg",
               desc: "👉 Set lẩu bao gồm: nước lẩu riêu cua – ba chỉ bò mỹ – bắp bò – gầu bò – giò tai – riêu cua – nấm kim – nấm đùi – bún( hoặc mỳ tôm) – rau hỗn hợp – ngô ngọt – đậu phụ chiên – váng đậu – gia vị lẩu\n⏱️ Thời gian chuẩn bị: 10-20 phút\n⏰ Thời gian vận chuyển: 10-30 phút" },
 
-            // --- LẨU KIM CHI ---
+        
             { id: 5, category: "Lẩu Kim Chi", name: "Lẩu Kim Chi Bò", price: "299.000 ₫ – 499.000 ₫", optionType: "combo", 
               img: "https://minhchau3.110.vn/wp-content/uploads/2022/10/combo-lau-kim-chi-bo.jpg",
               desc: "♨️ Nước lẩu kim chi chua cay\n👉 Set lẩu bao gồm: nước lẩu kim chi – bắp bò – ba chỉ bò – gầu bò – đậu hũ pm – viên tôm hùm – nấm kim – nấm đùi gà – mỳ tôm – rau hỗn hợp – ngô ngọt – đậu phụ – gia vị lẩu\n⏱️ Thời gian chuẩn bị: 10-30 phút\n⏰ Thời gian vận chuyển: 10-30 phút" },
@@ -188,7 +187,7 @@
               img: "https://minhchau3.110.vn/wp-content/uploads/2022/10/combo-lau-kim-chi.jpg",
               desc: "♨️ Nước lẩu kim chi chua cay\n👉 Set lẩu bao gồm: nước lẩu – bò mỹ – sườn sụn – tôm sú – mực – cá tầm – đậu hũ pm – viên tôm hùm – nấm kim – nấm đùi gà – mỳ tôm – rau hỗn hợp – ngô ngọt – đậu phụ – gia vị lẩu\n⏱️ Thời gian chuẩn bị: 10-30 phút\n⏰ Thời gian vận chuyển: 10-30 phút" },
 
-            // --- LẨU NẤM ---
+       
             { id: 7, category: "Lẩu Nấm", name: "Lẩu Nấm Bò", price: "299.000 ₫ – 499.000 ₫", optionType: "combo", 
               img: "https://minhchau3.110.vn/wp-content/uploads/2022/10/combo-lau-nam-bo.jpg",
               desc: "♨️ Nước lẩu nấm thanh ngọt\n👉 Set lẩu bao gồm: nước lẩu – ba chỉ bò – bắp bò – gầu hoa bò – nấm hải sản – nấm hương – nấm kim – nấm đùi gà – Bún hoặc mỳ tôm – rau hỗn hợp – ngô ngọt – đậu phụ – gia vị lẩu\n⏱️ Thời gian chuẩn bị: 10-30 phút\n⏰ Thời gian vận chuyển: 10-30 phút" },
@@ -196,7 +195,7 @@
               img: "https://minhchau3.110.vn/wp-content/uploads/2022/10/combo-lau-nam.jpg",
               desc: "♨️ Nước lẩu nấm thanh ngọt\n👉 Set lẩu bao gồm: nước lẩu – ba chỉ bò – bắp bò – gầu hoa bò – sụn – gà ta – nấm hải sản – nấm hương – nấm kim – nấm đùi gà – Bún hoặc mỳ tôm – rau hỗn hợp – ngô ngọt – đậu phụ – gia vị lẩu\n⏱️ Thời gian chuẩn bị: 10-30 phút\n⏰ Thời gian vận chuyển: 10-30 phút" },
 
-            // --- COMBO NƯỚNG ---
+           
             { id: 9, category: "Combo Nướng", name: "Combo Bò Nướng", price: "359.000 ₫", optionType: "none", 
               img: "https://minhchau3.110.vn/wp-content/uploads/2022/10/combo-nuong-bo.jpg",
               desc: "Combo Nướng Bao Gồm:\nBa Chỉ Bò: 200g\nDẻ Sườn Bò: 200g\nThăn Bò: 200g\nLõi Vai Bò: 200g\n1 Đĩa Rau Ăn Nướng Tổng Hợp, Sốt Chấm Nướng Các Loại\nNấm, Cà Tím, Đậu Bắp\nKim Chi: 350g\n\nSet nướng đã được ướp sẵn.\nChế biến: Ngon nhất cho món nướng than hoa, hoặc nướng chảo, bếp điện,…\nLưu ý: Trường hợp khách không muốn ướp sẵn và để sốt ướp riêng vui lòng báo trước giúp quán." },
@@ -204,7 +203,7 @@
               img: "https://minhchau3.110.vn/wp-content/uploads/2022/10/combo-nuong-mely.jpg",
               desc: "Combo Nướng Bao Gồm:\nLõi Vai Bò: 200g\nBò Aukobe: 200g\nBa Chỉ Heo: 200g\nMá Đào Heo: 200g\nNầm Heo: 200g\n1 Đĩa Rau Ăn Nướng Tổng Hợp, Sốt Chấm Nướng Các Loại\nNấm, Cà Tím, Đậu Bắp\nKim Chi: 350g\n\nSet nướng đã được ướp sẵn.\nChế biến: Ngon nhất cho món nướng than hoa, hoặc nướng chảo, bếp điện,…\nLưu ý: Trường hợp khách không muốn ướp sẵn và để sốt ướp riêng vui lòng báo trước giúp quán." },
 
-            // --- ĐỒ GỌI THÊM (Thịt Nhúng Lẩu) ---
+          
             { id: 11, category: "Thịt nhúng lẩu", name: "Ba chỉ bò", price: "80.000 ₫ – 120.000 ₫", optionType: "size", 
               img: "https://minhchau3.110.vn/wp-content/uploads/2022/10/ba-chi-bo.jpg",
               desc: "Ba chỉ bò nhúng lẩu tươi ngon.\nSize M: 200g\nSize L: 300g" },
@@ -215,17 +214,17 @@
               img: "https://minhchau3.110.vn/wp-content/uploads/2022/10/bap-bo.jpg",
               desc: "Bắp bò hoa tươi ngon cắt lát chuẩn nhúng lẩu.\nSize M: 200g\nSize L: 300g" },
 
-            // --- ĐỒ UỐNG ---
+          
             { id: 14, category: "Đồ uống", name: "Coca Cola - lon 320ml", price: "15.000 ₫", optionType: "none", 
               img: "https://cdn.tgdd.vn/Products/Images/2565/76467/bhx/nuoc-ngot-coca-cola-320ml-202312141339176313.jpg",
               desc: "Nước giải khát Coca Cola lon 320ml chính hãng, mát lạnh." }
         ];
 
-        // Lấy danh sách danh mục duy nhất
+       
         const categories = [...new Set(products.map(p => p.category))];
         let currentCategory = categories[0];
 
-        // --- HÀM RENDER THANH MENU NGANG ---
+    
         function renderNav() {
             const nav = document.getElementById('navbar');
             nav.innerHTML = '';
@@ -242,7 +241,7 @@
             });
         }
 
-        // --- HÀM RENDER MÓN ĂN THEO DANH MỤC ---
+       
         function renderProducts() {
             const grid = document.getElementById('product-grid');
             grid.innerHTML = '';
@@ -252,7 +251,7 @@
             filtered.forEach(p => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
-                // Click vào ảnh hoặc thẻ sẽ gọi hàm openModal
+           
                 card.onclick = () => openModal(p.id);
                 
                 card.innerHTML = `
@@ -266,7 +265,7 @@
             });
         }
 
-        // --- HÀM MỞ CHI TIẾT MÓN (MODAL) ---
+    
         function openModal(productId) {
             const product = products.find(p => p.id === productId);
             
@@ -275,7 +274,6 @@
             document.getElementById('modal-price').innerText = product.price;
             document.getElementById('modal-desc').innerText = product.desc;
 
-            // Xử lý Radio Button tùy theo loại món (Combo, Size, Không có)
             const optionsDiv = document.getElementById('modal-options');
             optionsDiv.innerHTML = '';
             
@@ -296,12 +294,12 @@
             document.getElementById('product-modal').style.display = 'block';
         }
 
-        // --- HÀM ĐÓNG MODAL ---
+     
         function closeModal() {
             document.getElementById('product-modal').style.display = 'none';
         }
 
-        // Tắt Modal khi click ra ngoài vùng trắng
+     
         window.onclick = function(event) {
             const modal = document.getElementById('product-modal');
             if (event.target == modal) {
@@ -309,7 +307,7 @@
             }
         }
 
-        // Khởi tạo chạy lần đầu
+        
         renderNav();
         renderProducts();
     </script>
