@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Quản Trị - Nhà Hàng</title>
+    <!-- Font Awesome dùng cho Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css_admin.css">
+</head>
+<body>
+
+    <!-- SIDEBAR BÊN TRÁI -->
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <h2><i class="fa-solid fa-utensils"></i> Admin F&B</h2>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="active" onclick="showSection('dashboard', this)">
+                <i class="fa-solid fa-chart-line"></i> <span>Tổng quan</span>
+            </li>
+            <li onclick="showSection('menu-mgmt', this)">
+                <i class="fa-solid fa-bowl-food"></i> <span>Quản lý món ăn</span>
+            </li>
+            <li onclick="showSection('order-mgmt', this)">
+                <i class="fa-solid fa-calendar-check"></i> <span>Quản lý đặt bàn</span>
+            </li>
+            <li onclick="showSection('user-mgmt', this)">
+                <i class="fa-solid fa-users"></i> <span>Quản lý tài khoản</span>
+            </li>
+        </ul>
+        <div class="sidebar-logout">
+            <a href="login.html"><i class="fa-solid fa-right-from-bracket"></i> <span>Đăng xuất</span></a>
+        </div>
+    </div>
+
+    
+    <div class="main-content">
+        <header>
+            <div class="header-title">
+                <h2 id="pageTitle">Tổng Quan Hệ Thống</h2>
+            </div>
+            <div class="user-info">
+                <img src="https://ui-avatars.com/api/?name=Admin+User&background=d9534f&color=fff" alt="Avatar">
+                <div>
+                    <h4>Quản Trị Viên</h4>
+                    <small>admin@restaurant.com</small>
+                </div>
+            </div>
+        </header>
+
+        <!-- TỔNG QUAN (DASHBOARD) -->
+        <section id="dashboard" class="content-section active">
+            <div class="cards-grid">
+                <div class="card">
+                    <div>
+                        <h3>125</h3>
+                        <span>Đơn đặt bàn hôm nay</span>
+                    </div>
+                    <div class="card-icon"><i class="fa-solid fa-calendar-day"></i></div>
+                </div>
+                <div class="card">
+                    <div>
+                        <h3>48</h3>
+                        <span>Món ăn trong Menu</span>
+                    </div>
+                    <div class="card-icon"><i class="fa-solid fa-utensils"></i></div>
+                </div>
+                <div class="card">
+                    <div>
+                        <h3>1,250</h3>
+                        <span>Khách hàng đăng ký</span>
+                    </div>
+                    <div class="card-icon"><i class="fa-solid fa-user-group"></i></div>
+                </div>
+                <div class="card">
+                    <div>
+                        <h3>18.500.000đ</h3>
+                        <span>Doanh thu ngày</span>
+                    </div>
+                    <div class="card-icon"><i class="fa-solid fa-money-bill-wave"></i></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUẢN LÝ MÓN ĂN -->
+        <section id="menu-mgmt" class="content-section">
+            <div class="table-container">
+                <div class="table-header">
+                    <h3>Danh Sách Món Ăn</h3>
+                    <button class="btn-add" onclick="openAddModal()"><i class="fa-solid fa-plus"></i> Thêm Món Mới</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên Món</th>
+                            <th>Danh Mục</th>
+                            <th>Giá Bán</th>
+                            <th>Trạng Thái</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="foodTableBody">
+                        <tr>
+                            <td>1</td>
+                            <td>Bò Bít Tết Sốt Tiêu Đen</td>
+                            <td>Món Chính</td>
+                            <td>250.000 VNĐ</td>
+                            <td><span class="badge success">Đang bán</span></td>
+                            <td>
+                                <button class="btn-action edit" onclick="editFood(this)"><i class="fa-solid fa-pen"></i></button>
+                                <button class="btn-action delete" onclick="deleteFood(this)"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Súp Cua Hải Sản</td>
+                            <td>Khai Vị</td>
+                            <td>85.000 VNĐ</td>
+                            <td><span class="badge success">Đang bán</span></td>
+                            <td>
+                                <button class="btn-action edit" onclick="editFood(this)"><i class="fa-solid fa-pen"></i></button>
+                                <button class="btn-action delete" onclick="deleteFood(this)"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Lẩu Thái Hải Sản</td>
+                            <td>Món Chính</td>
+                            <td>380.000 VNĐ</td>
+                            <td><span class="badge danger">Hết hàng</span></td>
+                            <td>
+                                <button class="btn-action edit" onclick="editFood(this)"><i class="fa-solid fa-pen"></i></button>
+                                <button class="btn-action delete" onclick="deleteFood(this)"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- QUẢN LÝ ĐẶT BÀN -->
+        <section id="order-mgmt" class="content-section">
+            <div class="table-container">
+                <div class="table-header">
+                    <h3>Lịch Sử Đặt Bàn Khách Hàng</h3>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mã Đặt</th>
+                            <th>Tên Khách Hàng</th>
+                            <th>Số ĐT</th>
+                            <th>Ngày Đặt</th>
+                            <th>Số Khách</th>
+                            <th>Trạng Thái</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#BK001</td>
+                            <td>Nguyễn Văn A</td>
+                            <td>0987654321</td>
+                            <td>20/10/2026 - 19:00</td>
+                            <td>4 Người</td>
+                            <td><span class="badge success">Đã xác nhận</span></td>
+                        </tr>
+                        <tr>
+                            <td>#BK002</td>
+                            <td>Trần Thị B</td>
+                            <td>0912345678</td>
+                            <td>20/10/2026 - 20:00</td>
+                            <td>2 Người</td>
+                            <td><span class="badge warning">Chờ duyệt</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- QUẢN LÝ TÀI KHOẢN -->
+        <section id="user-mgmt" class="content-section">
+            <div class="table-container">
+                <div class="table-header">
+                    <h3>Danh Sách Tài Khoản Người Dùng</h3>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Họ và Tên</th>
+                            <th>Email</th>
+                            <th>Vai Trò</th>
+                            <th>Ngày Tạo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>USR01</td>
+                            <td>Quản Trị Viên</td>
+                            <td>admin@restaurant.com</td>
+                            <td><span class="badge danger">Admin</span></td>
+                            <td>01/01/2026</td>
+                        </tr>
+                        <tr>
+                            <td>USR02</td>
+                            <td>Nguyễn Tuấn Anh</td>
+                            <td>tuananh@gmail.com</td>
+                            <td><span class="badge primary">Khách hàng</span></td>
+                            <td>15/05/2026</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- MODAL THÊM MÓN MỚI -->
+    <div id="addFoodModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeAddModal()">&times;</span>
+            <h3>Thêm Món Ăn Mới</h3>
+            <form id="addFoodForm">
+                <div class="form-group">
+                    <label>Tên Món Ăn:</label>
+                    <input type="text" id="foodName" required>
+                </div>
+                <div class="form-group">
+                    <label>Danh Mục:</label>
+                    <select id="foodCategory">
+                        <option value="Khai Vị">Khai Vị</option>
+                        <option value="Món Chính">Món Chính</option>
+                        <option value="Tráng Miệng">Tráng Miệng</option>
+                        <option value="Đồ Uống">Đồ Uống</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Giá Bán (VNĐ):</label>
+                    <input type="text" id="foodPrice" required>
+                </div>
+                <button type="submit" class="btn-save">Lưu Món Ăn</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js_admin.js"></script>
+</body>
+</html>
