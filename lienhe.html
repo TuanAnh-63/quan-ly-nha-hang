@@ -1,0 +1,239 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liên hệ - Lẩu 4 Mùa - Thiên Đường Lẩu Ngon</title>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+
+        <h1>Lẩu 4 Mùa - Thiên Đường Lẩu Ngon</h1>
+
+        <nav>
+            <a href="trangchu.html" target="_blank">Trang chủ</a>
+            <a href="datban.html" target="_blank">Đặt bàn</a>
+            <a href="lienhe.html" target="_blank">Liên hệ</a>
+        </nav>
+
+    </header>
+
+
+    <!-- NỘI DUNG CHÍNH -->
+    <main>
+
+        <h2>Liên hệ với chúng tôi</h2>
+
+        <p>
+            Nếu bạn có bất kỳ câu hỏi hoặc yêu cầu nào,
+            hãy liên hệ với nhà hàng qua các thông tin dưới đây.
+        </p>
+
+
+        <!-- THÔNG TIN NHÀ HÀNG -->
+        <section>
+
+            <h3>Thông tin nhà hàng</h3>
+
+            <p>
+                <strong>Địa chỉ:</strong>
+                123 Đường ABC, Hà Nội
+            </p>
+
+            <p>
+                <strong>Số điện thoại:</strong>
+                <a href="tel:0123456789">
+                    0123 456 789
+                </a>
+            </p>
+
+            <p>
+                <strong>Email:</strong>
+                <a href="mailto:contact@nhahangabc.com">
+                    contact@the4seasons.com
+                </a>
+            </p>
+
+            <p>
+                <strong>Giờ mở cửa:</strong>
+                10:00 - 22:00
+            </p>
+
+        </section>
+
+
+        <hr>
+
+
+        <!-- FORM LIÊN HỆ -->
+        <section>
+
+            <h3>Gửi tin nhắn cho chúng tôi</h3>
+
+            <form>
+
+                <!-- HỌ TÊN -->
+                <label for="name">
+                    Họ và tên:
+                </label>
+
+                <br>
+
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Nhập họ và tên"
+                    required
+                >
+
+                <br><br>
+
+
+                <!-- EMAIL -->
+                <label for="email">
+                    Email:
+                </label>
+
+                <br>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Nhập email của bạn"
+                    required
+                >
+
+                <br><br>
+
+
+                <!-- SỐ ĐIỆN THOẠI -->
+                <label for="phone">
+                    Số điện thoại:
+                </label>
+
+                <br>
+
+                <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="Nhập số điện thoại"
+                >
+
+                <br><br>
+
+
+                <!-- CHỦ ĐỀ -->
+                <label for="subject">
+                    Chủ đề:
+                </label>
+
+                <br>
+
+                <select id="subject" name="subject">
+
+                    <option value="">
+                        -- Chọn chủ đề --
+                    </option>
+
+                    <option value="dat-ban">
+                        Đặt bàn
+                    </option>
+
+                    <option value="gop-y">
+                        Góp ý
+                    </option>
+
+                    <option value="khieu-nai">
+                        Khiếu nại
+                    </option>
+
+                    <option value="khac">
+                        Khác
+                    </option>
+
+                </select>
+
+                <br><br>
+
+
+                <!-- NỘI DUNG -->
+                <label for="message">
+                    Nội dung:
+                </label>
+
+                <br>
+
+                <textarea
+                    id="message"
+                    name="message"
+                    rows="6"
+                    cols="40"
+                    placeholder="Nhập nội dung tin nhắn..."
+                    required
+                ></textarea>
+
+                <br><br>
+
+
+                <!-- BUTTON -->
+                <button type="submit">
+                    Gửi tin nhắn
+                </button>
+
+                <button type="reset">
+                    Nhập lại
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <hr>
+
+
+        <!-- VỊ TRÍ -->
+        <section>
+
+            <h3>Vị trí nhà hàng</h3>
+
+            <p>
+                Lẩu 4 Mùa - Thiên Đường Lẩu Ngon
+            </p>
+
+            <p>
+                123 Đường ABC, Hà Nội
+            </p>
+
+            <!--
+                Sau này có thể thêm Google Maps
+                vào đây bằng iframe.
+            -->
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <p>
+            &copy; 2026 Lẩu 4 Mùa - Thiên Đường Lẩu Ngon.
+            All rights reserved.
+        </p>
+
+    </footer>
+
+</body>
+
+</html>
+
