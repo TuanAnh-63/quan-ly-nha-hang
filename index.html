@@ -3,18 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Lẩu 4 mùa - Lẩu Thái Tomyum, Lẩu Tứ Xuyên, Buffet Lẩu, Lẩu 4 mùa">
-  <meta name="keywords" content="nhà hàng lẩu, lẩu thái tomyum, lẩu tứ xuyên, buffet lẩu, lẩu 4 mùa">
-  <title>Lẩu 4 Mùa - Thiên Đường Lẩu Ngon</title>
+  <meta name="description" content="Lẩu 4 Mùa - Lẩu Thái Tomyum, Lẩu Tứ Xuyên, Buffet Lẩu, Lẩu Ngon Tại Nhà Ship Tận Nơi">
+  <meta name="keywords" content="nhà hàng lẩu, lẩu thái tomyum, lẩu tứ xuyên, buffet lẩu, lẩu 4 mùa, lẩu ngon tại nhà">
+  <title>Lẩu 4 Mùa - Lẩu Ngon Tại Nhà & Ship Tận Nơi</title>
+  
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome 6 Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style-base.css">
   <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
+
+  <!-- 1. TOP ANNOUNCEMENT BAR (Thanh ưu đãi chạy phía trên) -->
+  <div class="top-bar bg-primary text-white py-2 fs-7 d-none d-md-block">
+    <div class="container d-flex justify-content-between align-items-center">
+      <span><i class="fa-solid fa-truck-fast text-warning me-1"></i> Miễn Phí Ship Bán Kính 3km</span>
+      <span><i class="fa-solid fa-utensils text-warning me-1"></i> Mượn Nồi Bếp Bát Đĩa Nếu Khách Yêu Cầu</span>
+      <span><i class="fa-solid fa-heart text-warning me-1"></i> Được Hơn 10.000+ Khách Hàng Yêu Thích</span>
+      <span><i class="fa-solid fa-phone me-1 text-warning"></i> Hotline: <strong>0898 879 669</strong></span>
+    </div>
+  </div>
+
+  <!-- 2. HEADER / NAVBAR -->
   <header class="sticky-top">
     <nav class="navbar navbar-expand-lg header-navbar" aria-label="Main navigation">
       <div class="container">
@@ -31,7 +51,7 @@
               <a class="nav-link active" aria-current="page" href="index.html">Trang Chủ</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="about.html">Giới Thiệu</a>
+              <a class="nav-link" href="gioithieu.html">Giới Thiệu</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="menu.html">Menu Lẩu</a>
@@ -57,31 +77,107 @@
       </div>
     </nav>
   </header>
+
+  <!-- MAIN CONTENT -->
   <main id="main-content">
-    <section class="hero-section d-flex align-items-center position-relative">
-      <div class="hero-overlay"></div>
-      <div class="container position-relative text-center text-white py-5">
-        <div class="row justify-content-center">
-          <div class="col-lg-9">
-            <span class="hero-subtitle text-uppercase tracking-widest text-warning fw-semibold mb-2 d-block">
-              <i class="fa-solid fa-fire me-1"></i> Trải Nghiệm Nồi Lẩu 4 Ngăn Độc Đáo <i class="fa-solid fa-fire ms-1"></i>
-            </span>
-            <h1 class="hero-title display-3 fw-bold mb-3">Thức Tỉnh Vị Giác Cùng Tinh Hoa Lẩu Thượng Hạng</h1>
-            <p class="hero-description lead mb-4 text-light opacity-90 mx-auto">
-              Thưởng thức nước lẩu ninh xương 12 giờ chuẩn vị, kết hợp cùng 80+ món nhúng tươi sống hảo hạng trong không gian bếp âm hiện đại, không ám mùi.
-            </p>
-            <div class="hero-buttons d-flex justify-content-center gap-3 flex-wrap">
-              <a href="datban.html" class="btn btn-custom-primary btn-lg">
-                <i class="fa-solid fa-calendar-check me-2"></i>Đặt Bàn Giữ Nồi Lẩu
-              </a>
-              <a href="menu.html" class="btn btn-outline-light btn-lg border-2">
-                <i class="fa-solid fa-book-open me-2"></i>Khám Phá Nước Lẩu & Menu
-              </a>
+
+    <!-- 3. CAROUSEL BANNER SLIDER (ẢNH DI CHUYỂN TỰ ĐỘNG) -->
+    <section id="mainBanner" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3500">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#mainBanner" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#mainBanner" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#mainBanner" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      
+      <div class="carousel-inner">
+        <!-- Banner Slide 1 -->
+        <div class="carousel-item active">
+          <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1400&q=80" class="d-block w-100 banner-img" alt="Lẩu 4 Mùa - Ship Tận Nơi">
+          <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-75 p-4 rounded-4 shadow-lg">
+            <span class="badge bg-warning text-dark px-3 py-2 mb-2 rounded-pill fw-bold">LẨU NGON TẠI NHÀ</span>
+            <h1 class="text-warning fw-bold display-5">LẨU 4 MÙA - TƯƠI NGON CHUẨN VỊ</h1>
+            <p class="fs-5 text-light opacity-90">Ship tận nơi nhanh chóng • Mượn nồi bếp bát đĩa trọn gói miễn phí</p>
+            <a href="datban.html" class="btn btn-custom-primary btn-lg px-4 mt-2">
+              <i class="fa-solid fa-phone-volume me-2"></i>GỌI SHIP NGAY: 0898 879 669
+            </a>
+          </div>
+        </div>
+
+        <!-- Banner Slide 2 -->
+        <div class="carousel-item">
+          <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1400&q=80" class="d-block w-100 banner-img" alt="Combo Lẩu Thái Tomyum">
+          <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-75 p-4 rounded-4 shadow-lg">
+            <span class="badge bg-danger text-white px-3 py-2 mb-2 rounded-pill fw-bold">BEST SELLER</span>
+            <h2 class="text-warning fw-bold display-5">COMBO LẨU THÁI TOMYUM & TỨ XUYÊN</h2>
+            <p class="fs-5 text-light opacity-90">Đầy đủ Bò Mỹ, Hải Sản tươi sống và Nước chấm pha sẵn đặc trưng</p>
+            <a href="menu.html" class="btn btn-custom-primary btn-lg px-4 mt-2">
+              <i class="fa-solid fa-book-open me-2"></i>XEM MENU COMBO
+            </a>
+          </div>
+        </div>
+
+        <!-- Banner Slide 3 -->
+        <div class="carousel-item">
+          <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=1400&q=80" class="d-block w-100 banner-img" alt="Trải nghiệm Nồi lẩu 4 ngăn">
+          <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-75 p-4 rounded-4 shadow-lg">
+            <span class="badge bg-warning text-dark px-3 py-2 mb-2 rounded-pill fw-bold">TRẢI NGHIỆM TẠI QUÁN</span>
+            <h2 class="text-warning fw-bold display-5">KHÔNG GIAN BẾP ÂM KHÔNG ÁM MÙI</h2>
+            <p class="fs-5 text-light opacity-90">Thỏa thích chọn 4 vị nước lẩu cùng lúc trong không gian sang trọng</p>
+            <a href="datban.html" class="btn btn-outline-light btn-lg px-4 mt-2 border-2">
+              <i class="fa-solid fa-calendar-check me-2"></i>ĐẶT BÀN GIỮ NỒI LẨU
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nút điều hướng Carousel -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#mainBanner" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Trước</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#mainBanner" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Tiếp</span>
+      </button>
+    </section>
+
+    <!-- 4. DẢI 4 CAM KẾT DỊCH VỤ SHIP (Đặc trưng Laungontainha) -->
+    <section class="py-4 bg-dark text-white border-top border-bottom border-warning border-2">
+      <div class="container">
+        <div class="row g-3 text-center">
+          <div class="col-6 col-md-3">
+            <div class="p-3 bg-secondary-dark rounded-3 h-100 border border-secondary border-opacity-25">
+              <i class="fa-solid fa-truck-fast text-warning fs-1 mb-2"></i>
+              <h6 class="fw-bold mb-1 text-white">SHIP TẬN NHÀ</h6>
+              <small class="text-muted">Nhanh chóng trong 30-45 phút</small>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="p-3 bg-secondary-dark rounded-3 h-100 border border-secondary border-opacity-25">
+              <i class="fa-solid fa-leaf text-warning fs-1 mb-2"></i>
+              <h6 class="fw-bold mb-1 text-white">NGUYÊN LIỆU TƯƠI</h6>
+              <small class="text-muted">Chuẩn vị nhà hàng 5 sao</small>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="p-3 bg-secondary-dark rounded-3 h-100 border border-secondary border-opacity-25">
+              <i class="fa-solid fa-box-tissue text-warning fs-1 mb-2"></i>
+              <h6 class="fw-bold mb-1 text-white">ĐÓNG HỘP CẨN THẬN</h6>
+              <small class="text-muted">Sạch sẽ & An toàn thực phẩm</small>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="p-3 bg-secondary-dark rounded-3 h-100 border border-secondary border-opacity-25">
+              <i class="fa-solid fa-gift text-warning fs-1 mb-2"></i>
+              <h6 class="fw-bold mb-1 text-white">ƯU ĐÃI HẤP DẪN</h6>
+              <small class="text-muted">Quà tặng kèm hấp dẫn mỗi combo</small>
             </div>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- 5. GIỚI THIỆU LẨU 4 MÙA -->
     <section class="py-5 bg-white position-relative" id="about-summary">
       <div class="container py-4">
         <div class="row align-items-center g-5">
@@ -96,9 +192,9 @@
           </div>
           <div class="col-lg-6">
             <span class="text-warning text-uppercase fw-bold tracking-wider fs-7">Về Lẩu 4 Mùa</span>
-            <h2 class="display-6 fw-bold mb-3 mt-1">Nơi Kết Nối Mọi Mối Quan Hệ Qua Nồi Lẩu Nghi Bút Khói</h2>
+            <h2 class="display-6 fw-bold mb-3 mt-1">Lẩu Ngon Tại Nhà & Trải Nghiệm Thượng Hạng Tại Quán</h2>
             <p class="text-muted mb-3">
-              Không chỉ mang lại hương vị lẩu đậm đà từ Thái Lan, Tứ Xuyên cho đến Hồng Kông, Lẩu 4 Mùa đầu tư hệ thống bàn ăn tích hợp bếp từ âm sàn và hút mùi đồng bộ. Bạn hoàn toàn yên tâm thưởng thức trọn vẹn bữa ăn mà không lo bám mùi quần áo.
+              Không chỉ mang lại hương vị lẩu đậm đà từ Thái Lan, Tứ Xuyên cho đến Hồng Kông tại nhà hàng, Lẩu 4 Mùa còn phục vụ dịch vụ **Lẩu Ship Tận Nhà** trọn gói – cho mượn nồi, bếp, bát đĩa tận nơi hoàn toàn miễn phí.
             </p>
             <div class="row g-3 my-2">
               <div class="col-sm-6">
@@ -124,19 +220,21 @@
                 </div>
               </div>
             </div>
-            <a href="about.html" class="btn btn-custom-primary mt-3">
+            <a href="gioithieu.html" class="btn btn-custom-primary mt-3">
               Tìm Hiểu Trải Nghiệm Lẩu <i class="fa-solid fa-arrow-right ms-1"></i>
             </a>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- 6. THỰC ĐƠN NỔI BẬT -->
     <section class="py-5 bg-light" id="featured-dishes">
       <div class="container py-4">
         <div class="text-center max-w-xl mx-auto mb-5">
           <span class="text-warning text-uppercase fw-bold tracking-wider fs-7">Gợi Ý Nổi Bật</span>
           <h2 class="display-6 fw-bold mt-1">Nước Lẩu & Đồ Nhúng Đáng Thử Nhất</h2>
-          <p class="text-muted">Lựa chọn hàng đầu của thực khách khi ghé thăm Gourmet Hotpot</p>
+          <p class="text-muted">Lựa chọn hàng đầu của thực khách khi gọi ship hoặc ghé ăn tại quán</p>
         </div>
 
         <div class="row g-4">
@@ -189,7 +287,7 @@
               </div>
               <div class="card-body p-4 d-flex flex-column">
                 <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h3 class="h5 card-title fw-bold m-0">Lẩu Tứ Xuyên Tê Cเผ็ด</h3>
+                  <h3 class="h5 card-title fw-bold m-0">Lẩu Tứ Xuyên Tê Cay</h3>
                   <span class="text-warning fw-bold fs-5">199.000đ</span>
                 </div>
                 <p class="card-text text-muted fs-7 flex-grow-1">
@@ -209,88 +307,33 @@
         </div>
       </div>
     </section>
-    <section class="py-5 bg-dark text-white position-relative" id="testimonials">
-      <div class="container py-4">
-        <div class="text-center max-w-xl mx-auto mb-5">
-          <span class="text-warning text-uppercase fw-bold tracking-wider fs-7">Cảm Nhận Thực Khách</span>
-          <h2 class="display-6 fw-bold text-white mt-1">Trải Nghiệm Tại Bàn Lẩu Gourmet</h2>
-        </div>
 
-        <div class="row g-4">
-          <div class="col-lg-4 col-md-6">
-            <div class="testimonial-card bg-secondary-dark p-4 rounded-4 h-100 border border-secondary border-opacity-25 d-flex flex-column">
-              <div class="stars text-warning mb-3">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-              </div>
-              <blockquote class="text-light opacity-90 fs-7 flex-grow-1 mb-4">
-                "Nước lẩu Thái chua cay cực kỳ vừa miệng! Điểm 10 cho hệ thống hút mùi âm bàn, ăn xong đi gặp đối tác hoàn toàn không sợ bị ám mùi lẩu."
-              </blockquote>
-              <div class="d-flex align-items-center gap-3">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Avatar Nguyễn Thu Trang" class="rounded-circle" width="50" height="50">
-                <div>
-                  <h3 class="h6 text-warning mb-0 fw-bold">Nguyễn Thu Trang</h3>
-                  <small class="text-muted">Khách hàng đặt tiệc công ty</small>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6">
-            <div class="testimonial-card bg-secondary-dark p-4 rounded-4 h-100 border border-secondary border-opacity-25 d-flex flex-column">
-              <div class="stars text-warning mb-3">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-              </div>
-              <blockquote class="text-light opacity-90 fs-7 flex-grow-1 mb-4">
-                "Nồi lẩu 4 ngăn rất tiện khi nhóm mình có người không ăn được cay. Thịt bò Mỹ thái lát dày dặn, nhúng mềm ngọt thịt!"
-              </blockquote>
-              <div class="d-flex align-items-center gap-3">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="Avatar Trần Hoàng Nam" class="rounded-circle" width="50" height="50">
-                <div>
-                  <h3 class="h6 text-warning mb-0 fw-bold">Trần Hoàng Nam</h3>
-                  <small class="text-muted">Food Reviewer</small>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6">
-            <div class="testimonial-card bg-secondary-dark p-4 rounded-4 h-100 border border-secondary border-opacity-25 d-flex flex-column">
-              <div class="stars text-warning mb-3">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-              </div>
-              <blockquote class="text-light opacity-90 fs-7 flex-grow-1 mb-4">
-                "Dịch vụ chu đáo, nhân viên liên tục châm nước lẩu miễn phí. Nước chấm tự pha ở quầy Line Sauce ngon xuất sắc!"
-              </blockquote>
-              <div class="d-flex align-items-center gap-3">
-                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=100&q=80" alt="Avatar Lê Minh Anh" class="rounded-circle" width="50" height="50">
-                <div>
-                  <h3 class="h6 text-warning mb-0 fw-bold">Lê Minh Anh</h3>
-                  <small class="text-muted">Thực khách thân thiết</small>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- 7. BẢNG HOTLINE ĐẶT SHIP BÀN (Tương tự Laungontainha) -->
     <section class="py-5 bg-warning text-dark text-center">
       <div class="container py-3">
-        <h2 class="display-6 fw-bold mb-3">Tụ Tập Bàn Lẩu Ngay Hôm Nay!</h2>
-        <p class="lead mb-4 max-w-lg mx-auto">Đặt bàn trước để chọn không gian phòng VIP hoặc chọn vị nước lẩu ưu thích!</p>
-        <a href="booking.html" class="btn btn-dark btn-lg px-5 font-heading fw-bold">
-          <i class="fa-solid fa-fire-burner me-2"></i>Đặt Bàn Giữ Nồi Lẩu Ngay
-        </a>
+        <h2 class="display-6 fw-bold mb-2"><i class="fa-solid fa-phone-volume me-2"></i>HOTLINE GỌI SHIP & ĐẶT BÀN: 0898 879 669</h2>
+        <p class="lead mb-4 max-w-lg mx-auto fw-semibold">Miễn phí mượn nồi - bếp - bát - đĩa (Chi mượn nếu khách yêu cầu). Ship tận nơi trong 30-45 phút!</p>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+          <a href="tel:0898879669" class="btn btn-dark btn-lg px-4 font-heading fw-bold">
+            <i class="fa-solid fa-headset me-2"></i>Gọi Ngay Hotline
+          </a>
+          <a href="datban.html" class="btn btn-outline-dark btn-lg px-4 font-heading fw-bold">
+            <i class="fa-solid fa-fire-burner me-2"></i>Đặt Bàn Giữ Nồi Lẩu
+          </a>
+        </div>
       </div>
     </section>
 
   </main>
+
+  <!-- 8. FOOTER -->
   <footer class="main-footer">
     <div class="container">
       <div class="row g-4">
         <div class="col-lg-4 col-md-6">
-          <h3 class="footer-title">lẩu 4 mùa</h3>
+          <h3 class="footer-title">LẨU 4 MÙA</h3>
           <p class="text-secondary-light mb-3">
-            Hệ thống nhà hàng lẩu thượng hạng với hương vị nước lẩu độc quyền, nguyên liệu đồ nhúng tươi sạch chuẩn kiểm định.
+            Hệ thống nhà hàng lẩu thượng hạng & dịch vụ ship lẩu tận nhà với hương vị nước lẩu độc quyền, nguyên liệu đồ nhúng tươi sạch chuẩn kiểm định.
           </p>
           <div class="social-icons">
             <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
@@ -304,7 +347,7 @@
           <h4 class="footer-title">Liên Kết</h4>
           <ul class="footer-links p-0">
             <li><a href="index.html"><i class="fa-solid fa-chevron-right me-1 fs-7"></i> Trang chủ</a></li>
-            <li><a href="about.html"><i class="fa-solid fa-chevron-right me-1 fs-7"></i> Giới thiệu</a></li>
+            <li><a href="gioithieu.html"><i class="fa-solid fa-chevron-right me-1 fs-7"></i> Giới thiệu</a></li>
             <li><a href="menu.html"><i class="fa-solid fa-chevron-right me-1 fs-7"></i> Menu Lẩu</a></li>
             <li><a href="datban.html"><i class="fa-solid fa-chevron-right me-1 fs-7"></i> Đặt bàn</a></li>
             <li><a href="lienhe.html"><i class="fa-solid fa-chevron-right me-1 fs-7"></i> Liên hệ</a></li>
@@ -323,7 +366,7 @@
               <span class="text-white font-monospace">10:00 - 24:00</span>
             </li>
             <li class="mt-3 text-warning">
-              <i class="fa-solid fa-bell me-1"></i> Nhận khách bàn lẩu cuối lúc 22:30
+              <i class="fa-solid fa-bell me-1"></i> Nhận ship & bàn lẩu cuối lúc 22:30
             </li>
           </ul>
         </div>
@@ -337,11 +380,11 @@
             </li>
             <li class="mb-2">
               <i class="fa-solid fa-phone text-warning me-2"></i>
-              <a href="tel:0123456789" class="text-white">0123 456 789</a>
+              <a href="tel:0898879669" class="text-white">0898 879 669</a>
             </li>
             <li class="mb-2">
               <i class="fa-solid fa-envelope text-warning me-2"></i>
-              <a href="mailto:booking@gourmethotpot.com" class="text-white">booking@gourmethotpot.com</a>
+              <a href="mailto:booking@lau4mua.com" class="text-white">booking@lau4mua.com</a>
             </li>
           </ul>
         </div>
@@ -350,11 +393,12 @@
 
     <div class="footer-bottom text-center">
       <div class="container">
-        <p class="m-0">&copy; 2026 Gourmet Hotpot Palace. All Rights Reserved. Designed for IT Project.</p>
+        <p class="m-0">&copy; 2026 Lẩu 4 Mùa - Gourmet Hotpot Palace. All Rights Reserved. Designed for IT Project.</p>
       </div>
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/bootstrap.bundle.min.js"></script>
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html>`
+</html>
