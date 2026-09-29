@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đặt bàn - Nhà hàng</title>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>HAIDILAO</h1>
+
+        <nav>
+            <a href="index.html" target="_blank">Trang chủ</a>
+            <a href="datban.html" target="_blank">Đặt bàn</a>
+            <a href="lienhe.html" target="_blank">Liên hệ</a>
+        </nav>
+    </header>
+
+
+    <!-- Nội dung chính -->
+    <main>
+
+        <h2>Đặt bàn</h2>
+
+        <p>
+            Vui lòng điền đầy đủ thông tin bên dưới để đặt bàn.
+        </p>
+
+        <form>
+
+            <!-- Thông tin khách hàng -->
+            <fieldset>
+                <legend>Thông tin khách hàng</legend>
+
+                <label for="fullname">Họ và tên:</label>
+                <input 
+                    type="text" 
+                    id="fullname" 
+                    name="fullname"
+                    placeholder="Nhập họ và tên"
+                    required
+                >
+                <br><br>
+
+
+                <label for="phone">Số điện thoại:</label>
+                <input 
+                    type="tel" 
+                    id="phone" 
+                    name="phone"
+                    placeholder="Nhập số điện thoại"
+                    required
+                >
+                <br><br>
+
+
+                <label for="email">Email:</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email"
+                    placeholder="Nhập email"
+                >
+            </fieldset>
+
+
+            <br>
+
+
+            <!-- Thông tin đặt bàn -->
+            <fieldset>
+                <legend>Thông tin đặt bàn</legend>
+
+                <label for="date">Ngày đặt:</label>
+                <input 
+                    type="date" 
+                    id="date" 
+                    name="date"
+                    required
+                >
+                <br><br>
+
+
+                <label for="time">Giờ đặt:</label>
+                <input 
+                    type="time" 
+                    id="time" 
+                    name="time"
+                    required
+                >
+                <br><br>
+
+
+                <label for="guests">Số người:</label>
+                <input 
+                    type="number" 
+                    id="guests" 
+                    name="guests"
+                    min="1"
+                    max="20"
+                    value="2"
+                    required
+                >
+                <br><br>
+
+
+                <label for="area">Khu vực:</label>
+                <select id="area" name="area">
+                    <option value="">-- Chọn khu vực --</option>
+                    <option value="inside">Trong nhà</option>
+                    <option value="outside">Ngoài trời</option>
+                    <option value="private">Phòng riêng</option>
+                </select>
+                <br><br>
+
+
+                <label for="note">Ghi chú:</label>
+                <br>
+
+                <textarea 
+                    id="note" 
+                    name="note"
+                    rows="5"
+                    cols="40"
+                    placeholder="Ví dụ: Cần bàn gần cửa sổ..."
+                ></textarea>
+
+            </fieldset>
+
+
+            <br>
+
+
+            <!-- Nút -->
+            <button type="submit">Đặt bàn</button>
+            <button type="reset">Nhập lại</button>
+
+        </form>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 HAIDILAO. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
+
