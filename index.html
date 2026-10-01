@@ -56,9 +56,19 @@
               </a>
             </li>
             <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
-              <a class="btn btn-custom-outline btn-sm" href="login.html" title="Tài khoản">
-                <i class="fa-solid fa-user"></i>
-              </a>
+              <div id="guestBlock">
+                <a class="btn btn-custom-outline btn-sm" href="login.html" title="Đăng nhập">
+                  <i class="fa-solid fa-user me-1"></i> Đăng nhập
+                </a>
+              </div>
+              <div id="userBlock" style="display: none;" class="dropdown">
+                 <button class="btn btn-warning btn-sm dropdown-toggle fw-bold" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                   <i class="fa-solid fa-circle-user me-1"></i> <span id="userFullName">Tên User</span>
+                 </button>
+                 <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
+                    <li><a class="dropdown-item text-danger fw-bold" href="#" onclick="logout()"><i class="fa-solid fa-right-from-bracket me-2"></i>Đăng xuất</a></li>
+                 </ul>
+            </div>
             </li>
           </ul>
         </div>
