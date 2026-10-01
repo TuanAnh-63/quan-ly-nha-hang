@@ -1,4 +1,4 @@
-// 1. Hàm chuyển đổi qua lại giữa Tab Đăng nhập & Đăng ký
+// 1. Hàm chuyển đổi giữa Tab Đăng nhập & Đăng ký
 function switchTab(tabName) {
     const tabLogin = document.getElementById('tabLogin');
     const tabRegister = document.getElementById('tabRegister');
@@ -18,7 +18,7 @@ function switchTab(tabName) {
     }
 }
 
-// 2. Hàm Ẩn / Hiện Mật khẩu khi bấm vào icon Con mắt
+// 2. Hàm Ẩn / Hiện Mật khẩu
 function togglePassword(inputId, iconElement) {
     const input = document.getElementById(inputId);
     
@@ -33,7 +33,7 @@ function togglePassword(inputId, iconElement) {
     }
 }
 
-// 3. Xử lý ĐĂNG NHẬP & Bắt lỗi / Kiểm tra tài khoản
+// 3. Xử lý ĐĂNG NHẬP
 document.getElementById('loginForm').addEventListener('submit', function (e) {
     e.preventDefault();
 
@@ -45,14 +45,12 @@ document.getElementById('loginForm').addEventListener('submit', function (e) {
     const globalError = document.getElementById('loginGlobalError');
     const globalErrorText = document.getElementById('loginGlobalErrorText');
 
-    // Reset thông báo lỗi cũ
     emailError.innerText = '';
     passError.innerText = '';
     globalError.classList.add('hidden');
 
     let isValid = true;
 
-    // Validate rỗng
     if (emailInput === '') {
         emailError.innerText = 'Vui lòng nhập Email hoặc Số điện thoại!';
         isValid = false;
@@ -65,21 +63,20 @@ document.getElementById('loginForm').addEventListener('submit', function (e) {
 
     if (!isValid) return;
 
-    // Giả lập kiểm tra Tài khoản & Mật khẩu đúng/sai
-    if (emailInput === 'admin@restaurant.com' && passInput === 'Admin123@') {
+    // Giả lập kiểm tra tài khoản
+    if (emailInput === 'admin@restaurant.com' && passInput === 'Admin123') {
         alert('Đăng nhập thành công với quyền Admin!');
-        window.location.href = 'admin.html'; // Chuyển sang trang Admin
-    } else if (emailInput === 'user@gmail.com' && passInput === 'User123@') {
-        alert('Đăng nhập thành công với quyền Khách hàng!');
-        window.location.href = 'index.html'; // Chuyển sang trang chủ
+        window.location.href = 'admin.html';
+    } else if (emailInput === 'user@gmail.com' && passInput === 'User1234') {
+        alert('Đăng nhập thành công!');
+        window.location.href = 'index.html';
     } else {
-        // Thông báo lỗi khi nhập SAI thông tin (giống Facebook / Game Liên Quân)
         globalErrorText.innerText = 'Tài khoản hoặc mật khẩu không chính xác. Vui lòng thử lại!';
         globalError.classList.remove('hidden');
     }
 });
 
-// 4. Xử lý ĐĂNG KÝ & Bắt lỗi dữ liệu
+// 4. Xử lý ĐĂNG KÝ
 document.getElementById('registerForm').addEventListener('submit', function (e) {
     e.preventDefault();
 
@@ -98,7 +95,7 @@ document.getElementById('registerForm').addEventListener('submit', function (e) 
         document.getElementById('regNameError').innerText = '';
     }
 
-    // Validate Email bằng Regex
+    // Validate Email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (email === '') {
         document.getElementById('regEmailError').innerText = 'Email không được để trống!';
@@ -110,12 +107,13 @@ document.getElementById('registerForm').addEventListener('submit', function (e) 
         document.getElementById('regEmailError').innerText = '';
     }
 
-    // Validate Mật khẩu
+    // Validate Mật khẩu (Quy định: Ít nhất 8 ký tự, gồm cả chữ và số)
+    const passRegex = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
     if (password === '') {
         document.getElementById('regPasswordError').innerText = 'Mật khẩu không được để trống!';
         isValid = false;
-    } else if (password.length < 6) {
-        document.getElementById('regPasswordError').innerText = 'Mật khẩu phải có ít nhất 6 ký tự!';
+    } else if (!passRegex.test(password)) {
+        document.getElementById('regPasswordError').innerText = 'Mật khẩu phải từ 8 ký tự trở lên, bao gồm cả chữ và số!';
         isValid = false;
     } else {
         document.getElementById('regPasswordError').innerText = '';
@@ -132,8 +130,10 @@ document.getElementById('registerForm').addEventListener('submit', function (e) 
         document.getElementById('regConfirmPasswordError').innerText = '';
     }
 
+    // Đăng ký thành công -> Chuyển sang trang Đăng nhập
     if (isValid) {
-        alert('Tạo tài khoản thành công! Hãy đăng nhập ngay.');
-        switchTab('login'); // Tự chuyển qua tab Đăng nhập
+        alert('Tạo tài khoản thành công! Bạn có thể đăng nhập ngay bây giờ.');
+        document.getElementById('registerForm').reset();
+        switchTab('login'); // Chuyển sang tab đăng nhập
     }
 });
