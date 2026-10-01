@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quên Mật Khẩu - Nhà Hàng</title>
+    <!-- Font Awesome dùng cho Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css_login.css">
+</head>
+<body>
+    <div class="auth-wrapper" style="padding: 30px 25px;">
+        <h2 style="text-align: center; margin-bottom: 15px;">Khôi Phục Mật Khẩu</h2>
+        <p style="font-size: 14px; color: #6c757d; text-align: center; margin-bottom: 20px;">
+            Nhập email đăng ký của bạn. Hệ thống sẽ gửi liên kết đặt lại mật khẩu qua email.
+        </p>
+
+        <form id="forgotForm" onsubmit="event.preventDefault(); alert('Yêu cầu đã được gửi! Vui lòng kiểm tra hộp thư email của bạn.'); window.location.href='login.html';">
+            <div class="form-group">
+                <label for="forgotEmail">Email khôi phục <span class="required-star">*</span></label>
+                <div class="input-box">
+                    <i class="fa-solid fa-envelope icon"></i>
+                    <input type="email" id="forgotEmail" placeholder="Nhập email của bạn..." required autocomplete="email">
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit" style="margin-top: 10px;">GỬI YÊU CẦU</button>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="login.html" class="forgot-pass"><i class="fa-solid fa-arrow-left"></i> Quay lại Đăng nhập</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
