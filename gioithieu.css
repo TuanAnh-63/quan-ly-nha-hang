@@ -1,0 +1,85 @@
+/* =====================================================================
+   gioithieu.css - Style riêng cho trang giới thiệu (gioithieu.html)
+   Nạp SAU style-base.css và index.css:
+     <link rel="stylesheet" href="style-base.css">
+     <link rel="stylesheet" href="index.css">
+     <link rel="stylesheet" href="gioithieu.css">
+   Chỉ dùng biến trong :root của style-base.css, không viết mã màu trực tiếp.
+   Các section trong <main id="main-content"> theo thứ tự:
+     1 = banner tiêu đề | 2 = câu chuyện | 3 = 4 cam kết | 4 = số liệu | 5 = kêu gọi liên hệ
+   ===================================================================== */
+
+/* ---------- 1. Banner tiêu đề ---------- */
+#main-content > section:nth-of-type(1) {
+  min-height: clamp(220px, 32vw, 340px);
+  display: flex; align-items: center;
+}
+#main-content > section:nth-of-type(1) h1 {
+  letter-spacing: .02em;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, .45);
+}
+#main-content > section:nth-of-type(1) .lead { font-weight: 300; }
+
+/* ---------- 2. Dòng nhỏ phía trên tiêu đề (eyebrow) ----------
+   Chữ vàng trên nền trắng/xám nhạt khó đọc -> đổi sang đỏ thương hiệu.
+   Trên nền tối vẫn giữ vàng. */
+#main-content section.bg-white .text-warning.text-uppercase,
+#main-content section.bg-light .text-warning.text-uppercase {
+  color: var(--brand) !important;
+}
+
+/* ---------- 3. Tiêu đề và đoạn văn trong section sáng ---------- */
+#main-content section.bg-white h2,
+#main-content section.bg-light h2 { color: var(--ink); line-height: 1.25; }
+#main-content section.bg-white .text-muted,
+#main-content section.bg-light .text-muted { color: var(--ink-soft) !important; }
+#main-content section.bg-white p strong { color: var(--brand); font-weight: 700; }
+
+/* ---------- 4. Khối ảnh câu chuyện ---------- */
+#main-content section.bg-white img.rounded-4 {
+  box-shadow: var(--shadow-md) !important;
+  transition: transform .4s;
+}
+#main-content section.bg-white img.rounded-4:hover { transform: scale(1.02); }
+
+/* ---------- 5. Nền section xen kẽ ---------- */
+#main-content section.bg-light { background-color: var(--surface-alt) !important; }
+
+/* ---------- 6. Thẻ cam kết (4 ô) ---------- */
+#main-content section.bg-light .card.rounded-4 {
+  border-top: 3px solid var(--accent) !important;
+  background: var(--surface);
+}
+#main-content section.bg-light .card.rounded-4 h3 {
+  font-family: var(--font-heading); color: var(--ink);
+}
+#main-content section.bg-light .card.rounded-4 .icon-box {
+  transition: background-color .25s, color .25s;
+}
+#main-content section.bg-light .card.rounded-4:hover .icon-box {
+  background: var(--brand) !important; color: #fff !important;
+}
+
+/* ---------- 7. Số liệu (nền tối, không phải banner) ---------- */
+#main-content section.bg-dark.text-white:not(.position-relative) {
+  background-color: var(--dark) !important;
+}
+#main-content section.bg-dark.text-white:not(.position-relative) h3 {
+  color: var(--accent) !important;
+}
+@media (min-width: 768px) {
+  #main-content section.bg-dark.text-white:not(.position-relative) .col-md-3 + .col-md-3 {
+    border-left: 1px solid rgba(255, 255, 255, .14);
+  }
+}
+
+/* ---------- 8. Kêu gọi liên hệ (nền vàng) ---------- */
+#main-content section.bg-warning { background-color: var(--accent) !important; }
+#main-content section.bg-warning h2 { color: var(--dark); }
+#main-content section.bg-warning .btn-dark:hover { background: var(--brand); border-color: var(--brand); }
+
+/* ---------- 9. Mobile ---------- */
+@media (max-width: 575.98px) {
+  #main-content > section:nth-of-type(1) h1 { font-size: 2rem; }
+  #main-content section.bg-white .d-flex.gap-3 { flex-wrap: wrap; }
+}

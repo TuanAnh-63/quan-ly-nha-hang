@@ -1,0 +1,49 @@
+/* =====================================================================
+   index.css - Style riêng cho trang chủ (index.html) + giới thiệu (gioithieu.html)
+   Các class dùng chung (header, footer, nút) nằm ở style-base.css
+   ===================================================================== */
+
+/* ---------- Banner carousel ---------- */
+#mainBanner { background: var(--dark); }
+.banner-img { height: clamp(260px, 52vw, 560px); object-fit: cover; filter: brightness(.82); }
+#mainBanner .carousel-caption { bottom: 12%; left: 8%; right: 8%; border: 1px solid rgba(255, 193, 7, .35); }
+#mainBanner .carousel-caption h1,
+#mainBanner .carousel-caption h2 { font-size: clamp(1.4rem, 3.2vw, 2.4rem); margin-bottom: .6rem; }
+#mainBanner .carousel-indicators [data-bs-target] { background-color: var(--accent); }
+
+/* ---------- Dải khuyến mãi ---------- */
+.promo-strip { background: #fff3cd; border-bottom: 1px solid #ffe69c; }
+
+/* ---------- Khối giới thiệu ngắn ---------- */
+.about-image-wrapper { padding-bottom: 1.5rem; }
+.main-img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.experience-badge { right: -8px; bottom: 0; max-width: 90%; border-left: 4px solid var(--accent); }
+@media (max-width: 575.98px) { .experience-badge { right: 8px; } }
+
+.icon-box {
+  width: 56px; height: 56px; flex: 0 0 56px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(255, 193, 7, .18) !important; color: #b58100 !important;
+}
+
+/* ---------- Thẻ món nổi bật ---------- */
+.dish-card { border-radius: var(--radius-lg); transition: transform .25s, box-shadow .25s; }
+.dish-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md) !important; }
+.dish-img-container { overflow: hidden; }
+.dish-img-container img { width: 100%; height: 230px; object-fit: cover; transition: transform .5s; }
+.dish-card:hover .dish-img-container img { transform: scale(1.06); }
+.dish-card .card-title { font-family: var(--font-heading); }
+.dish-card .card-body .text-warning { color: var(--brand) !important; }   /* giá: đỏ cho dễ đọc trên nền trắng */
+
+/* ---------- Section tối & nền vàng ---------- */
+.bg-warning .btn-dark { background: var(--dark); border-color: var(--dark); }
+.bg-warning .btn-outline-dark:hover { background: var(--dark); color: #fff; }
+
+/* ---------- gioithieu.html: ô cam kết ---------- */
+.card.rounded-4 { transition: transform .25s, box-shadow .25s; }
+.card.rounded-4:hover { transform: translateY(-4px); box-shadow: var(--shadow-md) !important; }
+
+/* ---------- Khoảng cách section trên mobile ---------- */
+@media (max-width: 575.98px) {
+  section.py-5 { padding-top: 2.5rem !important; padding-bottom: 2.5rem !important; }
+}
