@@ -6,30 +6,58 @@
     <title>Quên Mật Khẩu - Nhà Hàng</title>
     <!-- Font Awesome dùng cho Icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Đã sửa đúng đường dẫn CSS -->
     <link rel="stylesheet" href="css_login.css">
 </head>
 <body>
-    <div class="auth-wrapper" style="padding: 30px 25px;">
-        <h2 style="text-align: center; margin-bottom: 15px;">Khôi Phục Mật Khẩu</h2>
-        <p style="font-size: 14px; color: #6c757d; text-align: center; margin-bottom: 20px;">
-            Nhập email đăng ký của bạn. Hệ thống sẽ gửi liên kết đặt lại mật khẩu qua email.
+    <div class="auth-wrapper">
+        <h2 style="text-align: center; margin-bottom: 12px; color: var(--primary-dark);">Khôi Phục Mật Khẩu</h2>
+        <p style="font-size: 14px; color: var(--text-muted); text-align: center; margin-bottom: 22px; line-height: 1.5;">
+            Nhập email đã đăng ký tài khoản. Hệ thống sẽ gửi liên kết đặt lại mật khẩu cho bạn.
         </p>
 
-        <form id="forgotForm" onsubmit="event.preventDefault(); alert('Yêu cầu đã được gửi! Vui lòng kiểm tra hộp thư email của bạn.'); window.location.href='login.html';">
+        <form id="forgotForm" novalidate>
             <div class="form-group">
                 <label for="forgotEmail">Email khôi phục <span class="required-star">*</span></label>
                 <div class="input-box">
                     <i class="fa-solid fa-envelope icon"></i>
                     <input type="email" id="forgotEmail" placeholder="Nhập email của bạn..." required autocomplete="email">
                 </div>
+                <small class="error-text" id="forgotEmailError"></small>
             </div>
 
             <button type="submit" class="btn-submit" style="margin-top: 10px;">GỬI YÊU CẦU</button>
             
             <div style="text-align: center; margin-top: 20px;">
-                <a href="login.html" class="forgot-pass"><i class="fa-solid fa-arrow-left"></i> Quay lại Đăng nhập</a>
+                <a href="html_login.html" class="forgot-pass">
+                    <i class="fa-solid fa-arrow-left"></i> Quay lại Đăng nhập
+                </a>
             </div>
         </form>
     </div>
+
+    <!-- Script xử lý gửi yêu cầu -->
+    <script>
+        document.getElementById('forgotForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const emailInput = document.getElementById('forgotEmail').value.trim();
+            const emailError = document.getElementById('forgotEmailError');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (emailInput === '') {
+                emailError.innerText = 'Vui lòng nhập Email!';
+                return;
+            }
+
+            if (!emailRegex.test(emailInput)) {
+                emailError.innerText = 'Định dạng Email không hợp lệ!';
+                return;
+            }
+
+            emailError.innerText = '';
+            alert('Yêu cầu khôi phục mật khẩu đã được gửi đến: ' + emailInput + '\nVui lòng kiểm tra hộp thư email của bạn!');
+            window.location.href = 'html_login.html';
+        });
+    </script>
 </body>
 </html>
