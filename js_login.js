@@ -1,139 +1,136 @@
-// 1. Hàm chuyển đổi giữa Tab Đăng nhập & Đăng ký
-function switchTab(tabName) {
-    const tabLogin = document.getElementById('tabLogin');
-    const tabRegister = document.getElementById('tabRegister');
-    const loginForm = document.getElementById('loginForm');
+// JS LOGIN & REGISTER - XỬ LÝ LƯU LOCALSTORAGE & ADMIN
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    // 1. Hàm chuyển Tab Đăng Nhập / Đăng Ký
+    window.switchTab = function (tabName) {
+        const loginFormContainer = document.getElementById('loginFormContainer');
+        const registerFormContainer = document.getElementById('registerFormContainer');
+        const tabLoginBtn = document.getElementById('tabLoginBtn');
+        const tabRegisterBtn = document.getElementById('tabRegisterBtn');
+        const loginError = document.getElementById('loginError');
+        const registerMsg = document.getElementById('registerMsg');
+
+        if (loginError) loginError.style.display = 'none';
+        if (registerMsg) registerMsg.style.display = 'none';
+
+        if (tabName === 'login') {
+            loginFormContainer.style.display = 'block';
+            registerFormContainer.style.display = 'none';
+            if (tabLoginBtn) tabLoginBtn.classList.add('active');
+            if (tabRegisterBtn) tabRegisterBtn.classList.remove('active');
+        } else {
+            loginFormContainer.style.display = 'none';
+            registerFormContainer.style.display = 'block';
+            if (tabLoginBtn) tabLoginBtn.classList.remove('active');
+            if (tabRegisterBtn) tabRegisterBtn.classList.add('active');
+        }
+    };
+
+    // 2. Xử lý nút ẩn/hiện mật khẩu (Con mắt)
+    const togglePasswordIcons = document.querySelectorAll('.toggle-password');
+    togglePasswordIcons.forEach(icon => {
+        icon.addEventListener('click', function () {
+            const input = this.parentElement.querySelector('input');
+            if (input.type === 'password') {
+                input.type = 'text';
+                this.classList.remove('fa-eye');
+                this.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                this.classList.remove('fa-eye-slash');
+                this.classList.add('fa-eye');
+            }
+        });
+    });
+
+    // 3. Xử lý ĐĂNG KÝ
     const registerForm = document.getElementById('registerForm');
+    if (registerForm) {
+        registerForm.addEventListener('submit', function (e) {
+            e.preventDefault();
 
-    if (tabName === 'login') {
-        tabLogin.classList.add('active');
-        tabRegister.classList.remove('active');
-        loginForm.classList.add('active');
-        registerForm.classList.remove('active');
-    } else {
-        tabRegister.classList.add('active');
-        tabLogin.classList.remove('active');
-        registerForm.classList.add('active');
-        loginForm.classList.remove('active');
-    }
-}
+            const fullName = document.getElementById('regFullName').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const confirmPassword = document.getElementById('regConfirmPassword').value;
+            const registerMsg = document.getElementById('registerMsg');
 
-// 2. Hàm Ẩn / Hiện Mật khẩu
-function togglePassword(inputId, iconElement) {
-    const input = document.getElementById(inputId);
-    
-    if (input.type === 'password') {
-        input.type = 'text';
-        iconElement.classList.remove('fa-eye-slash');
-        iconElement.classList.add('fa-eye');
-    } else {
-        input.type = 'password';
-        iconElement.classList.remove('fa-eye');
-        iconElement.classList.add('fa-eye-slash');
-    }
-}
+            if (password !== confirmPassword) {
+                showMsg(registerMsg, 'Mật khẩu xác nhận không khớp!', 'error');
+                return;
+            }
 
-// 3. Xử lý ĐĂNG NHẬP
-document.getElementById('loginForm').addEventListener('submit', function (e) {
-    e.preventDefault();
+            let users = JSON.parse(localStorage.getItem('users')) || [];
 
-    const emailInput = document.getElementById('loginEmail').value.trim();
-    const passInput = document.getElementById('loginPassword').value.trim();
+            const isExist = users.some(u => u.email.toLowerCase() === email.toLowerCase());
+            if (isExist) {
+                showMsg(registerMsg, 'Email này đã được đăng ký!', 'error');
+                return;
+            }
 
-    const emailError = document.getElementById('loginEmailError');
-    const passError = document.getElementById('loginPasswordError');
-    const globalError = document.getElementById('loginGlobalError');
-    const globalErrorText = document.getElementById('loginGlobalErrorText');
+            const newUser = {
+                fullName: fullName,
+                email: email,
+                password: password,
+                role: 'admin'
+            };
 
-    emailError.innerText = '';
-    passError.innerText = '';
-    globalError.classList.add('hidden');
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
 
-    let isValid = true;
+            showMsg(registerMsg, 'Đăng ký thành công! Đang chuyển sang Đăng nhập...', 'success');
+            registerForm.reset();
 
-    if (emailInput === '') {
-        emailError.innerText = 'Vui lòng nhập Email hoặc Số điện thoại!';
-        isValid = false;
+            setTimeout(() => {
+                switchTab('login');
+                document.getElementById('loginEmail').value = email;
+            }, 1200);
+        });
     }
 
-    if (passInput === '') {
-        passError.innerText = 'Vui lòng nhập Mật khẩu!';
-        isValid = false;
+    // 4. Xử lý ĐĂNG NHẬP
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const emailInput = document.getElementById('loginEmail').value.trim();
+            const passwordInput = document.getElementById('loginPassword').value;
+            const loginError = document.getElementById('loginError');
+
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+
+            const foundUser = users.find(u => 
+                (u.email.toLowerCase() === emailInput.toLowerCase() || u.phone === emailInput) && 
+                u.password === passwordInput
+            );
+
+            if (foundUser) {
+                localStorage.setItem('currentUser', JSON.stringify(foundUser));
+
+                showMsg(loginError, 'Đăng nhập thành công! Đang chuyển hướng...', 'success');
+
+                setTimeout(() => {
+                    window.location.href = 'html_admin.html';
+                }, 800);
+            } else {
+                showMsg(loginError, 'Tài khoản hoặc mật khẩu không chính xác!', 'error');
+            }
+        });
     }
 
-    if (!isValid) return;
-
-    // Giả lập kiểm tra tài khoản
-    if (emailInput === 'admin@restaurant.com' && passInput === 'Admin123') {
-        alert('Đăng nhập thành công với quyền Admin!');
-        window.location.href = 'admin.html';
-    } else if (emailInput === 'user@gmail.com' && passInput === 'User1234') {
-        alert('Đăng nhập thành công!');
-        window.location.href = 'index.html';
-    } else {
-        globalErrorText.innerText = 'Tài khoản hoặc mật khẩu không chính xác. Vui lòng thử lại!';
-        globalError.classList.remove('hidden');
-    }
-});
-
-// 4. Xử lý ĐĂNG KÝ
-document.getElementById('registerForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    const name = document.getElementById('regName').value.trim();
-    const email = document.getElementById('regEmail').value.trim();
-    const password = document.getElementById('regPassword').value.trim();
-    const confirmPassword = document.getElementById('regConfirmPassword').value.trim();
-
-    let isValid = true;
-
-    // Validate Tên
-    if (name === '') {
-        document.getElementById('regNameError').innerText = 'Họ và tên không được để trống!';
-        isValid = false;
-    } else {
-        document.getElementById('regNameError').innerText = '';
-    }
-
-    // Validate Email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (email === '') {
-        document.getElementById('regEmailError').innerText = 'Email không được để trống!';
-        isValid = false;
-    } else if (!emailRegex.test(email)) {
-        document.getElementById('regEmailError').innerText = 'Định dạng Email không hợp lệ!';
-        isValid = false;
-    } else {
-        document.getElementById('regEmailError').innerText = '';
-    }
-
-    // Validate Mật khẩu (Quy định: Ít nhất 8 ký tự, gồm cả chữ và số)
-    const passRegex = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
-    if (password === '') {
-        document.getElementById('regPasswordError').innerText = 'Mật khẩu không được để trống!';
-        isValid = false;
-    } else if (!passRegex.test(password)) {
-        document.getElementById('regPasswordError').innerText = 'Mật khẩu phải từ 8 ký tự trở lên, bao gồm cả chữ và số!';
-        isValid = false;
-    } else {
-        document.getElementById('regPasswordError').innerText = '';
-    }
-
-    // Validate Mật khẩu xác nhận
-    if (confirmPassword === '') {
-        document.getElementById('regConfirmPasswordError').innerText = 'Vui lòng xác nhận mật khẩu!';
-        isValid = false;
-    } else if (confirmPassword !== password) {
-        document.getElementById('regConfirmPasswordError').innerText = 'Mật khẩu xác nhận không khớp!';
-        isValid = false;
-    } else {
-        document.getElementById('regConfirmPasswordError').innerText = '';
-    }
-
-    // Đăng ký thành công -> Chuyển sang trang Đăng nhập
-    if (isValid) {
-        alert('Tạo tài khoản thành công! Bạn có thể đăng nhập ngay bây giờ.');
-        document.getElementById('registerForm').reset();
-        switchTab('login'); // Chuyển sang tab đăng nhập
+    // Hàm hiển thị thông báo
+    function showMsg(element, text, type) {
+        if (!element) return;
+        element.style.display = 'block';
+        element.textContent = text;
+        if (type === 'error') {
+            element.style.color = '#721c24';
+            element.style.backgroundColor = '#f8d7da';
+        } else {
+            element.style.color = '#155724';
+            element.style.backgroundColor = '#d4edda';
+        }
     }
 });
