@@ -1,92 +1,132 @@
+/* THEME MÀU NỒI LẨU (ĐỎ - CAM - VÀNG) - LOGIN & REGISTER */
+:root {
+    --primary-color: #e63946;     
+    --primary-dark: #c1121f;      
+    --accent-orange: #f77f00;     
+    --accent-yellow: #fcbf49;     
+    --bg-gradient: linear-gradient(135deg, #1a0f0f 0%, #2b110c 50%, #1a0806 100%); 
+    --card-bg: rgba(255, 255, 255, 0.96);
+    --text-color: #2b2d42;
+    --text-muted: #6c757d;
+    --border-color: #ffe5d9;
+    --focus-shadow: rgba(247, 127, 0, 0.25);
+    --error-color: #d62828;
+}
+
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    background: linear-gradient(135deg, #1e1e2f 0%, #2a2a40 100%);
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    background: var(--bg-gradient);
     padding: 20px;
+    position: relative;
+    overflow-x: hidden;
 }
 
+
+body::before {
+    content: '';
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(247,127,0,0.35) 0%, rgba(230,57,70,0) 70%);
+    top: 10%;
+    left: 15%;
+    border-radius: 50%;
+    filter: blur(50px);
+    z-index: 0;
+}
+
+body::after {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(252,191,73,0.3) 0%, rgba(230,57,70,0) 70%);
+    bottom: 10%;
+    right: 15%;
+    border-radius: 50%;
+    filter: blur(50px);
+    z-index: 0;
+}
+
+/* --- KHUNG FORM CHÍNH (CARD) --- */
 .auth-wrapper {
-    background: #ffffff;
+    position: relative;
+    z-index: 1;
     width: 100%;
     max-width: 440px;
-    border-radius: 12px;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
-    overflow: hidden;
+    background: var(--card-bg);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 
+                0 0 15px rgba(247, 127, 0, 0.2);
+    padding: 35px 30px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(252, 191, 73, 0.3);
 }
 
-/* Tab Đăng nhập / Đăng ký */
+/* TAB CHUYỂN ĐỔI (ĐĂNG NHẬP / ĐĂNG KÝ)  */
 .auth-header {
     display: flex;
-    background: #f1f3f5;
-    border-bottom: 2px solid #e9ecef;
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 5px;
+    margin-bottom: 25px;
+    border: 1px solid var(--border-color);
 }
 
 .tab-btn {
     flex: 1;
-    padding: 15px;
+    padding: 12px;
     border: none;
     background: transparent;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
-    color: #6c757d;
+    color: var(--text-muted);
+    border-radius: 9px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .tab-btn.active {
-    background: #ffffff;
-    color: #d9534f;
-    border-bottom: 3px solid #d9534f;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-orange));
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(230, 57, 70, 0.3);
 }
 
-/* Form Styling */
+/* --- NỘI DUNG FORM --- */
 .auth-form {
     display: none;
-    padding: 30px 25px;
 }
 
 .auth-form.active {
     display: block;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .auth-form h2 {
-    font-size: 22px;
-    color: #333;
-    margin-bottom: 20px;
+    color: var(--primary-dark);
+    font-size: 24px;
+    font-weight: 700;
     text-align: center;
+    margin-bottom: 22px;
+    letter-spacing: -0.5px;
 }
 
-/* Alert Box */
-.alert-box {
-    padding: 12px 15px;
-    border-radius: 6px;
-    font-size: 14px;
-    margin-bottom: 18px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.alert-box.danger {
-    background-color: #f8d7da;
-    color: #842029;
-    border: 1px solid #f5c2c7;
-}
-
-.hidden {
-    display: none !important;
-}
-
-/* Form Group & Input Box */
+/* CÁC Ô NHẬP LIỆU (INPUT GROUPS) */
 .form-group {
     margin-bottom: 18px;
 }
@@ -95,8 +135,14 @@ body {
     display: block;
     font-size: 14px;
     font-weight: 600;
-    color: #495057;
+    color: var(--text-color);
     margin-bottom: 6px;
+}
+
+.required-star {
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-left: 2px;
 }
 
 .input-box {
@@ -107,97 +153,136 @@ body {
 
 .input-box .icon {
     position: absolute;
-    left: 12px;
-    color: #6c757d;
+    left: 14px;
+    color: var(--accent-orange);
+    font-size: 16px;
+    transition: color 0.3s;
 }
 
 .input-box input {
     width: 100%;
-    padding: 12px 40px 12px 38px;
-    border: 1px solid #ced4da;
-    border-radius: 6px;
+    padding: 12px 40px 12px 42px;
     font-size: 14px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
     outline: none;
-    transition: border-color 0.2s;
+    background-color: #ffffff;
+    color: var(--text-color);
+    transition: all 0.3s ease;
 }
 
 .input-box input:focus {
-    border-color: #d9534f;
+    border-color: var(--accent-orange);
+    box-shadow: 0 0 0 4px var(--focus-shadow);
 }
 
-/* Nút ẩn/hiện mật khẩu */
+.input-box input:focus + .icon,
+.input-box input:focus ~ .icon {
+    color: var(--primary-color);
+}
+
 .toggle-password {
     position: absolute;
-    right: 12px;
-    color: #6c757d;
+    right: 14px;
+    color: #a0aec0;
     cursor: pointer;
-    padding: 5px;
-    user-select: none;
+    font-size: 16px;
+    transition: color 0.3s;
 }
 
 .toggle-password:hover {
-    color: #333;
+    color: var(--accent-orange);
 }
 
+/* Thông báo lỗi nhỏ dưới input */
 .error-text {
-    color: #dc3545;
-    font-size: 12px;
-    margin-top: 4px;
     display: block;
+    color: var(--error-color);
+    font-size: 12px;
+    margin-top: 5px;
+    min-height: 16px;
 }
 
-/* Bổ sung link & checkbox */
+/*  THÔNG BÁO LỖI CHUNG (ALERT BOX)  */
+.alert-box {
+    padding: 12px 15px;
+    border-radius: 10px;
+    font-size: 13.5px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.alert-box.danger {
+    background-color: #ffe5e5;
+    border: 1px solid #ffb3b3;
+    color: var(--primary-dark);
+}
+
+.alert-box.hidden {
+    display: none;
+}
+
+/*  GHI NHỚ & QUÊN MẬT KHẨU  */
 .form-actions {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 13px;
-    margin-bottom: 20px;
+    font-size: 13.5px;
+    margin-bottom: 22px;
 }
 
 .remember-me {
-    color: #495057;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.remember-me input[type="checkbox"] {
+    accent-color: var(--primary-color);
+    width: 16px;
+    height: 16px;
     cursor: pointer;
 }
 
 .forgot-pass {
-    color: #0d6efd;
+    color: var(--primary-color);
     text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
 }
 
 .forgot-pass:hover {
+    color: var(--accent-orange);
     text-decoration: underline;
 }
 
-/* Submit Button */
+/*  NÚT SUBMIT (GỬI FORM) */
 .btn-submit {
     width: 100%;
     padding: 13px;
-    background-color: #d9534f;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-orange) 50%, var(--accent-yellow) 100%);
+    background-size: 200% auto;
+    color: #ffffff;
     border: none;
-    border-radius: 6px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.4s ease;
+    box-shadow: 0 5px 15px rgba(230, 57, 70, 0.35);
 }
 
 .btn-submit:hover {
-    background-color: #c9302c;
+    background-position: right center;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(247, 127, 0, 0.45);
 }
 
-/* Demo box */
-.demo-info {
-    margin-top: 20px;
-    padding: 10px;
-    background: #f8f9fa;
-    border-left: 4px solid #17a2b8;
-    font-size: 12px;
-    color: #6c757d;
-}
-
-.demo-info code {
-    color: #d63384;
-    font-weight: bold;
+.btn-submit:active {
+    transform: translateY(0);
 }
