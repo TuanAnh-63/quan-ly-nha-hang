@@ -1,8 +1,26 @@
-// JS LOGIN & REGISTER - XỬ LÝ LƯU LOCALSTORAGE & ADMIN
+// HÀM HASH MẬT KHẨU SHA-256
+async function hashPassword(password) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+// HÀM ĐỌC USERS AN TOÀN TRÁNH CRASH
+function getUsers() {
+    try {
+        const users = localStorage.getItem('users');
+        return users ? JSON.parse(users) : [];
+    } catch (e) {
+        console.error("Lỗi đọc dữ liệu localStorage:", e);
+        return [];
+    }
+}
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    // 1. Hàm chuyển Tab Đăng Nhập / Đăng Ký
+    // 1. Chuyển Tab Đăng nhập / Đăng ký
     window.switchTab = function (tabName) {
         const loginFormContainer = document.getElementById('loginFormContainer');
         const registerFormContainer = document.getElementById('registerFormContainer');
@@ -27,9 +45,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 
-    // 2. Xử lý nút ẩn/hiện mật khẩu (Con mắt)
-    const togglePasswordIcons = document.querySelectorAll('.toggle-password');
-    togglePasswordIcons.forEach(icon => {
+    // 2. Ẩn/Hiện Mật khẩu
+    document.querySelectorAll('.toggle-password').forEach(icon => {
         icon.addEventListener('click', function () {
             const input = this.parentElement.querySelector('input');
             if (input.type === 'password') {
@@ -44,40 +61,50 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // 3. Xử lý ĐĂNG KÝ
+    // 3. XỬ LÝ ĐĂNG KÝ (Gán quyền admin để trực tiếp vào được trang quản trị)
     const registerForm = document.getElementById('registerForm');
     if (registerForm) {
-        registerForm.addEventListener('submit', function (e) {
+        registerForm.addEventListener('submit', async function (e) {
             e.preventDefault();
 
             const fullName = document.getElementById('regFullName').value.trim();
             const email = document.getElementById('regEmail').value.trim();
+            const phone = document.getElementById('regPhone') ? document.getElementById('regPhone').value.trim() : '';
             const password = document.getElementById('regPassword').value;
             const confirmPassword = document.getElementById('regConfirmPassword').value;
             const registerMsg = document.getElementById('registerMsg');
+
+            if (password.length < 6) {
+                showMsg(registerMsg, 'Mật khẩu phải từ 6 ký tự trở lên!', 'error');
+                return;
+            }
 
             if (password !== confirmPassword) {
                 showMsg(registerMsg, 'Mật khẩu xác nhận không khớp!', 'error');
                 return;
             }
 
-            let users = JSON.parse(localStorage.getItem('users')) || [];
+            let usersList = getUsers();
 
-            const isExist = users.some(u => u.email.toLowerCase() === email.toLowerCase());
+            const isExist = usersList.some(u => u.email.toLowerCase() === email.toLowerCase() || (phone && u.phone === phone));
             if (isExist) {
-                showMsg(registerMsg, 'Email này đã được đăng ký!', 'error');
+                showMsg(registerMsg, 'Email hoặc Số điện thoại này đã được đăng ký!', 'error');
                 return;
             }
 
+            const hashedPassword = await hashPassword(password);
+
+            // Gán role là 'admin' để truy cập vào trang admin
             const newUser = {
                 fullName: fullName,
                 email: email,
-                password: password,
+                phone: phone,
+                password: hashedPassword,
                 role: 'admin'
             };
 
-            users.push(newUser);
-            localStorage.setItem('users', JSON.stringify(users));
+            usersList.push(newUser);
+            localStorage.setItem('users', JSON.stringify(usersList));
 
             showMsg(registerMsg, 'Đăng ký thành công! Đang chuyển sang Đăng nhập...', 'success');
             registerForm.reset();
@@ -89,28 +116,38 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // 4. Xử lý ĐĂNG NHẬP
+    // 4. XỬ LÝ ĐĂNG NHẬP & CHUYỂN HƯỚNG TỚI HTML_ADMIN.HTML
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
-        loginForm.addEventListener('submit', function (e) {
+        loginForm.addEventListener('submit', async function (e) {
             e.preventDefault();
 
             const emailInput = document.getElementById('loginEmail').value.trim();
             const passwordInput = document.getElementById('loginPassword').value;
+            const rememberMe = document.getElementById('rememberMe') ? document.getElementById('rememberMe').checked : true;
             const loginError = document.getElementById('loginError');
 
-            let users = JSON.parse(localStorage.getItem('users')) || [];
+            let usersList = getUsers();
+            const hashedPasswordInput = await hashPassword(passwordInput);
 
-            const foundUser = users.find(u => 
+            const foundUser = usersList.find(u => 
                 (u.email.toLowerCase() === emailInput.toLowerCase() || u.phone === emailInput) && 
-                u.password === passwordInput
+                u.password === hashedPasswordInput
             );
 
             if (foundUser) {
-                localStorage.setItem('currentUser', JSON.stringify(foundUser));
+                const { password, ...safeUser } = foundUser;
 
-                showMsg(loginError, 'Đăng nhập thành công! Đang chuyển hướng...', 'success');
+                // Lưu thông tin người dùng hiện tại
+                if (rememberMe) {
+                    localStorage.setItem('currentUser', JSON.stringify(safeUser));
+                } else {
+                    sessionStorage.setItem('currentUser', JSON.stringify(safeUser));
+                }
 
+                showMsg(loginError, 'Đăng nhập thành công! Đang chuyển hướng sang Admin...', 'success');
+
+                // Chuyển hướng thẳng sang html_admin.html
                 setTimeout(() => {
                     window.location.href = 'html_admin.html';
                 }, 800);
@@ -120,7 +157,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Hàm hiển thị thông báo
     function showMsg(element, text, type) {
         if (!element) return;
         element.style.display = 'block';
