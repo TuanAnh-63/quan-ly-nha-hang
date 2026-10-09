@@ -4,14 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng Nhập & Đăng Ký - Nhà Hàng</title>
-    <!-- Font Awesome Icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css_login.css">
 </head>
 <body>
 
     <div class="auth-wrapper">
-        <!-- NÚT CHUYỂN TAB -->
         <div class="auth-tabs">
             <button class="tab-btn active" id="tabLoginBtn" onclick="switchTab('login')">Đăng Nhập</button>
             <button class="tab-btn" id="tabRegisterBtn" onclick="switchTab('register')">Đăng Ký</button>
@@ -20,8 +18,6 @@
         <!-- FORM ĐĂNG NHẬP -->
         <div class="auth-form" id="loginFormContainer">
             <h2 style="text-align: center; margin-bottom: 20px; color: #800f2f;">Đăng Nhập Tài Khoản</h2>
-            
-            <!-- Khung báo lỗi -->
             <div id="loginError" class="alert-error" style="display: none; color: #721c24; background-color: #f8d7da; padding: 10px; border-radius: 6px; margin-bottom: 15px; text-align: center; font-size: 13px;"></div>
 
             <form id="loginForm">
@@ -54,8 +50,6 @@
         <!-- FORM ĐĂNG KÝ -->
         <div class="auth-form" id="registerFormContainer" style="display: none;">
             <h2 style="text-align: center; margin-bottom: 20px; color: #800f2f;">Tạo Tài Khoản Mới</h2>
-
-            <!-- Khung báo lỗi/thành công đăng ký -->
             <div id="registerMsg" class="alert-msg" style="display: none; padding: 10px; border-radius: 6px; margin-bottom: 15px; text-align: center; font-size: 13px;"></div>
 
             <form id="registerForm">
@@ -75,11 +69,20 @@
                     </div>
                 </div>
 
+                <!-- Thêm ô SĐT vào form Đăng ký -->
+                <div class="form-group">
+                    <label>Số điện thoại <span class="required-star">*</span></label>
+                    <div class="input-box">
+                        <i class="fa-solid fa-phone icon"></i>
+                        <input type="tel" id="regPhone" placeholder="Nhập số điện thoại..." required>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label>Mật khẩu <span class="required-star">*</span></label>
                     <div class="input-box">
                         <i class="fa-solid fa-lock icon"></i>
-                        <input type="password" id="regPassword" placeholder="Tạo mật khẩu..." required autocomplete="new-password">
+                        <input type="password" id="regPassword" placeholder="Tạo mật khẩu (tối thiểu 6 ký tự)..." required autocomplete="new-password">
                         <i class="fa-solid fa-eye toggle-password"></i>
                     </div>
                 </div>
