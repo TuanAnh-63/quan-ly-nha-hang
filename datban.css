@@ -1,0 +1,453 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --gold: #e5ad00;
+    --gold-dark: #c99200;
+    --text: #222;
+    --muted: #777;
+    --border: #e5e5e5;
+    --page: #fafafa;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #fff;
+    color: var(--text);
+    line-height: 1.6;
+}
+
+a {
+    color: inherit;
+}
+
+/* =========================
+   HEADER
+========================= */
+.header {
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 0 8%;
+    background-color: #801818;
+    border-bottom: 1px solid #eee;
+}
+
+.logo a {
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    white-space: nowrap;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    font-weight: 600;
+    transition: color 0.25s ease;
+}
+
+.navbar a:hover,
+.navbar a.active {
+    color: var(--gold-dark);
+}
+
+/* =========================
+   PHẦN ĐẶT BÀN
+========================= */
+.booking-section {
+    padding: 70px 8% 90px;
+    background-color: var(--page);
+}
+
+.booking-title {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 32px;
+}
+
+.booking-title span {
+    color: #d99f00;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.booking-title h1 {
+    margin-top: 10px;
+    font-size: clamp(30px, 4vw, 40px);
+    line-height: 1.25;
+    color: var(--text);
+}
+
+.booking-title p {
+    margin-top: 14px;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+/* =========================
+   BANNER ƯU ĐÃI
+========================= */
+.promotion-banner {
+    max-width: 1100px;
+    margin: 0 auto 28px;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background: #fff8df;
+    border: 1px solid #f1d783;
+    border-left: 5px solid var(--gold);
+    border-radius: 8px;
+}
+
+.promotion-banner strong {
+    display: block;
+    color: #8a6500;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+.promotion-banner p {
+    margin-top: 3px;
+    color: #5f5435;
+    font-size: 14px;
+}
+
+.promotion-badge {
+    flex-shrink: 0;
+    padding: 8px 13px;
+    border-radius: 4px;
+    background: var(--gold);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+/* =========================
+   BỐ CỤC ẢNH VÀ FORM
+========================= */
+.booking-layout {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: stretch;
+    gap: 28px;
+}
+
+/* Ảnh nhà hàng */
+.booking-image {
+    position: relative;
+    min-height: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #ddd;
+}
+
+.booking-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 600px;
+    object-fit: cover;
+}
+
+/* Chữ nằm trên ảnh */
+.image-caption {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 48px 24px 24px;
+    color: #fff;
+    background: linear-gradient(
+        transparent,
+        rgba(0, 0, 0, 0.78)
+    );
+}
+
+.image-caption h2 {
+    font-size: 23px;
+    line-height: 1.3;
+}
+
+.image-caption p {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #f1f1f1;
+}
+
+/* =========================
+   FORM ĐẶT BÀN
+========================= */
+.booking-box {
+    min-width: 0;
+    padding: 36px;
+    background-color: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 8px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.06);
+}
+
+.booking-box h2 {
+    margin-bottom: 26px;
+    font-size: 24px;
+    color: var(--text);
+    text-align: center;
+}
+
+/* Hai ô nằm trên cùng một hàng */
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+/* Nhóm label và input */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Dấu sao bắt buộc */
+.required {
+    color: #d62828;
+    font-weight: 700;
+}
+
+/* Ô nhập liệu */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    min-width: 0;
+    padding: 12px 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+    background-color: #fff;
+    color: #222;
+    font-family: inherit;
+    font-size: 14px;
+    transition: border-color 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+/* Chiều cao ô input và select */
+.form-group input,
+.form-group select {
+    min-height: 46px;
+}
+
+/* Hiệu ứng khi chọn ô nhập */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(229, 173, 0, 0.13);
+}
+
+/* Ô ghi chú */
+.form-group textarea {
+    resize: vertical;
+    min-height: 115px;
+}
+
+/* =========================
+   NÚT ĐẶT BÀN
+========================= */
+.form-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 4px;
+}
+
+.form-button button {
+    min-width: 170px;
+    padding: 13px 30px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--gold);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.25s ease,
+                transform 0.25s ease;
+}
+
+.form-button button:hover {
+    background-color: var(--gold-dark);
+    transform: translateY(-2px);
+}
+
+/* Chú thích trường bắt buộc */
+.form-note {
+    margin-top: 15px;
+    color: var(--muted);
+    font-size: 12px;
+    text-align: center;
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+    background-color: #222;
+    color: #fff;
+    text-align: center;
+}
+
+.footer-content {
+    padding: 35px 20px;
+}
+
+.footer-content h2 {
+    color: var(--gold);
+    margin-bottom: 8px;
+}
+
+.footer-content p {
+    color: #ccc;
+    font-size: 14px;
+}
+
+.footer-bottom {
+    padding: 14px;
+    border-top: 1px solid #444;
+    color: #999;
+    font-size: 12px;
+}
+
+/* =========================
+   RESPONSIVE - TABLET
+========================= */
+@media (max-width: 900px) {
+    .header {
+        padding: 18px 5%;
+    }
+
+    .navbar {
+        gap: 20px;
+    }
+
+    .booking-section {
+        padding: 55px 5% 70px;
+    }
+
+    .booking-layout {
+        grid-template-columns: 1fr;
+        max-width: 700px;
+    }
+
+    .booking-image img {
+        height: 320px;
+        min-height: 320px;
+    }
+
+    .booking-box {
+        padding: 30px;
+    }
+}
+
+/* =========================
+   RESPONSIVE - ĐIỆN THOẠI
+========================= */
+@media (max-width: 600px) {
+    .header {
+        flex-direction: column;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .logo a {
+        font-size: 20px;
+    }
+
+    .navbar {
+        gap: 18px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .navbar a {
+        font-size: 13px;
+    }
+
+    .booking-section {
+        padding: 42px 4% 55px;
+    }
+
+    .booking-title {
+        margin-bottom: 25px;
+    }
+
+    .booking-title p {
+        font-size: 14px;
+    }
+
+    .promotion-banner {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 16px;
+    }
+
+    .booking-box {
+        padding: 22px 17px;
+    }
+
+    .booking-box h2 {
+        font-size: 21px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .booking-image img {
+        height: 260px;
+        min-height: 260px;
+    }
+
+    .image-caption {
+        padding: 38px 18px 18px;
+    }
+
+    .image-caption h2 {
+        font-size: 20px;
+    }
+
+    .form-button button {
+        width: 100%;
+    }
+}
+```
