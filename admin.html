@@ -4,15 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin F&B - Quản Lý Hệ Thống</title>
-    <!-- CSS Quản trị -->
     <link rel="stylesheet" href="css_admin.css">
-    <!-- FontAwesome Icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
     <div class="admin-container">
-        <!-- SIDEBAR MENU BÊN TRÁI -->
+        <!-- SIDEBAR -->
         <aside class="sidebar">
             <div class="logo">
                 <i class="fa-solid fa-utensils"></i>
@@ -25,6 +23,7 @@
                 <a href="javascript:void(0)" class="menu-item" id="menu-dishes" onclick="switchAdminTab('dishes', this)">
                     <i class="fa-solid fa-bowl-food"></i> Quản lý món ăn
                 </a>
+                
                 <a href="javascript:void(0)" class="menu-item" id="menu-tables" onclick="switchAdminTab('tables', this)">
                     <i class="fa-solid fa-chair"></i> Quản lý đặt bàn
                 </a>
@@ -37,9 +36,8 @@
             </div>
         </aside>
 
-        <!-- NỘI DUNG CHÍNH (MAIN CONTENT) -->
+        <!-- MAIN CONTENT -->
         <main class="main-content">
-            <!-- HEADER BÊN TRÊN -->
             <header class="top-header">
                 <h1 id="pageTitle">Tổng Quan Hệ Thống</h1>
                 <div class="user-profile">
@@ -48,38 +46,36 @@
                 </div>
             </header>
 
-            <!-- TAB 1: TỔNG QUAN (DASHBOARD) -->
+            <!-- TAB 1: TỔNG QUAN -->
             <section id="tab-dashboard" class="tab-content active">
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <h3>125</h3>
+                        <h3 id="statBookingsCount">0</h3>
                         <p>Đơn đặt bàn hôm nay</p>
                     </div>
                     <div class="stat-card">
-                        <h3>4</h3>
+                        <h3 id="statDishesCount">0</h3>
                         <p>Món ăn trong Menu</p>
                     </div>
                     <div class="stat-card">
-                        <h3>1,250</h3>
+                        <h3 id="statUsersCount">0</h3>
                         <p>Khách hàng đăng ký</p>
                     </div>
                     <div class="stat-card">
                         <h3>18.500.000đ</h3>
-                        <p>Doanh thu ngày</p>
+                        <p>Doanh thu ngày (Mẫu)</p>
                     </div>
                 </div>
 
-                <!-- BẢNG TỔNG QUAN NHANH -->
                 <div class="card" style="margin-top: 25px;">
                     <h3><i class="fa-solid fa-clock-rotate-left"></i> Hoạt Động Gần Đây</h3>
-                    <p style="color: #666; margin-top: 10px; font-size: 14px;">Hệ thống vừa ghi nhận 5 lượt đặt bàn mới và 2 tài khoản vừa khởi tạo thành công.</p>
+                    <p style="color: #666; margin-top: 10px; font-size: 14px;" id="statActivityText">Đang tải dữ liệu hoạt động...</p>
                 </div>
             </section>
 
-            <!-- TAB 2: QUẢN LÝ MÓN ĂN (DISHES) -->
+            <!-- TAB 2: QUẢN LÝ MÓN ĂN -->
             <section id="tab-dishes" class="tab-content" style="display: none;">
                 <div class="content-grid">
-                    <!-- BẢNG DANH SÁCH MÓN ĂN -->
                     <div class="card table-card">
                         <h3><i class="fa-solid fa-list"></i> Danh Sách Món Ăn</h3>
                         <table class="data-table">
@@ -93,59 +89,14 @@
                                     <th>Hành Động</th>
                                 </tr>
                             </thead>
-                            <tbody id="dishTableBody">
-                                <tr>
-                                    <td>#1</td>
-                                    <td>Lẩu Thái Tomyum</td>
-                                    <td>Lẩu</td>
-                                    <td>199.000 VNĐ</td>
-                                    <td><span class="badge badge-success">Còn hàng</span></td>
-                                    <td>
-                                        <button class="btn-edit"><i class="fa-solid fa-pen-to-square"></i> Sửa</button>
-                                        <button class="btn-delete"><i class="fa-solid fa-trash"></i> Xóa</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#2</td>
-                                    <td>Lẩu Nấm Thượng Hạng</td>
-                                    <td>Lẩu</td>
-                                    <td>159.000 VNĐ</td>
-                                    <td><span class="badge badge-success">Còn hàng</span></td>
-                                    <td>
-                                        <button class="btn-edit"><i class="fa-solid fa-pen-to-square"></i> Sửa</button>
-                                        <button class="btn-delete"><i class="fa-solid fa-trash"></i> Xóa</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#3</td>
-                                    <td>Bò Mỹ Thượng Hạng</td>
-                                    <td>Món Ăn Kèm</td>
-                                    <td>129.000 VNĐ</td>
-                                    <td><span class="badge badge-success">Còn hàng</span></td>
-                                    <td>
-                                        <button class="btn-edit"><i class="fa-solid fa-pen-to-square"></i> Sửa</button>
-                                        <button class="btn-delete"><i class="fa-solid fa-trash"></i> Xóa</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#4</td>
-                                    <td>Nấm Kim Tỉnh</td>
-                                    <td>Rau Rủ</td>
-                                    <td>35.000 VNĐ</td>
-                                    <td><span class="badge badge-danger">Hết hàng</span></td>
-                                    <td>
-                                        <button class="btn-edit"><i class="fa-solid fa-pen-to-square"></i> Sửa</button>
-                                        <button class="btn-delete"><i class="fa-solid fa-trash"></i> Xóa</button>
-                                    </td>
-                                </tr>
-                            </tbody>
+                            <tbody id="dishTableBody"></tbody>
                         </table>
                     </div>
 
-                    <!-- FORM THÊM MÓN ĂN MỚI -->
                     <div class="card form-card">
-                        <h3><i class="fa-solid fa-plus-circle"></i> Thêm Món Ăn Mới</h3>
+                        <h3 id="formDishTitle"><i class="fa-solid fa-plus-circle"></i> Thêm Món Ăn Mới</h3>
                         <form id="addDishForm">
+                            <input type="hidden" id="editDishId" value="">
                             <div class="form-group">
                                 <label>Tên Món Ăn *</label>
                                 <input type="text" id="dishName" placeholder="Nhập tên món..." required>
@@ -153,17 +104,18 @@
 
                             <div class="form-group">
                                 <label>Danh Mục *</label>
+                            
                                 <select id="dishCategory" required>
                                     <option value="Lẩu">Lẩu</option>
                                     <option value="Món Ăn Kèm">Món Ăn Kèm</option>
-                                    <option value="Rau Rủ">Rau Rủ</option>
+                                    <option value="Rau Củ">Rau Củ</option>
                                     <option value="Nước Uống">Nước Uống</option>
                                 </select>
                             </div>
 
                             <div class="form-group">
                                 <label>Giá Bán (VNĐ) *</label>
-                                <input type="number" id="dishPrice" placeholder="Nhập giá bán..." required>
+                                <input type="number" id="dishPrice" placeholder="Nhập giá bán (>0)..." min="1" required>
                             </div>
 
                             <div class="form-group">
@@ -174,20 +126,21 @@
                                 </select>
                             </div>
 
-                            <button type="submit" class="btn-submit"><i class="fa-solid fa-floppy-disk"></i> Lưu Món Ăn</button>
+                            <button type="submit" class="btn-submit" id="btnDishSubmit"><i class="fa-solid fa-floppy-disk"></i> Lưu Món Ăn</button>
+                            <button type="button" class="btn-delete" id="btnCancelEdit" style="display:none; width:100%; margin-top:5px; background:#6c757d;">Hủy Chỉnh Sửa</button>
                         </form>
                     </div>
                 </div>
             </section>
 
-            <!-- TAB 3: QUẢN LÝ ĐẶT BÀN (TABLES) -->
+            <!-- TAB 3: QUẢN LÝ ĐẶT BÀN -->
             <section id="tab-tables" class="tab-content" style="display: none;">
                 <div class="card">
                     <h3><i class="fa-solid fa-calendar-check"></i> Danh Sách Khách Hàng Đặt Bàn</h3>
                     <table class="data-table" style="margin-top: 15px;">
                         <thead>
                             <tr>
-                                <th>Mã Đặt Bàn</th>
+                                <th>STT</th>
                                 <th>Họ Và Tên Khách</th>
                                 <th>Số Điện Thoại</th>
                                 <th>Ngày Giờ Đặt</th>
@@ -196,39 +149,16 @@
                                 <th>Hành Động</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>#DB001</td>
-                                <td>Nguyễn Văn A</td>
-                                <td>0912345678</td>
-                                <td>19:00 - 07/10/2026</td>
-                                <td>4 Khách</td>
-                                <td><span class="badge badge-warning" style="background: #fff3cd; color: #856404; padding: 4px 8px; border-radius: 4px;">Chờ xác nhận</span></td>
-                                <td>
-                                    <button class="btn-edit" style="background: #28a745; color: #fff; border:none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">Xác nhận</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#DB002</td>
-                                <td>Trần Thị B</td>
-                                <td>0987654321</td>
-                                <td>20:00 - 07/10/2026</td>
-                                <td>2 Khách</td>
-                                <td><span class="badge badge-success">Đã xác nhận</span></td>
-                                <td>
-                                    <button class="btn-delete" style="background: #dc3545; color: #fff; border:none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">Hủy bàn</button>
-                                </td>
-                            </tr>
-                        </tbody>
+                        <tbody id="bookingTableBody"></tbody>
                     </table>
                 </div>
             </section>
 
-            <!-- TAB 4: QUẢN LÝ TÀI KHOẢN (USERS) -->
+            <!-- TAB 4: QUẢN LÝ TÀI KHOẢN -->
             <section id="tab-users" class="tab-content" style="display: none;">
                 <div class="card">
                     <h3><i class="fa-solid fa-users-gear"></i> Danh Sách Tài Khoản Trong Hệ Thống</h3>
-                    <p style="color: #666; font-size: 13px; margin: 10px 0;">Dưới đây là danh sách các tài khoản đã được tạo từ trang Đăng ký (được lưu trữ tại LocalStorage):</p>
+                    <p style="color: #666; font-size: 13px; margin: 10px 0;">Danh sách tài khoản trong hệ thống:</p>
                     <table class="data-table">
                         <thead>
                             <tr>
@@ -239,9 +169,7 @@
                                 <th>Hành Động</th>
                             </tr>
                         </thead>
-                        <tbody id="adminUserTableBody">
-                            <!-- Dữ liệu JS tự đổ vào đây -->
-                        </tbody>
+                        <tbody id="adminUserTableBody"></tbody>
                     </table>
                 </div>
             </section>
