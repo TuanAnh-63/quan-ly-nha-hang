@@ -11,10 +11,10 @@
 <body>
     <header class="header">
         <div class="logo">
-            <a href="index.html">Lẩu 4 Mùa</a>
+            <a href="trangchu.html">Lẩu 4 Mùa</a>
         </div>
         <nav class="navbar" aria-label="Điều hướng chính">
-            <a href="index.html">Trang chủ</a>
+            <a href="trangchu.html">Trang chủ</a>
             <a href="datban.html" class="active" aria-current="page">Đặt bàn</a>
             <a href="lienhe.html">Liên hệ</a>
         </nav>
@@ -38,44 +38,63 @@
 
             <div class="booking-layout">
                 <div class="booking-image">
-                    <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=1000&q=85"
-                         alt="Nồi lẩu nóng hổi với các món ăn kèm">
-                    <div class="image-caption">
-                        <h2>Lẩu ngon, trọn khoảnh khắc</h2>
-                        <p>Không gian ấm cúng cho những buổi sum họp.</p>
+                    <!-- Hình ảnh 1 -->
+                    <div class="slide active">
+                        <img src="lau-1.jpg" alt="Nồi lẩu thơm ngon">
+                        <div class="image-caption">
+                            <h2>Lẩu ngon, trọn khoảnh khắc</h2>
+                            <p>Không gian ấm cúng cho những buổi sum họp.</p>
+                        </div>
+                    </div>
+
+                    <!-- Hình ảnh 2 -->
+                    <div class="slide">
+                        <img src="lau-2.jpg" alt="Món lẩu hấp dẫn">
+                        <div class="image-caption">
+                            <h2>Đặt bàn ngay – Giảm 10%</h2>
+                            <p>Ưu đãi hấp dẫn đang chờ bạn!</p>
+                        </div>
                     </div>
                 </div>
 
                 <section class="booking-box" aria-labelledby="form-heading">
                     <h2 id="form-heading">Thông tin đặt bàn</h2>
-                    <form action="#" method="post">
+                    <form id="booking-form" action="#" method="post">
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="fullname">Họ và tên <span class="required">*</span></label>
                                 <input type="text" id="fullname" name="fullname"
-                                       placeholder="Nhập họ và tên" autocomplete="name" required>
+                                       placeholder="Nhập họ và tên" autocomplete="name"
+                                       minlength="2" maxlength="100" required>
+                                <div class="invalid-feedback">Vui lòng nhập họ và tên (tối thiểu 2 ký tự).</div>
                             </div>
                             <div class="form-group">
                                 <label for="phone">Số điện thoại <span class="required">*</span></label>
                                 <input type="tel" id="phone" name="phone"
-                                       placeholder="Nhập số điện thoại" autocomplete="tel" required>
+                                       placeholder="Ví dụ: 0912345678" autocomplete="tel"
+                                       inputmode="numeric" pattern="0[0-9]{9}" maxlength="10"
+                                       title="Số điện thoại gồm 10 chữ số, bắt đầu bằng 0" required>
+                                <div class="invalid-feedback">Số điện thoại gồm 10 chữ số, bắt đầu bằng 0.</div>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email" id="email" name="email"
-                                   placeholder="Nhập email" autocomplete="email">
+                                   placeholder="Nhập email" autocomplete="email" maxlength="100">
+                            <div class="invalid-feedback">Email không hợp lệ.</div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="date">Ngày đặt <span class="required">*</span></label>
                                 <input type="date" id="date" name="date" required>
+                                <div class="invalid-feedback">Vui lòng chọn ngày hợp lệ (từ hôm nay trở đi).</div>
                             </div>
                             <div class="form-group">
                                 <label for="time">Giờ đặt <span class="required">*</span></label>
-                                <input type="time" id="time" name="time" required>
+                                <input type="time" id="time" name="time" min="10:00" max="21:00" required>
+                                <div class="invalid-feedback" id="time-feedback">Giờ đặt từ 10:00 đến 21:00.</div>
                             </div>
                         </div>
 
@@ -84,26 +103,40 @@
                                 <label for="guests">Số người <span class="required">*</span></label>
                                 <input type="number" id="guests" name="guests"
                                        min="1" max="20" value="2" required>
+                                <div class="invalid-feedback">Số người từ 1 đến 20.</div>
                             </div>
                             <div class="form-group">
-                                <label for="area">Khu vực</label>
-                                <select id="area" name="area">
+                                <label for="area">Khu vực <span class="required">*</span></label>
+                                <select id="area" name="area" required>
                                     <option value="">-- Chọn khu vực --</option>
                                     <option value="inside">Trong nhà</option>
                                     <option value="outside">Ngoài trời</option>
                                     <option value="private">Phòng riêng</option>
                                 </select>
+                                <div class="invalid-feedback">Vui lòng chọn khu vực.</div>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="note">Ghi chú</label>
-                            <textarea id="note" name="note" rows="4"
+                            <textarea id="note" name="note" rows="4" maxlength="500"
                                       placeholder="Ví dụ: Cần bàn gần cửa sổ..."></textarea>
+                            <small class="char-count" id="note-count">0/500</small>
                         </div>
 
+                        <!-- Honeypot chống bot -->
+                        <div class="hp" aria-hidden="true">
+                            <label for="website">Website</label>
+                            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                        </div>
+
+                        <div id="form-status" class="form-status" role="status" aria-live="polite" hidden></div>
+
                         <div class="form-button">
-                            <button type="submit">Đặt bàn</button>
+                            <button type="submit" id="submit-btn">
+                                <span class="spinner" aria-hidden="true"></span>
+                                <span class="btn-text">Đặt bàn</span>
+                            </button>
                         </div>
                         <p class="form-note"><span class="required">*</span> Thông tin bắt buộc</p>
                     </form>
@@ -121,5 +154,7 @@
             &copy; 2026 Lẩu 4 Mùa. All rights reserved.
         </div>
     </footer>
+
+    <script src="datban.js"></script>
 </body>
 </html>
