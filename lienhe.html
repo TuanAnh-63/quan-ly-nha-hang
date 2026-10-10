@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Liên hệ nhà hàng Lẩu 4 Mùa: địa chỉ, số điện thoại, email, giờ mở cửa và biểu mẫu gửi tin nhắn.">
     <title>Liên hệ - Lẩu 4 Mùa</title>
     <link rel="stylesheet" href="lienhe.css">
+    <script src="lienhe.js" defer></script>
 </head>
 <body>
     <!-- HEADER -->
     <header class="header">
         <div class="logo">
-            <a href="index.html">Lẩu 4 Mùa</a>
+            <a href="trangchu.html">Lẩu 4 Mùa</a>
         </div>
         <nav class="navbar" aria-label="Điều hướng chính">
-            <a href="index.html">Trang chủ</a>
+            <a href="trangchu.html">Trang chủ</a>
             <a href="datban.html">Đặt bàn</a>
             <a href="lienhe.html" class="active" aria-current="page">Liên hệ</a>
         </nav>
@@ -57,10 +59,9 @@
                     <section class="map-box" aria-labelledby="map-heading">
                         <h2 id="map-heading">Vị trí nhà hàng</h2>
                         <div class="map-frame">
-                            <!-- Đổi tham số q= thành địa chỉ thật của nhà hàng -->
                             <iframe
                                 title="Bản đồ vị trí Lẩu 4 Mùa"
-                                src="https://www.google.com/maps?q=H%C3%A0+N%E1%BB%99i&output=embed"
+                                src="https://www.google.com/maps?q=123+Tr%C3%A0ng+Ti%E1%BB%81n,+Ho%C3%A0n+Ki%E1%BA%BFm,+H%C3%A0+N%E1%BB%99i&output=embed"
                                 loading="lazy"
                                 allowfullscreen
                                 referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -72,7 +73,7 @@
                 <section class="contact-box" aria-labelledby="form-heading">
                     <h2 id="form-heading">Gửi tin nhắn cho chúng tôi</h2>
 
-                    <form action="#" method="post">
+                    <form id="contact-form" action="#" method="post" novalidate>
                         <div class="form-group">
                             <label for="name">Họ và tên <span class="required">*</span></label>
                             <input type="text" id="name" name="name"
@@ -93,9 +94,9 @@
                                 <label for="phone">Số điện thoại</label>
                                 <input type="tel" id="phone" name="phone"
                                        placeholder="Ví dụ: 0912345678" autocomplete="tel"
-                                       inputmode="numeric" pattern="0[0-9]{9}" maxlength="10"
-                                       title="Số điện thoại gồm 10 chữ số, bắt đầu bằng 0">
-                                <div class="invalid-feedback">Số điện thoại gồm 10 chữ số, bắt đầu bằng 0.</div>
+                                       inputmode="numeric" pattern="(03|05|07|08|09)[0-9]{8}" maxlength="10"
+                                       title="Số điện thoại gồm 10 chữ số, bắt đầu bằng 03, 05, 07, 08 hoặc 09">
+                                <div class="invalid-feedback">Số điện thoại gồm 10 chữ số, bắt đầu bằng 03, 05, 07, 08 hoặc 09.</div>
                             </div>
                         </div>
 
@@ -117,6 +118,7 @@
                                       placeholder="Nhập nội dung tin nhắn..."
                                       minlength="10" maxlength="1000" required></textarea>
                             <div class="invalid-feedback">Nội dung cần từ 10 đến 1000 ký tự.</div>
+                            <div class="char-count" id="char-count">0/1000</div>
                         </div>
 
                         <!-- Honeypot chống bot: người thật không thấy, bot thường tự điền -->
@@ -125,8 +127,12 @@
                             <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
                         </div>
 
+                        <div id="form-status" class="form-status" role="status" aria-live="polite" hidden></div>
+
                         <div class="form-button">
-                            <button type="submit">Gửi tin nhắn</button>
+                            <button type="submit" id="submit-btn">
+                                <span class="btn-text">Gửi tin nhắn</span>
+                            </button>
                         </div>
                         <p class="form-note"><span class="required">*</span> Thông tin bắt buộc</p>
                     </form>
