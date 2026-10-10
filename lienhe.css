@@ -43,7 +43,7 @@ a {
     text-decoration: none;
     font-size: 22px;
     font-weight: 700;
-    color: var(--text);
+    color: #fff;
     white-space: nowrap;
 }
 
@@ -55,7 +55,7 @@ a {
 
 .navbar a {
     text-decoration: none;
-    color: #333;
+    color: #f7ecd2;
     font-size: 14px;
     font-weight: 600;
     transition: color 0.25s ease;
@@ -63,7 +63,7 @@ a {
 
 .navbar a:hover,
 .navbar a.active {
-    color: var(--gold-dark);
+    color: #ffd24a;
 }
 
 /* =========================
@@ -81,7 +81,7 @@ a {
 }
 
 .contact-title span {
-    color: #d99f00;
+    color: #8a6500;
     font-size: 13px;
     font-weight: 700;
     letter-spacing: 2px;
@@ -278,8 +278,17 @@ a {
 
 .form-group input:user-invalid ~ .invalid-feedback,
 .form-group select:user-invalid ~ .invalid-feedback,
-.form-group textarea:user-invalid ~ .invalid-feedback {
+.form-group textarea:user-invalid ~ .invalid-feedback,
+.was-validated .form-group input:invalid ~ .invalid-feedback,
+.was-validated .form-group select:invalid ~ .invalid-feedback,
+.was-validated .form-group textarea:invalid ~ .invalid-feedback {
     display: block;
+}
+
+.was-validated .form-group input:invalid,
+.was-validated .form-group select:invalid,
+.was-validated .form-group textarea:invalid {
+    border-color: var(--error);
 }
 
 /* Honeypot chống bot - ẩn với người thật */
@@ -306,7 +315,7 @@ a {
     border: none;
     border-radius: 4px;
     background-color: var(--gold);
-    color: #fff;
+    color: #222;
     font-size: 14px;
     font-weight: 700;
     cursor: pointer;
@@ -324,6 +333,61 @@ a {
     color: var(--muted);
     font-size: 12px;
     text-align: center;
+}
+
+/* Đếm ký tự, thông báo trạng thái, nút đang gửi */
+.char-count {
+    margin-top: 6px;
+    text-align: right;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.form-status {
+    margin-bottom: 16px;
+    padding: 12px 14px;
+    border-radius: 4px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.form-status[hidden] {
+    display: none;
+}
+
+.form-status.success {
+    background: #edf7ee;
+    color: #1e6b2e;
+    border: 1px solid #b9dfc0;
+}
+
+.form-status.error {
+    background: #fdeeee;
+    color: #a61e1e;
+    border: 1px solid #f3c0c0;
+}
+
+.form-button button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.form-button button.loading .btn-text::before {
+    content: "";
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-right: 8px;
+    border: 2px solid rgba(34, 34, 34, 0.3);
+    border-top-color: #222;
+    border-radius: 50%;
+    vertical-align: -2px;
+    animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }
 
 /* =========================
