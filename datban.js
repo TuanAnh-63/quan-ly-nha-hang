@@ -5,8 +5,9 @@
 // Để trống "" => chạy chế độ demo (giả lập gửi thành công sau 1,2 giây)
 const API_URL = "";
 const REQUEST_TIMEOUT = 10000;   // 10 giây
-const OPEN_TIME = "10:00";       // giờ mở cửa
-const LAST_BOOKING_TIME = "21:00"; // giờ đặt muộn nhất
+const OPEN_TIME_WEEKDAY = "10:30";
+const OPEN_TIME_WEEKEND = "10:00";
+const LAST_BOOKING_TIME = "22:30"; // giờ đặt muộn nhất
 const MIN_LEAD_MINUTES = 30;     // đặt hôm nay phải cách hiện tại ít nhất 30 phút
 const MAX_DAYS_AHEAD = 90;       // chỉ cho đặt trước tối đa 90 ngày
 const DEFAULT_GUESTS = 2;
@@ -40,6 +41,19 @@ function pad(n) {
 // Trả về chuỗi yyyy-mm-dd theo giờ địa phương
 function toDateString(date) {
     return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+}
+
+function getHoursForDate(dateValue) {
+    if (dateValue) {
+        const [y, m, d] = dateValue.split("-").map(Number);
+        const date = new Date(y, m - 1, d);
+        if (!Number.isNaN(date.getTime())) {
+            const day = date.getDay();
+            const isWeekend = day === 0 || day === 6;
+            return { open: isWeekend ? OPEN_TIME_WEEKEND : OPEN_TIME_WEEKDAY, last: LAST_BOOKING_TIME };
+        }
+    }
+    return { open: OPEN_TIME_WEEKEND, last: LAST_BOOKING_TIME };
 }
 
 function setDateLimits() {
@@ -79,13 +93,17 @@ guestsInput.addEventListener("blur", () => {
 //    - Nếu đặt hôm nay: phải sau giờ hiện tại một khoảng
 // ============================================
 function validateTime() {
+    const { open, last } = getHoursForDate(dateInput.value);
+    timeInput.min = open;
+    timeInput.max = last;
+
     timeInput.setCustomValidity("");
     timeFeedback.textContent = TIME_DEFAULT_MESSAGE;
 
     if (!timeInput.value) return;
 
-    if (timeInput.value < OPEN_TIME || timeInput.value > LAST_BOOKING_TIME) {
-        const msg = `Giờ đặt từ ${OPEN_TIME} đến ${LAST_BOOKING_TIME}.`;
+    if (timeInput.value < open || timeInput.value > last) {
+        const msg = `Giờ đặt từ ${open} đến ${last}.`;
         timeInput.setCustomValidity(msg);
         timeFeedback.textContent = msg;
         return;
@@ -170,6 +188,34 @@ function formatDate(value) {
     return `${d}/${m}/${y}`;
 }
 
+function saveBookingLocal(data) {
+    try {
+        let bookings = [];
+        try { bookings = JSON.parse(localStorage.getItem("bookings")) || []; } catch (e) { bookings = []; }
+        if (!Array.isArray(bookings)) bookings = [];
+
+        const maxNumber = bookings.reduce((max, b) => {
+            const n = parseInt(String(b && b.id).replace(/\D/g, ""), 10);
+            return Number.isNaN(n) ? max : Math.max(max, n);
+        }, 0);
+
+        bookings.push({
+            id: "DB" + String(maxNumber + 1).padStart(3, "0"),
+            name: data.fullname,
+            phone: data.phone,
+            datetime: `${data.time} - ${formatDate(data.date)}`,
+            guests: `${data.guests} Khách`,
+            status: "Chờ xác nhận",
+            email: data.email,
+            area: data.area,
+            note: data.note,
+        });
+        localStorage.setItem("bookings", JSON.stringify(bookings));
+    } catch (error) {
+        console.warn("Không lưu được đơn đặt bàn vào localStorage:", error);
+    }
+}
+
 function resetForm() {
     form.reset();
     guestsInput.value = DEFAULT_GUESTS;
@@ -222,6 +268,7 @@ form.addEventListener("submit", async (event) => {
 
     try {
         await sendData(data);
+        saveBookingLocal(data);
         showStatus(
             "success",
             `Đặt bàn thành công! ${data.guests} người, lúc ${data.time} ngày ${formatDate(data.date)}. ` +

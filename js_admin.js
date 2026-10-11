@@ -1,12 +1,18 @@
-(function checkAdminAuth() {
-    const sessionUser = JSON.parse(sessionStorage.getItem('currentUser'));
-    const localUser = JSON.parse(localStorage.getItem('currentUser'));
-    const currentUser = sessionUser || localUser;
-
-    if (!currentUser) {
-        alert('Vui lòng đăng nhập trước khi truy cập trang Quản trị!');
-        window.location.href = 'html_login.html';
+const adminUser = (function checkAdminAuth() {
+    function readUser(storage) {
+        try { return JSON.parse(storage.getItem('currentUser')); } catch (e) { return null; }
     }
+    const user = readUser(sessionStorage) || readUser(localStorage);
+
+    if (!user || user.role !== 'admin') {
+        document.documentElement.style.display = 'none';
+        alert(!user
+            ? 'Vui lòng đăng nhập trước khi truy cập trang Quản trị!'
+            : 'Tài khoản của bạn không có quyền truy cập trang Quản trị!');
+        window.location.href = 'html_login.html';
+        return null;
+    }
+    return user;
 })();
 
 function escapeHTML(str) {
@@ -21,7 +27,9 @@ function escapeHTML(str) {
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    const currentUser = JSON.parse(sessionStorage.getItem('currentUser')) || JSON.parse(localStorage.getItem('currentUser'));
+    if (!adminUser) return;
+
+    const currentUser = adminUser;
     if (currentUser) {
         const adminNameElem = document.getElementById('adminName');
         if (adminNameElem) {
@@ -75,15 +83,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // QUẢN LÝ MÓN ĂN
     let initialDishes = [
-        { id: 1, name: 'Lẩu Thái Tomyum', category: 'Lẩu', price: 199000, status: 'Còn hàng' },
-        { id: 2, name: 'Lẩu Nấm Thượng Hạng', category: 'Lẩu', price: 159000, status: 'Còn hàng' },
-        { id: 3, name: 'Bò Mỹ Thượng Hạng', category: 'Món Ăn Kèm', price: 129000, status: 'Còn hàng' },
-        { id: 4, name: 'Nấm Kim Châm', category: 'Rau Củ', price: 35000, status: 'Hết hàng' }
+        { id: 1, name: 'Lẩu Thái Bò', category: 'Lẩu Thái', price: 299000, status: 'Còn hàng' },
+        { id: 2, name: 'Lẩu Thái Thập Cẩm', category: 'Lẩu Thái', price: 299000, status: 'Còn hàng' },
+        { id: 3, name: 'Lẩu Riêu Cua Bắp Bò Sườn Sụn', category: 'Lẩu Riêu Cua', price: 299000, status: 'Còn hàng' },
+        { id: 4, name: 'Lẩu Riêu Cua Bò', category: 'Lẩu Riêu Cua', price: 299000, status: 'Còn hàng' },
+        { id: 5, name: 'Lẩu Kim Chi Bò', category: 'Lẩu Kim Chi', price: 299000, status: 'Còn hàng' },
+        { id: 6, name: 'Lẩu Kim Chi Thập Cẩm', category: 'Lẩu Kim Chi', price: 299000, status: 'Còn hàng' },
+        { id: 7, name: 'Lẩu Nấm Bò', category: 'Lẩu Nấm', price: 299000, status: 'Còn hàng' },
+        { id: 8, name: 'Lẩu Nấm Thập Cẩm', category: 'Lẩu Nấm', price: 299000, status: 'Còn hàng' },
+        { id: 9, name: 'Combo Bò Nướng', category: 'Combo Nướng', price: 359000, status: 'Còn hàng' },
+        { id: 10, name: 'Combo Thịt Nướng Mê Ly', category: 'Combo Nướng', price: 399000, status: 'Còn hàng' },
+        { id: 11, name: 'Ba chỉ bò', category: 'Thịt nhúng lẩu', price: 80000, status: 'Còn hàng' },
+        { id: 12, name: 'Sụn Heo tươi', category: 'Thịt nhúng lẩu', price: 70000, status: 'Còn hàng' },
+        { id: 13, name: 'Bắp bò tươi', category: 'Thịt nhúng lẩu', price: 90000, status: 'Còn hàng' },
+        { id: 14, name: 'Coca Cola - lon 320ml', category: 'Đồ uống', price: 15000, status: 'Còn hàng' }
     ];
 
-    if (!localStorage.getItem('dishesList')) {
-        localStorage.setItem('dishesList', JSON.stringify(initialDishes));
-    }
+    const legacySeedNames = ['Lẩu Thái Tomyum', 'Lẩu Nấm Thượng Hạng', 'Bò Mỹ Thượng Hạng', 'Nấm Kim Châm'];
+    (function seedDishes() {
+        let list = null;
+        try {
+            const parsed = JSON.parse(localStorage.getItem('dishesList'));
+            if (Array.isArray(parsed)) list = parsed;
+        } catch (e) {}
+        const isLegacy = list && list.length === legacySeedNames.length &&
+            list.every((d, i) => d && d.name === legacySeedNames[i]);
+        if (!list || isLegacy) {
+            localStorage.setItem('dishesList', JSON.stringify(initialDishes));
+        }
+    })();
 
     function renderDishList() {
         const tbody = document.getElementById('dishTableBody');
@@ -173,7 +201,11 @@ document.addEventListener('DOMContentLoaded', function () {
         if (dish) {
             document.getElementById('editDishId').value = dish.id;
             document.getElementById('dishName').value = dish.name;
-            document.getElementById('dishCategory').value = dish.category;
+            const categorySelect = document.getElementById('dishCategory');
+            if (!Array.from(categorySelect.options).some(o => o.value === dish.category)) {
+                categorySelect.add(new Option(dish.category, dish.category));
+            }
+            categorySelect.value = dish.category;
             document.getElementById('dishPrice').value = dish.price;
             document.getElementById('dishStatus').value = dish.status;
 
@@ -358,7 +390,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (confirm('Bạn có chắc chắn muốn đăng xuất?')) {
                 localStorage.removeItem('currentUser');
                 sessionStorage.removeItem('currentUser');
-                window.location.href = 'login.html';
+                window.location.href = 'html_login.html';
             }
         });
     }

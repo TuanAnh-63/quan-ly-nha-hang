@@ -1,5 +1,5 @@
 // DỮ LIỆU SẢN PHẨM CHUẨN
-        const products = [
+        const DEFAULT_PRODUCTS = [
             // LẨU THÁI
             { id: 1, category: "Lẩu Thái", name: "Lẩu Thái Bò", priceText: "299.000 ₫ – 499.000 ₫", prices: [299000, 499000], options: ["Combo Lẩu Cho 2-3 Người", "Combo Lẩu Cho 4-6 Người"], img: "https://i.ibb.co/5gwgnysr/Lau-Thai-bo.png", desc: "♨️ Nước lẩu thái chua cay\n👉 Set lẩu bao gồm: nước lẩu thái tomyum – bắp bò – ba chỉ bò – gầu hoa bò – đậu hũ phomai – viên tôm hùm – nấm kim – nấm đùi gà – mỳ tôm – rau muống – cải ngọt – rau cần – cải thảo – ngô ngọt – đậu phụ – váng đậu – gia vị lẩu\n⏱️ Thời gian chuẩn bị: 10-30 phút\n⏰ Thời gian vận chuyển: 10-30 phút" },
             { id: 2, category: "Lẩu Thái", name: "Lẩu Thái Thập Cẩm", priceText: "299.000 ₫ – 499.000 ₫", prices: [299000, 499000], options: ["Combo Lẩu Cho 2-3 Người", "Combo Lẩu Cho 4-6 Người"], img: "https://i.ibb.co/h1XcCFfW/lau-thai-thap-cam.png", desc: "♨️ Nước lẩu thái Tomyum\n👉 Set lẩu bao gồm: nước lẩu – bò mỹ – sườn sụn – tôm – mực – cá tầm – viên tôm hùm – đậu hũ phomai – nấm kim – nấm đùi gà – mỳ tôm – đĩa rau hỗn hợp – ngô ngọt – đậu phụ – gia vị lẩu\n⏱️ Thời gian chuẩn bị: 10-30 phút\n⏰ Thời gian vận chuyển: 10-30 phút" },
@@ -29,6 +29,67 @@
             { id: 14, category: "Đồ uống", name: "Coca Cola - lon 320ml", priceText: "15.000 ₫", prices: [15000], options: [], img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=500", desc: "Coca Cola lon 320ml mát lạnh giải khát." }
         ];
 
+        const PLACEHOLDER_IMG = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(
+            '<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200"><rect width="300" height="200" fill="#eee"/>' +
+            '<text x="150" y="108" font-family="Arial" font-size="18" fill="#999" text-anchor="middle">Lẩu 4 Mùa</text></svg>');
+        const LEGACY_SEED_NAMES = ['Lẩu Thái Tomyum', 'Lẩu Nấm Thượng Hạng', 'Bò Mỹ Thượng Hạng', 'Nấm Kim Châm'];
+
+        function escapeHTML(str) {
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+        }
+
+        function readDishes() {
+            try {
+                const list = JSON.parse(localStorage.getItem('dishesList'));
+                return Array.isArray(list) ? list : null;
+            } catch (e) { return null; }
+        }
+
+        function seedDishesIfNeeded() {
+            const list = readDishes();
+            const isLegacy = list && list.length === LEGACY_SEED_NAMES.length &&
+                list.every((d, i) => d && d.name === LEGACY_SEED_NAMES[i]);
+            if (list && !isLegacy) return;
+            const seed = DEFAULT_PRODUCTS.map(p => ({
+                id: p.id, name: p.name, category: p.category, price: p.prices[0], status: 'Còn hàng'
+            }));
+            try { localStorage.setItem('dishesList', JSON.stringify(seed)); } catch (e) {}
+        }
+
+        function formatVND(n) { return Number(n).toLocaleString('vi-VN') + ' ₫'; }
+
+        function buildProducts() {
+            seedDishesIfNeeded();
+            const dishes = readDishes();
+            if (!dishes) return DEFAULT_PRODUCTS.slice();
+
+            const norm = s => String(s).trim().toLowerCase();
+            return dishes.filter(d => d && d.name).map(d => {
+                const base = DEFAULT_PRODUCTS.find(p => p.id === d.id) ||
+                             DEFAULT_PRODUCTS.find(p => norm(p.name) === norm(d.name));
+                const price = Number(d.price) || (base ? base.prices[0] : 0);
+                const category = d.category === 'Nước Uống' ? 'Đồ uống' : (d.category || 'Khác');
+
+                let prices, options, img, desc;
+                if (base) {
+                    const ratio = price / base.prices[0];
+                    prices = base.prices.map((x, i) => i === 0 ? price : Math.round(x * ratio / 1000) * 1000);
+                    options = base.options; img = base.img; desc = base.desc;
+                } else {
+                    prices = [price]; options = []; img = PLACEHOLDER_IMG; desc = '';
+                }
+
+                const priceText = (base && price === base.prices[0])
+                    ? base.priceText
+                    : (prices.length > 1 ? `${formatVND(prices[0])} – ${formatVND(prices[prices.length - 1])}` : formatVND(prices[0]));
+
+                return { id: d.id, category, name: d.name, priceText, prices, options, img, desc, soldOut: d.status === 'Hết hàng' };
+            });
+        }
+
+        const products = buildProducts();
+
         let cart = []; // Mảng chứa các món trong giỏ hàng
         let currentProductId = null;
 
@@ -52,12 +113,16 @@
         function renderProducts() {
             const grid = document.getElementById('product-grid');
             grid.innerHTML = '';
+            if (products.length === 0) {
+                grid.innerHTML = '<p style="text-align:center; color:#888; padding:30px;">Thực đơn đang được cập nhật.</p>';
+                return;
+            }
             products.filter(p => p.category === currentCategory).forEach(p => {
                 grid.innerHTML += `
-                    <div class="product-card" onclick="openModal(${p.id})">
+                    <div class="product-card" ${p.soldOut ? 'style="opacity:.55;"' : ''} onclick="openModal(${p.id})">
                         <img src="${p.img}" class="product-img" onerror="this.src='https://via.placeholder.com/300x200?text=Mon+An'">
                         <div class="product-info">
-                            <div class="product-title">${p.name}</div>
+                            <div class="product-title">${escapeHTML(p.name)}${p.soldOut ? ' <span style="color:#d9534f; font-size:12px;">(Hết hàng)</span>' : ''}</div>
                             <div class="product-price">${p.priceText}</div>
                         </div>
                     </div>
@@ -69,6 +134,10 @@
         function openModal(id) {
             currentProductId = id;
             const p = products.find(item => item.id === id);
+            if (p.soldOut) {
+                alert('Món này hiện đã hết hàng. Vui lòng chọn món khác!');
+                return;
+            }
             
             document.getElementById('modal-img').src = p.img;
             document.getElementById('modal-title').innerText = p.name;
@@ -183,7 +252,7 @@
                     container.innerHTML += `
                         <div class="cart-item">
                             <div class="cart-item-info">
-                                <div class="cart-item-name">${item.name}</div>
+                                <div class="cart-item-name">${escapeHTML(item.name)}</div>
                                 ${item.optName ? `<div class="cart-item-option">${item.optName}</div>` : ''}
                                 <div class="cart-item-price">${item.price.toLocaleString('vi-VN')} ₫</div>
                             </div>

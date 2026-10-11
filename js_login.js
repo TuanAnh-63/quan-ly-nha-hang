@@ -7,6 +7,24 @@ async function hashPassword(password) {
     return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
+const DEFAULT_ADMIN = {
+    fullName: 'Quản trị viên',
+    email: 'admin@lau4mua.com',
+    phone: '',
+    password: 'e86f78a8a3caf0b60d8e74e5942aa6d86dc150cd3c03338aef25b7d2d7e3acc7',
+    role: 'admin'
+};
+
+function ensureDefaultAdmin() {
+    const users = getUsers();
+    if (!Array.isArray(users)) return;
+    const exists = users.some(u => u && u.email && u.email.toLowerCase() === DEFAULT_ADMIN.email);
+    if (!exists) {
+        users.push(DEFAULT_ADMIN);
+        try { localStorage.setItem('users', JSON.stringify(users)); } catch (e) { console.error(e); }
+    }
+}
+
 // HÀM ĐỌC USERS AN TOÀN TRÁNH CRASH
 function getUsers() {
     try {
@@ -19,6 +37,8 @@ function getUsers() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+
+    ensureDefaultAdmin();
 
     // 1. Chuyển Tab Đăng nhập / Đăng ký
     window.switchTab = function (tabName) {
@@ -94,13 +114,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const hashedPassword = await hashPassword(password);
 
-            // Gán role là 'admin' để truy cập vào trang admin
             const newUser = {
                 fullName: fullName,
                 email: email,
                 phone: phone,
                 password: hashedPassword,
-                role: 'admin'
+                role: 'user'
             };
 
             usersList.push(newUser);
@@ -149,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // Chuyển hướng thẳng sang html_admin.html
                 setTimeout(() => {
-                    window.location.href = 'admin.html';
+                    window.location.href = 'html_admin.html';
                 }, 800);
             } else {
                 showMsg(loginError, 'Tài khoản hoặc mật khẩu không chính xác!', 'error');
