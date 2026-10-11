@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // Chuyển hướng thẳng sang html_admin.html
                 setTimeout(() => {
-                    window.location.href = 'html_admin.html';
+                    window.location.href = 'admin.html';
                 }, 800);
             } else {
                 showMsg(loginError, 'Tài khoản hoặc mật khẩu không chính xác!', 'error');
