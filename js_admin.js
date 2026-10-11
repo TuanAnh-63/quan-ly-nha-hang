@@ -358,7 +358,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (confirm('Bạn có chắc chắn muốn đăng xuất?')) {
                 localStorage.removeItem('currentUser');
                 sessionStorage.removeItem('currentUser');
-                window.location.href = 'html_login.html';
+                window.location.href = 'login.html';
             }
         });
     }
