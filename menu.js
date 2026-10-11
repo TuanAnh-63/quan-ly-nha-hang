@@ -120,7 +120,7 @@
             products.filter(p => p.category === currentCategory).forEach(p => {
                 grid.innerHTML += `
                     <div class="product-card" ${p.soldOut ? 'style="opacity:.55;"' : ''} onclick="openModal(${p.id})">
-                        <img src="${p.img}" class="product-img" onerror="this.src='https://via.placeholder.com/300x200?text=Mon+An'">
+                        <img src="${p.img}" class="product-img" onerror="this.onerror=null;this.src=PLACEHOLDER_IMG">
                         <div class="product-info">
                             <div class="product-title">${escapeHTML(p.name)}${p.soldOut ? ' <span style="color:#d9534f; font-size:12px;">(Hết hàng)</span>' : ''}</div>
                             <div class="product-price">${p.priceText}</div>
@@ -281,6 +281,9 @@ function checkout() {
 
     // Giỏ hàng có món thì mới tiếp tục xác nhận
     alert("Đã gửi đơn hàng thành công!");
+    cart = [];
+    updateCartUI();
+    toggleCartPanel(false);
 }
 
 // 7. Bật / Tắt Bảng Giỏ Hàng
