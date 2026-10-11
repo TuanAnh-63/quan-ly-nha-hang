@@ -10,6 +10,7 @@
 <body>
 
     <div class="auth-wrapper">
+        <div style="margin-bottom: 12px;"><a href="index.html" class="forgot-pass"><i class="fa-solid fa-arrow-left"></i> Về trang chủ</a></div>
         <div class="auth-tabs">
             <button class="tab-btn active" id="tabLoginBtn" onclick="switchTab('login')">Đăng Nhập</button>
             <button class="tab-btn" id="tabRegisterBtn" onclick="switchTab('register')">Đăng Ký</button>
@@ -74,7 +75,7 @@
                     <label>Số điện thoại <span class="required-star">*</span></label>
                     <div class="input-box">
                         <i class="fa-solid fa-phone icon"></i>
-                        <input type="tel" id="regPhone" placeholder="Nhập số điện thoại..." required>
+                        <input type="tel" id="regPhone" placeholder="Nhập số điện thoại..." inputmode="numeric" maxlength="10" pattern="(03|05|07|08|09)[0-9]{8}" title="Số điện thoại gồm 10 chữ số, bắt đầu bằng 03, 05, 07, 08 hoặc 09" required autocomplete="tel">
                     </div>
                 </div>
 

@@ -11,10 +11,12 @@
 <body>
     <header class="header">
         <div class="logo">
-            <a href="trangchu.html">Lẩu 4 Mùa</a>
+            <a href="index.html">Lẩu 4 Mùa</a>
         </div>
         <nav class="navbar" aria-label="Điều hướng chính">
-            <a href="trangchu.html">Trang chủ</a>
+            <a href="index.html">Trang chủ</a>
+            <a href="gioithieu.html">Giới thiệu</a>
+            <a href="menu.html">Thực đơn</a>
             <a href="datban.html" class="active" aria-current="page">Đặt bàn</a>
             <a href="lienhe.html">Liên hệ</a>
         </nav>
@@ -40,7 +42,7 @@
                 <div class="booking-image">
                     <!-- Hình ảnh 1 -->
                     <div class="slide active">
-                        <img src="lau-1.jpg" alt="Nồi lẩu thơm ngon">
+                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=900&q=80" onerror="this.onerror=null;this.style.background='#2b2b2b'" alt="Nồi lẩu thơm ngon">
                         <div class="image-caption">
                             <h2>Lẩu ngon, trọn khoảnh khắc</h2>
                             <p>Không gian ấm cúng cho những buổi sum họp.</p>
@@ -49,7 +51,7 @@
 
                     <!-- Hình ảnh 2 -->
                     <div class="slide">
-                        <img src="lau-2.jpg" alt="Món lẩu hấp dẫn">
+                        <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=80" onerror="this.onerror=null;this.style.background='#2b2b2b'" alt="Món lẩu hấp dẫn">
                         <div class="image-caption">
                             <h2>Đặt bàn ngay – Giảm 10%</h2>
                             <p>Ưu đãi hấp dẫn đang chờ bạn!</p>
@@ -72,9 +74,9 @@
                                 <label for="phone">Số điện thoại <span class="required">*</span></label>
                                 <input type="tel" id="phone" name="phone"
                                        placeholder="Ví dụ: 0912345678" autocomplete="tel"
-                                       inputmode="numeric" pattern="0[0-9]{9}" maxlength="10"
-                                       title="Số điện thoại gồm 10 chữ số, bắt đầu bằng 0" required>
-                                <div class="invalid-feedback">Số điện thoại gồm 10 chữ số, bắt đầu bằng 0.</div>
+                                       inputmode="numeric" pattern="(03|05|07|08|09)[0-9]{8}" maxlength="10"
+                                       title="Số điện thoại gồm 10 chữ số, bắt đầu bằng 03, 05, 07, 08 hoặc 09" required>
+                                <div class="invalid-feedback">Số điện thoại gồm 10 chữ số, bắt đầu bằng 03, 05, 07, 08 hoặc 09.</div>
                             </div>
                         </div>
 

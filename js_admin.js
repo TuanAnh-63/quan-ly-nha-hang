@@ -9,7 +9,7 @@ const adminUser = (function checkAdminAuth() {
         alert(!user
             ? 'Vui lòng đăng nhập trước khi truy cập trang Quản trị!'
             : 'Tài khoản của bạn không có quyền truy cập trang Quản trị!');
-        window.location.href = 'html_login.html';
+        window.location.href = 'login.html';
         return null;
     }
     return user;
@@ -171,6 +171,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
             let dishes = JSON.parse(localStorage.getItem('dishesList')) || [];
 
+            const isDuplicateName = dishes.some(d => d.name.toLowerCase() === dishName.toLowerCase() && String(d.id) !== String(editId));
+            if (isDuplicateName) {
+                alert('Tên món ăn này đã tồn tại trong menu!');
+                return;
+            }
+
             if (editId) {
                 const index = dishes.findIndex(d => d.id === Number(editId));
                 if (index !== -1) {
@@ -178,12 +184,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     alert('Cập nhật món ăn thành công!');
                 }
             } else {
-                const isDuplicate = dishes.some(d => d.name.toLowerCase() === dishName.toLowerCase());
-                if (isDuplicate) {
-                    alert('Tên món ăn này đã tồn tại trong menu!');
-                    return;
-                }
-
                 dishes.push({ id: Date.now(), name: dishName, category: dishCategory, price: dishPrice, status: dishStatus });
                 alert('Thêm món ăn mới thành công!');
             }
@@ -327,7 +327,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <td>#${index + 1}</td>
                 <td><strong>${escapeHTML(user.fullName || 'Chưa cập nhật')}</strong></td>
                 <td>${escapeHTML(user.email)}</td>
-                <td><span class="badge badge-success" style="background:#d4edda; color:#155724; padding:3px 8px; border-radius:4px;">${escapeHTML(user.role || 'admin')}</span></td>
+                <td><span class="badge badge-success" style="background:#d4edda; color:#155724; padding:3px 8px; border-radius:4px;">${escapeHTML(user.role || 'user')}</span></td>
                 <td>
                     <button class="btn-delete-account" data-email="${escapeHTML(user.email)}" style="background:#dc3545; color:#fff; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">
                         <i class="fa-solid fa-trash"></i> Xóa
@@ -346,14 +346,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function removeAccount(email) {
-        if (currentUser && currentUser.email.toLowerCase() === email.toLowerCase()) {
+        if (currentUser && (currentUser.email || '').toLowerCase() === email.toLowerCase()) {
             alert('Bạn không thể tự xóa tài khoản Quản trị đang đăng nhập!');
             return;
         }
 
         if (confirm(`Bạn có chắc chắn muốn xóa tài khoản: ${email}?`)) {
             let users = JSON.parse(localStorage.getItem('users')) || [];
-            users = users.filter(u => u.email.toLowerCase() !== email.toLowerCase());
+            users = users.filter(u => (u.email || '').toLowerCase() !== email.toLowerCase());
             localStorage.setItem('users', JSON.stringify(users));
             renderUserList();
             updateDashboardStats();
@@ -376,7 +376,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (dishesCountEl) dishesCountEl.textContent = dishes.length;
         if (usersCountEl) usersCountEl.textContent = users.length;
-        if (bookingsCountEl) bookingsCountEl.textContent = bookings.length;
+        const t = new Date();
+        const todayStr = String(t.getDate()).padStart(2, '0') + '/' + String(t.getMonth() + 1).padStart(2, '0') + '/' + t.getFullYear();
+        const todayCount = bookings.filter(b => b && String(b.datetime || '').includes(todayStr)).length;
+        if (bookingsCountEl) bookingsCountEl.textContent = todayCount;
         if (activityTextEl) {
             activityTextEl.textContent = `Hệ thống hiện ghi nhận ${bookings.length} lượt đặt bàn, ${dishes.length} món ăn trong thực đơn và ${users.length} tài khoản thành viên.`;
         }
@@ -390,7 +393,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (confirm('Bạn có chắc chắn muốn đăng xuất?')) {
                 localStorage.removeItem('currentUser');
                 sessionStorage.removeItem('currentUser');
-                window.location.href = 'html_login.html';
+                window.location.href = 'login.html';
             }
         });
     }

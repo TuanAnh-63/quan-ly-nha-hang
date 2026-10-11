@@ -46,15 +46,14 @@
   /* ================= TÀI KHOẢN (sửa link hỏng + trạng thái đăng nhập) ================= */
   function setupAccountLink() {
     var user = readCurrentUser();
-    $$('a[href="login.html"], a[href="html_login.html"]').forEach(function (a) {
-      a.setAttribute('href', 'html_login.html');
+    $$('a[href="login.html"]').forEach(function (a) {
       if (user) {
         var name = user.fullName || user.email || 'bạn';
         a.setAttribute('title', 'Xin chào, ' + name);
         a.setAttribute('aria-label', 'Tài khoản: ' + name);
         a.classList.add('l4m-logged');
         if (user.role === 'admin') {
-          a.setAttribute('href', 'html_admin.html');
+          a.setAttribute('href', 'admin.html');
           a.setAttribute('title', 'Xin chào, ' + name + ' – vào trang quản trị');
         }
       }

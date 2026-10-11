@@ -94,6 +94,11 @@ document.addEventListener('DOMContentLoaded', function () {
             const confirmPassword = document.getElementById('regConfirmPassword').value;
             const registerMsg = document.getElementById('registerMsg');
 
+            if (!/^(03|05|07|08|09)[0-9]{8}$/.test(phone)) {
+                showMsg(registerMsg, 'Số điện thoại gồm 10 chữ số, bắt đầu bằng 03, 05, 07, 08 hoặc 09!', 'error');
+                return;
+            }
+
             if (password.length < 6) {
                 showMsg(registerMsg, 'Mật khẩu phải từ 6 ký tự trở lên!', 'error');
                 return;
@@ -106,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             let usersList = getUsers();
 
-            const isExist = usersList.some(u => u.email.toLowerCase() === email.toLowerCase() || (phone && u.phone === phone));
+            const isExist = usersList.some(u => (u.email || '').toLowerCase() === email.toLowerCase() || (phone && u.phone === phone));
             if (isExist) {
                 showMsg(registerMsg, 'Email hoặc Số điện thoại này đã được đăng ký!', 'error');
                 return;
@@ -150,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const hashedPasswordInput = await hashPassword(passwordInput);
 
             const foundUser = usersList.find(u => 
-                (u.email.toLowerCase() === emailInput.toLowerCase() || u.phone === emailInput) && 
+                ((u.email || '').toLowerCase() === emailInput.toLowerCase() || u.phone === emailInput) && 
                 u.password === hashedPasswordInput
             );
 
@@ -164,11 +169,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     sessionStorage.setItem('currentUser', JSON.stringify(safeUser));
                 }
 
-                showMsg(loginError, 'Đăng nhập thành công! Đang chuyển hướng sang Admin...', 'success');
+                showMsg(loginError, 'Đăng nhập thành công! Đang chuyển hướng...', 'success');
 
-                // Chuyển hướng thẳng sang html_admin.html
+                // Admin vào trang quản trị, khách về trang chủ
                 setTimeout(() => {
-                    window.location.href = 'html_admin.html';
+                    window.location.href = (foundUser.role === 'admin' ? 'admin.html' : 'index.html');
                 }, 800);
             } else {
                 showMsg(loginError, 'Tài khoản hoặc mật khẩu không chính xác!', 'error');
