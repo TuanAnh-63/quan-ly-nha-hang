@@ -99,7 +99,7 @@
             <span class="close-btn" onclick="closeModal()">&times;</span>
             <div class="modal-body">
                 <div class="modal-left">
-                    <img id="modal-img" src="" onerror="this.onerror=null;this.src=PLACEHOLDER_IMG">
+                    <img id="modal-img" src="" onerror="if(this.getAttribute('src')&&typeof PLACEHOLDER_IMG!=='undefined'){this.onerror=null;this.src=PLACEHOLDER_IMG}">
                 </div>
                 <div class="modal-right">
                     <h2 class="m-title" id="modal-title"></h2>

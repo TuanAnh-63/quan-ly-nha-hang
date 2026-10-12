@@ -1,7 +1,6 @@
 (function () {
   'use strict';
 
-  /* ================= TIỆN ÍCH ================= */
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
@@ -14,20 +13,21 @@
   }
 
   function readCurrentUser() {
-    try { return JSON.parse(localStorage.getItem('currentUser')); } catch (e) { return null; }
+    try {
+      return JSON.parse(sessionStorage.getItem('currentUser')) || JSON.parse(localStorage.getItem('currentUser'));
+    } catch (e) { return null; }
   }
 
-  /* ================= CSS DÙNG CHUNG ================= */
   var COMMON_CSS = [
     'html{scroll-behavior:smooth}',
     '@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}',
     '.header-navbar{transition:box-shadow .3s ease,padding .3s ease}',
     '.header-navbar.l4m-scrolled{box-shadow:0 6px 18px rgba(0,0,0,.18)}',
-    /* hiệu ứng xuất hiện khi cuộn */
+
     '.l4m-reveal{opacity:0;transform:translateY(26px);transition:opacity .65s ease,transform .65s ease;transition-delay:var(--l4m-d,0s)}',
     '.l4m-reveal.l4m-in{opacity:1;transform:none}',
     '@media (prefers-reduced-motion:reduce){.l4m-reveal{opacity:1;transform:none;transition:none}}',
-    /* nút nổi */
+
     '.l4m-fab{position:fixed;z-index:1030;border:0;border-radius:50%;width:48px;height:48px;display:flex;align-items:center;justify-content:center;',
     'color:#fff;font-size:18px;text-decoration:none;box-shadow:0 6px 16px rgba(0,0,0,.3);cursor:pointer;transition:transform .2s ease,opacity .3s ease,visibility .3s}',
     '.l4m-fab:hover{transform:translateY(-3px);color:#fff}',
@@ -38,15 +38,15 @@
     '#l4mCall::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--brand,#c0392b);animation:l4mPulse 2s infinite}',
     '@keyframes l4mPulse{0%{transform:scale(1);opacity:.8}100%{transform:scale(1.6);opacity:0}}',
     '@media (prefers-reduced-motion:reduce){#l4mCall::after{animation:none}}',
-    /* biểu tượng tài khoản khi đã đăng nhập */
+
     'a.l4m-logged{position:relative}',
     'a.l4m-logged::after{content:"";position:absolute;top:-3px;right:-3px;width:10px;height:10px;border-radius:50%;background:#28a745;border:2px solid #fff}'
   ].join('');
 
-  /* ================= TÀI KHOẢN (sửa link hỏng + trạng thái đăng nhập) ================= */
   function setupAccountLink() {
     var user = readCurrentUser();
-    $$('a[href="login.html"]').forEach(function (a) {
+    $$('a[href="login.html"], a[href="html_login.html"]').forEach(function (a) {
+      a.setAttribute('href', 'login.html');
       if (user) {
         var name = user.fullName || user.email || 'bạn';
         a.setAttribute('title', 'Xin chào, ' + name);
@@ -60,7 +60,6 @@
     });
   }
 
-  /* ================= THANH ĐIỀU HƯỚNG ================= */
   function setupNavbar() {
     var nav = $('.header-navbar');
     var collapseEl = $('#mainNavbar');
@@ -77,18 +76,17 @@
         window.bootstrap.Collapse.getOrCreateInstance(collapseEl, { toggle: false }).hide();
       }
     }
-    // bấm vào link trong menu mobile thì tự đóng
+
     if (collapseEl) {
       $$('a', collapseEl).forEach(function (a) { a.addEventListener('click', closeMenu); });
     }
-    // bấm ra ngoài hoặc nhấn Esc thì đóng
+
     document.addEventListener('click', function (e) {
       if (collapseEl && collapseEl.classList.contains('show') && !e.target.closest('.header-navbar')) closeMenu();
     });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
   }
 
-  /* ================= NÚT LÊN ĐẦU TRANG + NÚT GỌI HOTLINE ================= */
   function setupFloatingButtons() {
     var top = document.createElement('button');
     top.id = 'l4mTop';
@@ -105,7 +103,6 @@
     toggleTop();
     window.addEventListener('scroll', toggleTop, { passive: true });
 
-    // lấy hotline ngay trong trang, không gõ cứng
     var telLink = $('a[href^="tel:"]');
     var tel = telLink ? telLink.getAttribute('href') : null;
     if (tel) {
@@ -120,13 +117,12 @@
     }
   }
 
-  /* ================= LINK "#" VÀ ĐIỀU HƯỚNG TRONG TRANG ================= */
   function setupAnchors() {
     document.addEventListener('click', function (e) {
       var a = e.target.closest('a[href^="#"]');
       if (!a) return;
       var href = a.getAttribute('href');
-      if (href === '#') { e.preventDefault(); return; }   // icon mạng xã hội chưa có link: không nhảy lên đầu trang
+      if (href === '#') { e.preventDefault(); return; }
       var target;
       try { target = $(href); } catch (err) { target = null; }
       if (target) {
@@ -136,7 +132,6 @@
     });
   }
 
-  /* ================= ẢNH: lazy-load + ảnh dự phòng khi lỗi mạng ================= */
   var FALLBACK_IMG = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(
     '<svg xmlns="http://www.w3.org/2000/svg" width="800" height="560" viewBox="0 0 800 560">' +
     '<rect width="800" height="560" fill="#2b2b2b"/>' +
@@ -152,19 +147,17 @@
         img.removeEventListener('error', onErr);
         img.src = FALLBACK_IMG;
       });
-      // ảnh đã lỗi trước khi gắn listener
+
       if (img.complete && img.naturalWidth === 0 && img.src && img.src.indexOf('data:') !== 0) img.src = FALLBACK_IMG;
     });
   }
 
-  /* ================= CHÂN TRANG: năm bản quyền tự cập nhật ================= */
   function setupFooterYear() {
     var p = $('.footer-bottom p');
     if (!p) return;
     p.textContent = p.textContent.replace(/(©|\u00a9)\s*\d{4}/, '$1 ' + new Date().getFullYear());
   }
 
-  /* ================= HIỆU ỨNG XUẤT HIỆN KHI CUỘN ================= */
   function setupReveal(selectors) {
     if (reduceMotion || !('IntersectionObserver' in window)) return;
     var seen = [];
@@ -187,24 +180,18 @@
     seen.forEach(function (el) { io.observe(el); });
   }
 
-  /* =====================================================================
-     TRANG CHỦ (index.html)
-     ===================================================================== */
-
-  /* ---- Giờ mở cửa: lấy đúng theo mục "Giờ Phục Vụ" ở chân trang ---- */
   var HOURS = {
-    weekday: { open: 10 * 60 + 30, close: 23 * 60 },        // Thứ 2 – Thứ 6: 10:30 – 23:00
-    weekend: { open: 10 * 60,      close: 24 * 60 }         // Thứ 7 – CN:   10:00 – 24:00
+    weekday: { open: 10 * 60 + 30, close: 23 * 60 },
+    weekend: { open: 10 * 60,      close: 24 * 60 }
   };
-  var LAST_ORDER = 22 * 60 + 30;                             // nhận ship & bàn cuối lúc 22:30
+  var LAST_ORDER = 22 * 60 + 30;
 
   function fmt(min) {
     var h = Math.floor(min / 60), m = min % 60;
     return (h < 10 ? '0' : '') + h + ':' + (m < 10 ? '0' : '') + m;
   }
-  function isWeekend(dayIdx) { return dayIdx === 0 || dayIdx === 6; }   // 0 = CN, 6 = T7
+  function isWeekend(dayIdx) { return dayIdx === 0 || dayIdx === 6; }
 
-  // trả về { state: 'open' | 'last' | 'closed', text }
   function getStatus(dayIdx, minutes) {
     var today = isWeekend(dayIdx) ? HOURS.weekend : HOURS.weekday;
     if (minutes >= today.open && minutes < today.close) {
@@ -252,7 +239,6 @@
     setInterval(render, 60000);
   }
 
-  /* ---- Banner: dừng khi cuộn khỏi màn hình / chuyển tab, tôn trọng "giảm chuyển động" ---- */
   function setupCarousel() {
     var el = $('#mainBanner');
     if (!el || !window.bootstrap || !window.bootstrap.Carousel) return;
@@ -269,7 +255,7 @@
     document.addEventListener('visibilitychange', function () {
       if (document.hidden) carousel.pause(); else if (visible) carousel.cycle();
     });
-    // phím mũi tên trái/phải khi banner đang được focus
+
     el.setAttribute('tabindex', '0');
     el.addEventListener('keydown', function (e) {
       if (e.key === 'ArrowLeft') { carousel.prev(); }
@@ -277,7 +263,6 @@
     });
   }
 
-  /* ---- KHỞI TẠO ---- */
   function init() {
     injectStyles(COMMON_CSS + '#mainBanner:focus-visible{outline:3px solid #ffc107;outline-offset:-3px}#l4mStatus{white-space:normal}');
     setupAccountLink();
