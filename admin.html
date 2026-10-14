@@ -27,6 +27,12 @@
                 <a href="javascript:void(0)" class="menu-item" id="menu-tables" onclick="switchAdminTab('tables', this)">
                     <i class="fa-solid fa-chair"></i> Quản lý đặt bàn
                 </a>
+                <a href="javascript:void(0)" class="menu-item" id="menu-orders" onclick="switchAdminTab('orders', this)">
+                    <i class="fa-solid fa-receipt"></i> Quản lý đơn hàng
+                </a>
+                <a href="javascript:void(0)" class="menu-item" id="menu-contacts" onclick="switchAdminTab('contacts', this)">
+                    <i class="fa-solid fa-envelope"></i> Tin nhắn liên hệ
+                </a>
                 <a href="javascript:void(0)" class="menu-item" id="menu-users" onclick="switchAdminTab('users', this)">
                     <i class="fa-solid fa-users"></i> Quản lý tài khoản
                 </a>
@@ -62,8 +68,8 @@
                         <p>Khách hàng đăng ký</p>
                     </div>
                     <div class="stat-card">
-                        <h3>18.500.000đ</h3>
-                        <p>Doanh thu ngày (Mẫu)</p>
+                        <h3 id="statRevenue">0đ</h3>
+                        <p>Doanh thu hôm nay</p>
                     </div>
                 </div>
 
@@ -145,11 +151,56 @@
                                 <th>Số Điện Thoại</th>
                                 <th>Ngày Giờ Đặt</th>
                                 <th>Số Lượng Khách</th>
+                                <th>Thông Tin Thêm</th>
                                 <th>Trạng Thái</th>
                                 <th>Hành Động</th>
                             </tr>
                         </thead>
                         <tbody id="bookingTableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- TAB: QUẢN LÝ ĐƠN HÀNG -->
+            <section id="tab-orders" class="tab-content" style="display: none;">
+                <div class="card">
+                    <h3><i class="fa-solid fa-receipt"></i> Danh Sách Đơn Hàng</h3>
+                    <table class="data-table" style="margin-top: 15px;">
+                        <thead>
+                            <tr>
+                                <th>Mã</th>
+                                <th>Khách Hàng</th>
+                                <th>Hình Thức</th>
+                                <th>Món Đã Đặt</th>
+                                <th>Tổng Tiền</th>
+                                <th>Thời Gian</th>
+                                <th>Trạng Thái</th>
+                                <th>Hành Động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orderTableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- TAB: TIN NHẮN LIÊN HỆ -->
+            <section id="tab-contacts" class="tab-content" style="display: none;">
+                <div class="card">
+                    <h3><i class="fa-solid fa-envelope"></i> Tin Nhắn Liên Hệ Từ Khách</h3>
+                    <table class="data-table" style="margin-top: 15px;">
+                        <thead>
+                            <tr>
+                                <th>Mã</th>
+                                <th>Người Gửi</th>
+                                <th>Liên Hệ</th>
+                                <th>Chủ Đề</th>
+                                <th>Nội Dung</th>
+                                <th>Thời Gian</th>
+                                <th>Trạng Thái</th>
+                                <th>Hành Động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="contactTableBody"></tbody>
                     </table>
                 </div>
             </section>

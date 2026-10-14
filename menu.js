@@ -272,16 +272,74 @@
 
         
 // 8. Xác nhận đặt hàng
+function onOrderTypeChange() {
+    const type = document.getElementById('orderType').value;
+    const place = document.getElementById('orderPlace');
+    place.placeholder = type === 'Tại quán' ? 'Số bàn *' : 'Địa chỉ giao hàng *';
+}
+
+(function prefillCustomer() {
+    try {
+        const u = JSON.parse(sessionStorage.getItem('currentUser')) || JSON.parse(localStorage.getItem('currentUser'));
+        if (u) {
+            document.getElementById('orderName').value = u.fullName || '';
+            document.getElementById('orderPhone').value = u.phone || '';
+        }
+    } catch (e) {}
+})();
+
 function checkout() {
-    // Không cho đặt hàng nếu giỏ hàng đang trống
     if (cart.length === 0) {
         alert("Chưa đặt món! Vui lòng thêm món vào giỏ hàng trước khi đặt hàng.");
         return;
     }
 
-    // Giỏ hàng có món thì mới tiếp tục xác nhận
-    alert("Đã gửi đơn hàng thành công!");
+    const name = document.getElementById('orderName').value.trim();
+    const phone = document.getElementById('orderPhone').value.trim();
+    const type = document.getElementById('orderType').value;
+    const place = document.getElementById('orderPlace').value.trim();
+    const note = document.getElementById('orderNote').value.trim();
+
+    if (!name) { alert('Vui lòng nhập họ và tên!'); return; }
+    if (!/^(03|05|07|08|09)[0-9]{8}$/.test(phone)) { alert('Số điện thoại gồm 10 chữ số, bắt đầu bằng 03, 05, 07, 08 hoặc 09!'); return; }
+    if (!place) { alert(type === 'Tại quán' ? 'Vui lòng nhập số bàn!' : 'Vui lòng nhập địa chỉ giao hàng!'); return; }
+
+    let orders = [];
+    try { orders = JSON.parse(localStorage.getItem('orders')) || []; } catch (e) { orders = []; }
+    if (!Array.isArray(orders)) orders = [];
+
+    const maxNumber = orders.reduce((max, o) => {
+        const n = parseInt(String(o && o.id).replace(/\D/g, ''), 10);
+        return Number.isNaN(n) ? max : Math.max(max, n);
+    }, 0);
+
+    const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+    const orderId = 'DH' + String(maxNumber + 1).padStart(3, '0');
+
+    orders.push({
+        id: orderId,
+        name: name,
+        phone: phone,
+        type: type,
+        place: place,
+        note: note,
+        items: cart.map(i => ({ name: i.name, optName: i.optName || '', price: i.price, qty: i.qty })),
+        total: total,
+        status: 'Mới',
+        createdAt: new Date().toISOString()
+    });
+
+    try {
+        localStorage.setItem('orders', JSON.stringify(orders));
+    } catch (e) {
+        alert('Không lưu được đơn hàng. Vui lòng thử lại!');
+        return;
+    }
+
+    alert('Đã gửi đơn hàng thành công! Mã đơn: ' + orderId);
     cart = [];
+    document.getElementById('orderPlace').value = '';
+    document.getElementById('orderNote').value = '';
     updateCartUI();
     toggleCartPanel(false);
 }

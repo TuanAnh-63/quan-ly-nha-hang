@@ -90,6 +90,31 @@ async function sendData(data) {
     }
 }
 
+function saveContactLocal(data) {
+    try {
+        let contacts = [];
+        try { contacts = JSON.parse(localStorage.getItem("contacts")) || []; } catch (e) { contacts = []; }
+        if (!Array.isArray(contacts)) contacts = [];
+        const maxNumber = contacts.reduce((max, c) => {
+            const n = parseInt(String(c && c.id).replace(/\D/g, ""), 10);
+            return Number.isNaN(n) ? max : Math.max(max, n);
+        }, 0);
+        contacts.push({
+            id: "LH" + String(maxNumber + 1).padStart(3, "0"),
+            name: data.name || "",
+            email: data.email || "",
+            phone: data.phone || "",
+            subject: data.subject || "",
+            message: data.message || "",
+            status: "Chưa đọc",
+            createdAt: new Date().toISOString()
+        });
+        localStorage.setItem("contacts", JSON.stringify(contacts));
+    } catch (error) {
+        console.warn("Không lưu được tin nhắn liên hệ:", error);
+    }
+}
+
 form.addEventListener("submit", async (event) => {
     event.preventDefault();
     hideStatus();
@@ -126,6 +151,7 @@ form.addEventListener("submit", async (event) => {
 
     try {
         await sendData(data);
+        saveContactLocal(data);
         form.reset();
         form.classList.remove("was-validated");
         updateCharCount();

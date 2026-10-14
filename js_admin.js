@@ -73,6 +73,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     pageTitle.textContent = 'Quản Lý Đặt Bàn';
                     renderTableList();
                     break;
+                case 'orders':
+                    pageTitle.textContent = 'Quản Lý Đơn Hàng';
+                    renderOrderList();
+                    break;
+                case 'contacts':
+                    pageTitle.textContent = 'Tin Nhắn Liên Hệ';
+                    renderContactList();
+                    break;
                 case 'users':
                     pageTitle.textContent = 'Quản Lý Tài Khoản';
                     renderUserList();
@@ -249,18 +257,36 @@ document.addEventListener('DOMContentLoaded', function () {
         const tbody = document.getElementById('bookingTableBody');
         if (!tbody) return;
 
-        let bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+        let bookings = [];
+        try { bookings = JSON.parse(localStorage.getItem('bookings')) || []; } catch (e) {}
         tbody.innerHTML = '';
 
         if (bookings.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Chưa có đơn đặt bàn nào.</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;">Chưa có đơn đặt bàn nào.</td></tr>';
             return;
         }
 
         bookings.forEach((item, index) => {
             const tr = document.createElement('tr');
-            const isConfirmed = item.status === 'Đã xác nhận';
-            const badgeStyle = isConfirmed ? 'background:#d4edda; color:#155724;' : 'background:#fff3cd; color:#856404;';
+            const status = item.status || 'Chờ xác nhận';
+            let badgeStyle = 'background:#fff3cd; color:#856404;';
+            if (status === 'Đã xác nhận') badgeStyle = 'background:#d4edda; color:#155724;';
+            if (status === 'Đã hủy') badgeStyle = 'background:#f8d7da; color:#721c24;';
+
+            const extra = [
+                item.email ? 'Email: ' + escapeHTML(item.email) : '',
+                item.area ? 'Khu vực: ' + escapeHTML(item.area) : '',
+                item.note ? 'Ghi chú: ' + escapeHTML(item.note) : ''
+            ].filter(Boolean).join('<br>') || '-';
+
+            let actions = '';
+            if (status === 'Chờ xác nhận') {
+                actions += `<button class="btn-confirm-booking" data-id="${escapeHTML(item.id)}" style="background:#28a745; color:#fff; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Xác nhận</button> `;
+            }
+            if (status !== 'Đã hủy') {
+                actions += `<button class="btn-cancel-booking" data-id="${escapeHTML(item.id)}" style="background:#ff9800; color:#fff; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Hủy</button> `;
+            }
+            actions += `<button class="btn-delete-booking" data-id="${escapeHTML(item.id)}" style="background:#dc3545; color:#fff; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Xóa</button>`;
 
             tr.innerHTML = `
                 <td>#${index + 1}</td>
@@ -268,20 +294,22 @@ document.addEventListener('DOMContentLoaded', function () {
                 <td>${escapeHTML(item.phone)}</td>
                 <td>${escapeHTML(item.datetime)}</td>
                 <td>${escapeHTML(item.guests)}</td>
-                <td><span class="badge" style="${badgeStyle} padding:4px 8px; border-radius:4px;">${escapeHTML(item.status)}</span></td>
-                <td>
-                    ${!isConfirmed ? `<button class="btn-confirm-booking" data-id="${item.id}" style="background:#28a745; color:#fff; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Xác nhận</button>` : ''}
-                    <button class="btn-cancel-booking" data-id="${item.id}" style="background:#dc3545; color:#fff; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Hủy</button>
-                </td>
+                <td style="font-size:13px;">${extra}</td>
+                <td><span class="badge" style="${badgeStyle} padding:4px 8px; border-radius:4px;">${escapeHTML(status)}</span></td>
+                <td>${actions}</td>
             `;
             tbody.appendChild(tr);
         });
 
-        document.querySelectorAll('.btn-confirm-booking').forEach(btn => {
+        tbody.querySelectorAll('.btn-confirm-booking').forEach(btn => {
             btn.addEventListener('click', function() { updateBookingStatus(this.getAttribute('data-id'), 'Đã xác nhận'); });
         });
-
-        document.querySelectorAll('.btn-cancel-booking').forEach(btn => {
+        tbody.querySelectorAll('.btn-cancel-booking').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (confirm('Bạn có chắc muốn hủy đơn đặt bàn này?')) updateBookingStatus(this.getAttribute('data-id'), 'Đã hủy');
+            });
+        });
+        tbody.querySelectorAll('.btn-delete-booking').forEach(btn => {
             btn.addEventListener('click', function() { deleteBooking(this.getAttribute('data-id')); });
         });
     }
@@ -305,6 +333,177 @@ document.addEventListener('DOMContentLoaded', function () {
             renderTableList();
             updateDashboardStats();
         }
+    }
+
+    // QUẢN LÝ ĐƠN HÀNG
+    const ORDER_FLOW = ['Mới', 'Đang chế biến', 'Hoàn thành', 'Đã thanh toán'];
+
+    function readOrders() {
+        try {
+            const list = JSON.parse(localStorage.getItem('orders'));
+            return Array.isArray(list) ? list : [];
+        } catch (e) { return []; }
+    }
+
+    function formatVND(n) { return Number(n || 0).toLocaleString('vi-VN') + 'đ'; }
+
+    function formatDateTime(iso) {
+        const d = new Date(iso);
+        if (isNaN(d.getTime())) return '';
+        const p = n => String(n).padStart(2, '0');
+        return `${p(d.getHours())}:${p(d.getMinutes())} - ${p(d.getDate())}/${p(d.getMonth() + 1)}/${d.getFullYear()}`;
+    }
+
+    function orderBadgeStyle(status) {
+        switch (status) {
+            case 'Mới': return 'background:#cce5ff; color:#004085;';
+            case 'Đang chế biến': return 'background:#fff3cd; color:#856404;';
+            case 'Hoàn thành': return 'background:#e2d9f3; color:#4a2d7a;';
+            case 'Đã thanh toán': return 'background:#d4edda; color:#155724;';
+            case 'Đã hủy': return 'background:#f8d7da; color:#721c24;';
+            default: return 'background:#eee; color:#333;';
+        }
+    }
+
+    function renderOrderList() {
+        const tbody = document.getElementById('orderTableBody');
+        if (!tbody) return;
+
+        const orders = readOrders().slice().reverse();
+        tbody.innerHTML = '';
+
+        if (orders.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;">Chưa có đơn hàng nào.</td></tr>';
+            return;
+        }
+
+        orders.forEach(o => {
+            const tr = document.createElement('tr');
+            const itemsHtml = (o.items || []).map(i =>
+                `${escapeHTML(i.name)} ${escapeHTML(i.optName || '')} x${Number(i.qty)}`
+            ).join('<br>');
+            const place = (o.type === 'Tại quán' ? 'Bàn: ' : 'Địa chỉ: ') + escapeHTML(o.place);
+            const note = o.note ? `<br><em style="color:#888;">Ghi chú: ${escapeHTML(o.note)}</em>` : '';
+
+            const idx = ORDER_FLOW.indexOf(o.status);
+            let actions = '';
+            if (idx > -1 && idx < ORDER_FLOW.length - 1) {
+                actions += `<button class="btn-order-next" data-id="${escapeHTML(o.id)}" data-next="${ORDER_FLOW[idx + 1]}" style="background:#28a745; color:#fff; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">${ORDER_FLOW[idx + 1]}</button> `;
+            }
+            if (o.status !== 'Đã thanh toán' && o.status !== 'Đã hủy') {
+                actions += `<button class="btn-order-cancel" data-id="${escapeHTML(o.id)}" style="background:#ff9800; color:#fff; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Hủy</button> `;
+            }
+            actions += `<button class="btn-order-delete" data-id="${escapeHTML(o.id)}" style="background:#dc3545; color:#fff; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Xóa</button>`;
+
+            tr.innerHTML = `
+                <td><strong>${escapeHTML(o.id)}</strong></td>
+                <td>${escapeHTML(o.name)}<br>${escapeHTML(o.phone)}</td>
+                <td>${escapeHTML(o.type)}<br>${place}${note}</td>
+                <td style="font-size:13px;">${itemsHtml}</td>
+                <td><strong>${formatVND(o.total)}</strong></td>
+                <td>${escapeHTML(formatDateTime(o.createdAt))}</td>
+                <td><span class="badge" style="${orderBadgeStyle(o.status)} padding:4px 8px; border-radius:4px;">${escapeHTML(o.status)}</span></td>
+                <td>${actions}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+        tbody.querySelectorAll('.btn-order-next').forEach(btn => {
+            btn.addEventListener('click', function() { setOrderStatus(this.getAttribute('data-id'), this.getAttribute('data-next')); });
+        });
+        tbody.querySelectorAll('.btn-order-cancel').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (confirm('Bạn có chắc muốn hủy đơn hàng này?')) setOrderStatus(this.getAttribute('data-id'), 'Đã hủy');
+            });
+        });
+        tbody.querySelectorAll('.btn-order-delete').forEach(btn => {
+            btn.addEventListener('click', function() { deleteOrder(this.getAttribute('data-id')); });
+        });
+    }
+
+    function setOrderStatus(id, status) {
+        const orders = readOrders();
+        const o = orders.find(x => x.id === id);
+        if (o) {
+            o.status = status;
+            if (status === 'Đã thanh toán') o.paidAt = new Date().toISOString();
+            localStorage.setItem('orders', JSON.stringify(orders));
+            renderOrderList();
+            updateDashboardStats();
+        }
+    }
+
+    function deleteOrder(id) {
+        if (confirm('Bạn có chắc muốn xóa đơn hàng này?')) {
+            const orders = readOrders().filter(x => x.id !== id);
+            localStorage.setItem('orders', JSON.stringify(orders));
+            renderOrderList();
+            updateDashboardStats();
+        }
+    }
+
+    // TIN NHẮN LIÊN HỆ
+    function readContacts() {
+        try {
+            const list = JSON.parse(localStorage.getItem('contacts'));
+            return Array.isArray(list) ? list : [];
+        } catch (e) { return []; }
+    }
+
+    function renderContactList() {
+        const tbody = document.getElementById('contactTableBody');
+        if (!tbody) return;
+
+        const contacts = readContacts().slice().reverse();
+        tbody.innerHTML = '';
+
+        if (contacts.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;">Chưa có tin nhắn nào.</td></tr>';
+            return;
+        }
+
+        contacts.forEach(c => {
+            const tr = document.createElement('tr');
+            const read = c.status === 'Đã đọc';
+            const badgeStyle = read ? 'background:#d4edda; color:#155724;' : 'background:#fff3cd; color:#856404;';
+            tr.innerHTML = `
+                <td><strong>${escapeHTML(c.id)}</strong></td>
+                <td>${escapeHTML(c.name)}</td>
+                <td style="font-size:13px;">${escapeHTML(c.email)}<br>${escapeHTML(c.phone)}</td>
+                <td>${escapeHTML(c.subject)}</td>
+                <td style="max-width:260px; white-space:pre-wrap; word-break:break-word;">${escapeHTML(c.message)}</td>
+                <td>${escapeHTML(formatDateTime(c.createdAt))}</td>
+                <td><span class="badge" style="${badgeStyle} padding:4px 8px; border-radius:4px;">${escapeHTML(c.status || 'Chưa đọc')}</span></td>
+                <td>
+                    ${read ? '' : `<button class="btn-contact-read" data-id="${escapeHTML(c.id)}" style="background:#28a745; color:#fff; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Đã đọc</button> `}
+                    <button class="btn-contact-delete" data-id="${escapeHTML(c.id)}" style="background:#dc3545; color:#fff; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Xóa</button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+        tbody.querySelectorAll('.btn-contact-read').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const list = readContacts();
+                const c = list.find(x => x.id === this.getAttribute('data-id'));
+                if (c) {
+                    c.status = 'Đã đọc';
+                    localStorage.setItem('contacts', JSON.stringify(list));
+                    renderContactList();
+                    updateDashboardStats();
+                }
+            });
+        });
+        tbody.querySelectorAll('.btn-contact-delete').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (confirm('Bạn có chắc muốn xóa tin nhắn này?')) {
+                    const list = readContacts().filter(x => x.id !== this.getAttribute('data-id'));
+                    localStorage.setItem('contacts', JSON.stringify(list));
+                    renderContactList();
+                    updateDashboardStats();
+                }
+            });
+        });
     }
 
     // QUẢN LÝ TÀI KHOẢN
@@ -378,10 +577,24 @@ document.addEventListener('DOMContentLoaded', function () {
         if (usersCountEl) usersCountEl.textContent = users.length;
         const t = new Date();
         const todayStr = String(t.getDate()).padStart(2, '0') + '/' + String(t.getMonth() + 1).padStart(2, '0') + '/' + t.getFullYear();
-        const todayCount = bookings.filter(b => b && String(b.datetime || '').includes(todayStr)).length;
+        const todayCount = bookings.filter(b => b && b.status !== 'Đã hủy' && String(b.datetime || '').includes(todayStr)).length;
         if (bookingsCountEl) bookingsCountEl.textContent = todayCount;
+        const orders = readOrders();
+        const contacts = readContacts();
+        const isToday = iso => {
+            const d = new Date(iso);
+            return !isNaN(d.getTime()) && d.getDate() === t.getDate() && d.getMonth() === t.getMonth() && d.getFullYear() === t.getFullYear();
+        };
+        const revenue = orders
+            .filter(o => o.status === 'Đã thanh toán' && isToday(o.paidAt || o.createdAt))
+            .reduce((sum, o) => sum + Number(o.total || 0), 0);
+        const revenueEl = document.getElementById('statRevenue');
+        if (revenueEl) revenueEl.textContent = formatVND(revenue);
+
+        const unreadContacts = contacts.filter(c => c.status !== 'Đã đọc').length;
+        const newOrders = orders.filter(o => o.status === 'Mới').length;
         if (activityTextEl) {
-            activityTextEl.textContent = `Hệ thống hiện ghi nhận ${bookings.length} lượt đặt bàn, ${dishes.length} món ăn trong thực đơn và ${users.length} tài khoản thành viên.`;
+            activityTextEl.textContent = `Hệ thống hiện ghi nhận ${bookings.length} lượt đặt bàn, ${orders.length} đơn hàng (${newOrders} đơn mới), ${dishes.length} món ăn trong thực đơn, ${users.length} tài khoản thành viên và ${unreadContacts} tin nhắn liên hệ chưa đọc.`;
         }
     }
 
@@ -402,5 +615,7 @@ document.addEventListener('DOMContentLoaded', function () {
     renderDishList();
     renderUserList();
     renderTableList();
+    renderOrderList();
+    renderContactList();
     updateDashboardStats();
 });

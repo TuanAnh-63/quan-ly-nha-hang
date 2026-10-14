@@ -264,6 +264,18 @@ form.addEventListener("submit", async (event) => {
         note: form.note.value,
     };
 
+    try {
+        const existing = JSON.parse(localStorage.getItem("bookings")) || [];
+        const dt = `${data.time} - ${formatDate(data.date)}`;
+        const duplicated = Array.isArray(existing) && existing.some(
+            (b) => b && b.phone === data.phone && b.datetime === dt && b.status !== "Đã hủy"
+        );
+        if (duplicated) {
+            showStatus("error", "Số điện thoại này đã có đơn đặt bàn vào đúng khung giờ này.");
+            return;
+        }
+    } catch (e) {}
+
     setLoading(true);
 
     try {

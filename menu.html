@@ -89,6 +89,16 @@
                 <span>Tổng tiền:</span>
                 <span class="cart-total-price" id="cart-total-price">0 ₫</span>
             </div>
+            <div class="cart-customer">
+                <input type="text" id="orderName" placeholder="Họ và tên *" maxlength="60">
+                <input type="tel" id="orderPhone" placeholder="Số điện thoại *" maxlength="10">
+                <select id="orderType" onchange="onOrderTypeChange()">
+                    <option value="Tại quán">Ăn tại quán</option>
+                    <option value="Mang đi / Giao hàng">Mang đi / Giao hàng</option>
+                </select>
+                <input type="text" id="orderPlace" placeholder="Số bàn *" maxlength="120">
+                <input type="text" id="orderNote" placeholder="Ghi chú (không bắt buộc)" maxlength="200">
+            </div>
             <button class="checkout-btn" onclick="checkout()">XÁC NHẬN ĐẶT HÀNG</button>
         </div>
     </div>
