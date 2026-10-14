@@ -29,6 +29,33 @@
             { id: 14, category: "Đồ uống", name: "Coca Cola - lon 320ml", priceText: "15.000 ₫", prices: [15000], options: [], img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=500", desc: "Coca Cola lon 320ml mát lạnh giải khát." }
         ];
 
+        DEFAULT_PRODUCTS.push(
+            { id: 15, category: "Nước lẩu", name: "Nước lẩu Thái Tomyum", priceText: "79.000 ₫ – 119.000 ₫", prices: [79000, 119000], options: ["Cho 2-3 người", "Cho 4-6 người"], img: '', desc: "Nước lẩu Thái chua cay đậm vị, nấu sẵn." },
+            { id: 16, category: "Nước lẩu", name: "Nước lẩu Riêu Cua", priceText: "79.000 ₫ – 119.000 ₫", prices: [79000, 119000], options: ["Cho 2-3 người", "Cho 4-6 người"], img: '', desc: "Nước lẩu riêu cua đồng thanh ngọt, nấu sẵn." },
+            { id: 17, category: "Nước lẩu", name: "Nước lẩu Kim Chi", priceText: "79.000 ₫ – 119.000 ₫", prices: [79000, 119000], options: ["Cho 2-3 người", "Cho 4-6 người"], img: '', desc: "Nước lẩu kim chi Hàn Quốc chua cay, nấu sẵn." },
+            { id: 18, category: "Nước lẩu", name: "Nước lẩu Nấm", priceText: "69.000 ₫ – 109.000 ₫", prices: [69000, 109000], options: ["Cho 2-3 người", "Cho 4-6 người"], img: '', desc: "Nước lẩu nấm thanh ngọt, nấu sẵn." },
+            { id: 19, category: "Rau - Nấm - Viên - Mì", name: "Đĩa rau hỗn hợp", priceText: "35.000 ₫ – 55.000 ₫", prices: [35000, 55000], options: ["Size M", "Size L"], img: '', desc: "Rau muống, cải ngọt, rau cần, cải thảo tươi." },
+            { id: 20, category: "Rau - Nấm - Viên - Mì", name: "Nấm kim châm", priceText: "30.000 ₫ – 45.000 ₫", prices: [30000, 45000], options: ["Size M", "Size L"], img: '', desc: "Nấm kim châm tươi nhúng lẩu." },
+            { id: 21, category: "Rau - Nấm - Viên - Mì", name: "Nấm đùi gà", priceText: "40.000 ₫ – 60.000 ₫", prices: [40000, 60000], options: ["Size M", "Size L"], img: '', desc: "Nấm đùi gà tươi giòn ngọt." },
+            { id: 22, category: "Rau - Nấm - Viên - Mì", name: "Nấm hải sản", priceText: "35.000 ₫ – 50.000 ₫", prices: [35000, 50000], options: ["Size M", "Size L"], img: '', desc: "Nấm hải sản tươi nhúng lẩu." },
+            { id: 23, category: "Rau - Nấm - Viên - Mì", name: "Viên tôm hùm", priceText: "55.000 ₫", prices: [55000], options: [], img: '', desc: "Viên tôm hùm dai giòn." },
+            { id: 24, category: "Rau - Nấm - Viên - Mì", name: "Viên cá thác lác", priceText: "50.000 ₫", prices: [50000], options: [], img: '', desc: "Viên cá thác lác dai ngon." },
+            { id: 25, category: "Rau - Nấm - Viên - Mì", name: "Đậu phụ chiên", priceText: "25.000 ₫", prices: [25000], options: [], img: '', desc: "Đậu phụ chiên vàng nhúng lẩu." },
+            { id: 26, category: "Rau - Nấm - Viên - Mì", name: "Váng đậu", priceText: "30.000 ₫", prices: [30000], options: [], img: '', desc: "Váng đậu tươi." },
+            { id: 27, category: "Rau - Nấm - Viên - Mì", name: "Mì tôm", priceText: "10.000 ₫", prices: [10000], options: [], img: '', desc: "Mì tôm ăn kèm lẩu." },
+            { id: 28, category: "Rau - Nấm - Viên - Mì", name: "Bún tươi", priceText: "15.000 ₫", prices: [15000], options: [], img: '', desc: "Bún tươi ăn kèm lẩu." },
+            { id: 29, category: "Tráng miệng", name: "Chè khúc bạch", priceText: "25.000 ₫", prices: [25000], options: [], img: '', desc: "Chè khúc bạch mát lạnh." },
+            { id: 30, category: "Tráng miệng", name: "Sữa chua nếp cẩm", priceText: "25.000 ₫", prices: [25000], options: [], img: '', desc: "Sữa chua nếp cẩm thơm ngon." },
+            { id: 31, category: "Tráng miệng", name: "Hoa quả theo mùa", priceText: "45.000 ₫", prices: [45000], options: [], img: '', desc: "Đĩa hoa quả tươi theo mùa." },
+            { id: 32, category: "Đồ uống", name: "Pepsi - lon 320ml", priceText: "15.000 ₫", prices: [15000], options: [], img: '', desc: "Pepsi lon 320ml mát lạnh." },
+            { id: 33, category: "Đồ uống", name: "7Up - lon 320ml", priceText: "15.000 ₫", prices: [15000], options: [], img: '', desc: "7Up lon 320ml mát lạnh." },
+            { id: 34, category: "Đồ uống", name: "Nước suối - chai 500ml", priceText: "10.000 ₫", prices: [10000], options: [], img: '', desc: "Nước suối chai 500ml." },
+            { id: 35, category: "Đồ uống", name: "Trà đào cam sả", priceText: "35.000 ₫", prices: [35000], options: [], img: '', desc: "Trà đào cam sả thơm mát." },
+            { id: 36, category: "Đồ uống", name: "Nước ép cam", priceText: "35.000 ₫", prices: [35000], options: [], img: '', desc: "Nước cam ép tươi." },
+            { id: 37, category: "Đồ uống", name: "Bia Hà Nội - lon 330ml", priceText: "20.000 ₫", prices: [20000], options: [], img: '', desc: "Bia Hà Nội lon 330ml." },
+            { id: 38, category: "Đồ uống", name: "Bia Tiger - lon 330ml", priceText: "25.000 ₫", prices: [25000], options: [], img: '', desc: "Bia Tiger lon 330ml." }
+        );
+
         const PLACEHOLDER_IMG = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(
             '<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200"><rect width="300" height="200" fill="#eee"/>' +
             '<text x="150" y="108" font-family="Arial" font-size="18" fill="#999" text-anchor="middle">Lẩu 4 Mùa</text></svg>');
@@ -50,11 +77,28 @@
             const list = readDishes();
             const isLegacy = list && list.length === LEGACY_SEED_NAMES.length &&
                 list.every((d, i) => d && d.name === LEGACY_SEED_NAMES[i]);
-            if (list && !isLegacy) return;
+            if (list && !isLegacy) {
+                if (localStorage.getItem('menuSeedVersion') !== '2') {
+                    const names = new Set(list.map(d => String(d && d.name).trim().toLowerCase()));
+                    DEFAULT_PRODUCTS.forEach(p => {
+                        if (!names.has(p.name.trim().toLowerCase())) {
+                            list.push({ id: p.id, name: p.name, category: p.category, price: p.prices[0], status: 'Còn hàng' });
+                        }
+                    });
+                    try {
+                        localStorage.setItem('dishesList', JSON.stringify(list));
+                        localStorage.setItem('menuSeedVersion', '2');
+                    } catch (e) {}
+                }
+                return;
+            }
             const seed = DEFAULT_PRODUCTS.map(p => ({
                 id: p.id, name: p.name, category: p.category, price: p.prices[0], status: 'Còn hàng'
             }));
-            try { localStorage.setItem('dishesList', JSON.stringify(seed)); } catch (e) {}
+            try {
+                localStorage.setItem('dishesList', JSON.stringify(seed));
+                localStorage.setItem('menuSeedVersion', '2');
+            } catch (e) {}
         }
 
         function formatVND(n) { return Number(n).toLocaleString('vi-VN') + ' ₫'; }
@@ -71,18 +115,26 @@
                 const price = Number(d.price) || (base ? base.prices[0] : 0);
                 const category = d.category === 'Nước Uống' ? 'Đồ uống' : (d.category || 'Khác');
 
-                let prices, options, img, desc;
-                if (base) {
+                const customOpts = Array.isArray(d.options) && d.options.length > 0;
+                let prices, options;
+                if (customOpts) {
+                    prices = d.options.map(o => Number(o.price));
+                    options = d.options.map(o => String(o.name));
+                } else if (base) {
                     const ratio = price / base.prices[0];
                     prices = base.prices.map((x, i) => i === 0 ? price : Math.round(x * ratio / 1000) * 1000);
-                    options = base.options; img = base.img; desc = base.desc;
+                    options = base.options;
                 } else {
-                    prices = [price]; options = []; img = PLACEHOLDER_IMG; desc = '';
+                    prices = [price]; options = [];
                 }
+                const img = d.img || (base && base.img) || PLACEHOLDER_IMG;
+                const desc = d.desc || (base ? base.desc : '');
 
-                const priceText = (base && price === base.prices[0])
-                    ? base.priceText
-                    : (prices.length > 1 ? `${formatVND(prices[0])} – ${formatVND(prices[prices.length - 1])}` : formatVND(prices[0]));
+                const priceText = customOpts
+                    ? (prices.length > 1 ? `${formatVND(prices[0])} – ${formatVND(prices[prices.length - 1])}` : formatVND(prices[0]))
+                    : ((base && price === base.prices[0])
+                        ? base.priceText
+                        : (prices.length > 1 ? `${formatVND(prices[0])} – ${formatVND(prices[prices.length - 1])}` : formatVND(prices[0])));
 
                 return { id: d.id, category, name: d.name, priceText, prices, options, img, desc, soldOut: d.status === 'Hết hàng' };
             });
@@ -93,7 +145,11 @@
         let cart = []; // Mảng chứa các món trong giỏ hàng
         let currentProductId = null;
 
-        const categories = [...new Set(products.map(p => p.category))];
+        const CATEGORY_ORDER = ["Lẩu Thái", "Lẩu Riêu Cua", "Lẩu Kim Chi", "Lẩu Nấm", "Combo Nướng", "Thịt nhúng lẩu", "Rau - Nấm - Viên - Mì", "Nước lẩu", "Tráng miệng", "Đồ uống"];
+        const categories = [...new Set(products.map(p => p.category))].sort((a, b) => {
+            const ia = CATEGORY_ORDER.indexOf(a), ib = CATEGORY_ORDER.indexOf(b);
+            return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
+        });
         let currentCategory = categories[0];
 
         // 1. Render Menu Tab Ngang
@@ -154,7 +210,7 @@
                     optionsDiv.innerHTML += `
                         <label>
                             <input type="radio" name="modal-opt" value="${idx}" ${idx === 0 ? 'checked' : ''}> 
-                            ${opt}
+                            ${escapeHTML(opt)}
                         </label>
                     `;
                 });
@@ -253,7 +309,7 @@
                         <div class="cart-item">
                             <div class="cart-item-info">
                                 <div class="cart-item-name">${escapeHTML(item.name)}</div>
-                                ${item.optName ? `<div class="cart-item-option">${item.optName}</div>` : ''}
+                                ${item.optName ? `<div class="cart-item-option">${escapeHTML(item.optName)}</div>` : ''}
                                 <div class="cart-item-price">${item.price.toLocaleString('vi-VN')} ₫</div>
                             </div>
                             <div class="cart-item-controls">
