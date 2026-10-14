@@ -30,76 +30,35 @@
         ];
 
         DEFAULT_PRODUCTS.push(
-            { id: 15, category: "Nước lẩu", name: "Nước lẩu Thái Tomyum", priceText: "79.000 ₫ – 119.000 ₫", prices: [79000, 119000], options: ["Cho 2-3 người", "Cho 4-6 người"], img: 'images/nuoc-lau-thai.svg', desc: "Nước lẩu Thái chua cay đậm vị, nấu sẵn." },
-            { id: 16, category: "Nước lẩu", name: "Nước lẩu Riêu Cua", priceText: "79.000 ₫ – 119.000 ₫", prices: [79000, 119000], options: ["Cho 2-3 người", "Cho 4-6 người"], img: 'images/nuoc-lau-rieu-cua.svg', desc: "Nước lẩu riêu cua đồng thanh ngọt, nấu sẵn." },
-            { id: 17, category: "Nước lẩu", name: "Nước lẩu Kim Chi", priceText: "79.000 ₫ – 119.000 ₫", prices: [79000, 119000], options: ["Cho 2-3 người", "Cho 4-6 người"], img: 'images/nuoc-lau-kim-chi.svg', desc: "Nước lẩu kim chi Hàn Quốc chua cay, nấu sẵn." },
-            { id: 18, category: "Nước lẩu", name: "Nước lẩu Nấm", priceText: "69.000 ₫ – 109.000 ₫", prices: [69000, 109000], options: ["Cho 2-3 người", "Cho 4-6 người"], img: 'images/nuoc-lau-nam.svg', desc: "Nước lẩu nấm thanh ngọt, nấu sẵn." },
-            { id: 19, category: "Rau - Nấm - Viên - Mì", name: "Đĩa rau hỗn hợp", priceText: "35.000 ₫ – 55.000 ₫", prices: [35000, 55000], options: ["Size M", "Size L"], img: 'images/dia-rau-hon-hop.svg', desc: "Rau muống, cải ngọt, rau cần, cải thảo tươi." },
-            { id: 20, category: "Rau - Nấm - Viên - Mì", name: "Nấm kim châm", priceText: "30.000 ₫ – 45.000 ₫", prices: [30000, 45000], options: ["Size M", "Size L"], img: 'images/nam-kim-cham.svg', desc: "Nấm kim châm tươi nhúng lẩu." },
-            { id: 21, category: "Rau - Nấm - Viên - Mì", name: "Nấm đùi gà", priceText: "40.000 ₫ – 60.000 ₫", prices: [40000, 60000], options: ["Size M", "Size L"], img: 'images/nam-dui-ga.svg', desc: "Nấm đùi gà tươi giòn ngọt." },
-            { id: 22, category: "Rau - Nấm - Viên - Mì", name: "Nấm hải sản", priceText: "35.000 ₫ – 50.000 ₫", prices: [35000, 50000], options: ["Size M", "Size L"], img: 'images/nam-hai-san.svg', desc: "Nấm hải sản tươi nhúng lẩu." },
-            { id: 23, category: "Rau - Nấm - Viên - Mì", name: "Viên tôm hùm", priceText: "55.000 ₫", prices: [55000], options: [], img: 'images/vien-tom-hum.svg', desc: "Viên tôm hùm dai giòn." },
-            { id: 24, category: "Rau - Nấm - Viên - Mì", name: "Viên cá thác lác", priceText: "50.000 ₫", prices: [50000], options: [], img: 'images/vien-ca-thac-lac.svg', desc: "Viên cá thác lác dai ngon." },
-            { id: 25, category: "Rau - Nấm - Viên - Mì", name: "Đậu phụ chiên", priceText: "25.000 ₫", prices: [25000], options: [], img: 'images/dau-phu-chien.svg', desc: "Đậu phụ chiên vàng nhúng lẩu." },
-            { id: 26, category: "Rau - Nấm - Viên - Mì", name: "Váng đậu", priceText: "30.000 ₫", prices: [30000], options: [], img: 'images/vang-dau.svg', desc: "Váng đậu tươi." },
-            { id: 27, category: "Rau - Nấm - Viên - Mì", name: "Mì tôm", priceText: "10.000 ₫", prices: [10000], options: [], img: 'images/mi-tom.svg', desc: "Mì tôm ăn kèm lẩu." },
-            { id: 28, category: "Rau - Nấm - Viên - Mì", name: "Bún tươi", priceText: "15.000 ₫", prices: [15000], options: [], img: 'images/bun-tuoi.svg', desc: "Bún tươi ăn kèm lẩu." },
-            { id: 29, category: "Tráng miệng", name: "Chè khúc bạch", priceText: "25.000 ₫", prices: [25000], options: [], img: 'images/che-khuc-bach.svg', desc: "Chè khúc bạch mát lạnh." },
-            { id: 30, category: "Tráng miệng", name: "Sữa chua nếp cẩm", priceText: "25.000 ₫", prices: [25000], options: [], img: 'images/sua-chua-nep-cam.svg', desc: "Sữa chua nếp cẩm thơm ngon." },
-            { id: 31, category: "Tráng miệng", name: "Hoa quả theo mùa", priceText: "45.000 ₫", prices: [45000], options: [], img: 'images/hoa-qua-theo-mua.svg', desc: "Đĩa hoa quả tươi theo mùa." },
-            { id: 32, category: "Đồ uống", name: "Pepsi - lon 320ml", priceText: "15.000 ₫", prices: [15000], options: [], img: 'images/pepsi.svg', desc: "Pepsi lon 320ml mát lạnh." },
-            { id: 33, category: "Đồ uống", name: "7Up - lon 320ml", priceText: "15.000 ₫", prices: [15000], options: [], img: 'images/7up.svg', desc: "7Up lon 320ml mát lạnh." },
-            { id: 34, category: "Đồ uống", name: "Nước suối - chai 500ml", priceText: "10.000 ₫", prices: [10000], options: [], img: 'images/nuoc-suoi.svg', desc: "Nước suối chai 500ml." },
-            { id: 35, category: "Đồ uống", name: "Trà đào cam sả", priceText: "35.000 ₫", prices: [35000], options: [], img: 'images/tra-dao-cam-sa.svg', desc: "Trà đào cam sả thơm mát." },
-            { id: 36, category: "Đồ uống", name: "Nước ép cam", priceText: "35.000 ₫", prices: [35000], options: [], img: 'images/nuoc-ep-cam.svg', desc: "Nước cam ép tươi." },
-            { id: 37, category: "Đồ uống", name: "Bia Hà Nội - lon 330ml", priceText: "20.000 ₫", prices: [20000], options: [], img: 'images/bia-ha-noi.svg', desc: "Bia Hà Nội lon 330ml." },
-            { id: 38, category: "Đồ uống", name: "Bia Tiger - lon 330ml", priceText: "25.000 ₫", prices: [25000], options: [], img: 'images/bia-tiger.svg', desc: "Bia Tiger lon 330ml." }
+            { id: 15, category: "Nước lẩu", name: "Nước lẩu Thái Tomyum", priceText: "79.000 ₫ – 119.000 ₫", prices: [79000, 119000], options: ["Cho 2-3 người", "Cho 4-6 người"], img: '', desc: "Nước lẩu Thái chua cay đậm vị, nấu sẵn." },
+            { id: 16, category: "Nước lẩu", name: "Nước lẩu Riêu Cua", priceText: "79.000 ₫ – 119.000 ₫", prices: [79000, 119000], options: ["Cho 2-3 người", "Cho 4-6 người"], img: '', desc: "Nước lẩu riêu cua đồng thanh ngọt, nấu sẵn." },
+            { id: 17, category: "Nước lẩu", name: "Nước lẩu Kim Chi", priceText: "79.000 ₫ – 119.000 ₫", prices: [79000, 119000], options: ["Cho 2-3 người", "Cho 4-6 người"], img: '', desc: "Nước lẩu kim chi Hàn Quốc chua cay, nấu sẵn." },
+            { id: 18, category: "Nước lẩu", name: "Nước lẩu Nấm", priceText: "69.000 ₫ – 109.000 ₫", prices: [69000, 109000], options: ["Cho 2-3 người", "Cho 4-6 người"], img: '', desc: "Nước lẩu nấm thanh ngọt, nấu sẵn." },
+            { id: 19, category: "Rau - Nấm - Viên - Mì", name: "Đĩa rau hỗn hợp", priceText: "35.000 ₫ – 55.000 ₫", prices: [35000, 55000], options: ["Size M", "Size L"], img: '', desc: "Rau muống, cải ngọt, rau cần, cải thảo tươi." },
+            { id: 20, category: "Rau - Nấm - Viên - Mì", name: "Nấm kim châm", priceText: "30.000 ₫ – 45.000 ₫", prices: [30000, 45000], options: ["Size M", "Size L"], img: '', desc: "Nấm kim châm tươi nhúng lẩu." },
+            { id: 21, category: "Rau - Nấm - Viên - Mì", name: "Nấm đùi gà", priceText: "40.000 ₫ – 60.000 ₫", prices: [40000, 60000], options: ["Size M", "Size L"], img: '', desc: "Nấm đùi gà tươi giòn ngọt." },
+            { id: 22, category: "Rau - Nấm - Viên - Mì", name: "Nấm hải sản", priceText: "35.000 ₫ – 50.000 ₫", prices: [35000, 50000], options: ["Size M", "Size L"], img: '', desc: "Nấm hải sản tươi nhúng lẩu." },
+            { id: 23, category: "Rau - Nấm - Viên - Mì", name: "Viên tôm hùm", priceText: "55.000 ₫", prices: [55000], options: [], img: '', desc: "Viên tôm hùm dai giòn." },
+            { id: 24, category: "Rau - Nấm - Viên - Mì", name: "Viên cá thác lác", priceText: "50.000 ₫", prices: [50000], options: [], img: '', desc: "Viên cá thác lác dai ngon." },
+            { id: 25, category: "Rau - Nấm - Viên - Mì", name: "Đậu phụ chiên", priceText: "25.000 ₫", prices: [25000], options: [], img: '', desc: "Đậu phụ chiên vàng nhúng lẩu." },
+            { id: 26, category: "Rau - Nấm - Viên - Mì", name: "Váng đậu", priceText: "30.000 ₫", prices: [30000], options: [], img: '', desc: "Váng đậu tươi." },
+            { id: 27, category: "Rau - Nấm - Viên - Mì", name: "Mì tôm", priceText: "10.000 ₫", prices: [10000], options: [], img: '', desc: "Mì tôm ăn kèm lẩu." },
+            { id: 28, category: "Rau - Nấm - Viên - Mì", name: "Bún tươi", priceText: "15.000 ₫", prices: [15000], options: [], img: '', desc: "Bún tươi ăn kèm lẩu." },
+            { id: 29, category: "Tráng miệng", name: "Chè khúc bạch", priceText: "25.000 ₫", prices: [25000], options: [], img: '', desc: "Chè khúc bạch mát lạnh." },
+            { id: 30, category: "Tráng miệng", name: "Sữa chua nếp cẩm", priceText: "25.000 ₫", prices: [25000], options: [], img: '', desc: "Sữa chua nếp cẩm thơm ngon." },
+            { id: 31, category: "Tráng miệng", name: "Hoa quả theo mùa", priceText: "45.000 ₫", prices: [45000], options: [], img: '', desc: "Đĩa hoa quả tươi theo mùa." },
+            { id: 32, category: "Đồ uống", name: "Pepsi - lon 320ml", priceText: "15.000 ₫", prices: [15000], options: [], img: '', desc: "Pepsi lon 320ml mát lạnh." },
+            { id: 33, category: "Đồ uống", name: "7Up - lon 320ml", priceText: "15.000 ₫", prices: [15000], options: [], img: '', desc: "7Up lon 320ml mát lạnh." },
+            { id: 34, category: "Đồ uống", name: "Nước suối - chai 500ml", priceText: "10.000 ₫", prices: [10000], options: [], img: '', desc: "Nước suối chai 500ml." },
+            { id: 35, category: "Đồ uống", name: "Trà đào cam sả", priceText: "35.000 ₫", prices: [35000], options: [], img: '', desc: "Trà đào cam sả thơm mát." },
+            { id: 36, category: "Đồ uống", name: "Nước ép cam", priceText: "35.000 ₫", prices: [35000], options: [], img: '', desc: "Nước cam ép tươi." },
+            { id: 37, category: "Đồ uống", name: "Bia Hà Nội - lon 330ml", priceText: "20.000 ₫", prices: [20000], options: [], img: '', desc: "Bia Hà Nội lon 330ml." },
+            { id: 38, category: "Đồ uống", name: "Bia Tiger - lon 330ml", priceText: "25.000 ₫", prices: [25000], options: [], img: '', desc: "Bia Tiger lon 330ml." }
         );
 
         const PLACEHOLDER_IMG = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(
             '<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200"><rect width="300" height="200" fill="#eee"/>' +
             '<text x="150" y="108" font-family="Arial" font-size="18" fill="#999" text-anchor="middle">Lẩu 4 Mùa</text></svg>');
-        const CAT_STYLE = {
-            'Lẩu Thái': ['🍲', '#ff7043', '#d84315'],
-            'Lẩu Riêu Cua': ['🦀', '#ef5350', '#b71c1c'],
-            'Lẩu Kim Chi': ['🌶️', '#e53935', '#8e0000'],
-            'Lẩu Nấm': ['🍄', '#8d6e63', '#4e342e'],
-            'Combo Nướng': ['🥩', '#a1523a', '#5d2a1a'],
-            'Thịt nhúng lẩu': ['🥩', '#ec407a', '#ad1457'],
-            'Rau - Nấm - Viên - Mì': ['🥬', '#66bb6a', '#2e7d32'],
-            'Nước lẩu': ['🍲', '#ffa726', '#e65100'],
-            'Tráng miệng': ['🍧', '#ab47bc', '#6a1b9a'],
-            'Đồ uống': ['🥤', '#29b6f6', '#01579b']
-        };
-        const NAME_EMOJI = [
-            [/bia/i, '🍺'], [/nước suối/i, '💧'], [/cam/i, '🍊'], [/trà/i, '🍹'],
-            [/coca|pepsi|7up/i, '🥤'], [/mì|bún/i, '🍜'], [/hoa quả/i, '🍉'],
-            [/viên/i, '🍡'], [/đậu|váng/i, '🥡'], [/chè|sữa chua/i, '🍧'],
-            [/nấm/i, '🍄'], [/rau/i, '🥬']
-        ];
-
-        function makeImg(category, name) {
-            const st = CAT_STYLE[category] || ['🍽️', '#78909c', '#37474f'];
-            let emoji = st[0];
-            if (category !== 'Lẩu Thái' && category !== 'Lẩu Riêu Cua' && category !== 'Lẩu Kim Chi' && category !== 'Lẩu Nấm') {
-                for (const [re, em] of NAME_EMOJI) { if (re.test(name)) { emoji = em; break; } }
-            }
-            let label = String(name || '');
-            if (label.length > 30) label = label.slice(0, 29) + '…';
-            label = label.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-            const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" viewBox="0 0 300 200">' +
-                '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="' + st[1] + '"/><stop offset="1" stop-color="' + st[2] + '"/></linearGradient></defs>' +
-                '<rect width="300" height="200" fill="url(#g)"/>' +
-                '<text x="150" y="105" font-size="76" text-anchor="middle">' + emoji + '</text>' +
-                '<text x="150" y="172" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">' + label + '</text></svg>';
-            return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
-        }
-
-        function fallbackImg(id) {
-            const p = products.find(x => x.id === id);
-            return p ? makeImg(p.category, p.name) : PLACEHOLDER_IMG;
-        }
-
         const LEGACY_SEED_NAMES = ['Lẩu Thái Tomyum', 'Lẩu Nấm Thượng Hạng', 'Bò Mỹ Thượng Hạng', 'Nấm Kim Châm'];
 
         function escapeHTML(str) {
@@ -168,7 +127,7 @@
                 } else {
                     prices = [price]; options = [];
                 }
-                const img = d.img || (base && base.img) || makeImg(category, d.name);
+                const img = d.img || (base && base.img) || PLACEHOLDER_IMG;
                 const desc = d.desc || (base ? base.desc : '');
 
                 const priceText = customOpts
@@ -217,7 +176,7 @@
             products.filter(p => p.category === currentCategory).forEach(p => {
                 grid.innerHTML += `
                     <div class="product-card" ${p.soldOut ? 'style="opacity:.55;"' : ''} onclick="openModal(${p.id})">
-                        <img src="${p.img}" class="product-img" onerror="this.onerror=null;this.src=fallbackImg(${p.id})">
+                        <img src="${p.img}" class="product-img" onerror="this.onerror=null;this.src=PLACEHOLDER_IMG">
                         <div class="product-info">
                             <div class="product-title">${escapeHTML(p.name)}${p.soldOut ? ' <span style="color:#d9534f; font-size:12px;">(Hết hàng)</span>' : ''}</div>
                             <div class="product-price">${p.priceText}</div>
@@ -236,9 +195,7 @@
                 return;
             }
             
-            const modalImg = document.getElementById('modal-img');
-            modalImg.onerror = function () { this.onerror = null; this.src = fallbackImg(p.id); };
-            modalImg.src = p.img;
+            document.getElementById('modal-img').src = p.img;
             document.getElementById('modal-title').innerText = p.name;
             document.getElementById('modal-priceText').innerText = p.priceText;
             document.getElementById('modal-desc').innerText = p.desc || '';
