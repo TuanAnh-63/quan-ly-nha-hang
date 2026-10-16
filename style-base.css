@@ -190,3 +190,8 @@ h4.footer-title { font-family: var(--font-body); font-size: 1rem; text-transform
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
+
+/* Màn hình nhỏ: giảm khoảng cách cột của .row.g-5 để không tràn ngang trang */
+@media (max-width: 767.98px) {
+  .row.g-5 { --bs-gutter-x: 1.5rem; }
+}
