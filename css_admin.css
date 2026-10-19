@@ -1,4 +1,3 @@
-/* RESET & CẤU HÌNH CƠ BẢN */
 * {
     margin: 0;
     padding: 0;
@@ -11,13 +10,11 @@ body {
     color: #333;
 }
 
-/*  BỐ CỤC CHÍNH (ADMIN CONTAINER)  */
 .admin-container {
     display: flex;
     min-height: 100vh;
 }
 
-/*1. SIDEBAR BÊN TRÁI */
 .sidebar {
     width: 250px;
     background-color: #1e293b;
@@ -81,15 +78,12 @@ body {
     font-weight: 600;
 }
 
-/* 2. MAIN CONTENT BÊN PHẢI */
 .main-content {
     margin-left: 250px;
     flex-grow: 1;
     padding: 25px;
     background-color: #f4f6f9;
 }
-
-/* HEADER BÊN TRÊN */
 .top-header {
     display: flex;
     justify-content: space-between;
