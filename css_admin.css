@@ -113,7 +113,6 @@ body {
     color: #ff6b6b;
 }
 
-/* 3. KHUNG CÁC THẺ THỐNG KÊ (STATS GRID) */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -140,7 +139,6 @@ body {
     font-size: 14px;
 }
 
-/*4. CARD & BẢNG DỮ LIỆU */
 .card {
     background-color: #ffffff;
     padding: 20px;
@@ -174,7 +172,6 @@ body {
     font-weight: 600;
 }
 
-/* BADGE TRẠNG THÁI */
 .badge {
     padding: 4px 8px;
     border-radius: 4px;
@@ -192,7 +189,6 @@ body {
     color: #991b1b;
 }
 
-/* NÚT THAO TÁC */
 .btn-edit, .btn-delete, .btn-submit {
     border: none;
     padding: 6px 12px;
@@ -222,7 +218,6 @@ body {
     margin-top: 10px;
 }
 
-/* FORM NHẬP DỮ LIỆU */
 .form-group {
     margin-bottom: 15px;
 }
